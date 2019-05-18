@@ -8,7 +8,8 @@ const NewsPageContent = styled.main`
   display: grid;
   grid-template-columns: 40px auto 40px;
   grid-template-rows: 50px auto 50px;
-  background: papayawhip;
+  background: #e7e8e3;
+  font-family: sans-serif;
   height: 100vh;
 `;
 
