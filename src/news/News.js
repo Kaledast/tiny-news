@@ -1,19 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 //mport PropTypes from "prop-types";
-const NewsWrapper_outer = styled.div`
+const NewsWrapperOuter = styled.section`
+  overflow: scroll;
   display: flex;
   align-self: center;
-  grid-column: 2/2;
   max-width: 500px;
   width: auto;
   padding: 13px;
-  background: white;
+  background: #060606;
   border-radius: 1%;
-  box-shadow: 0px 0px 15px 2px #060606;
   border: 0.5px solid black;
 `;
-
 const NewsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -21,6 +19,8 @@ const NewsWrapper = styled.div`
   border: 13px #ef925e solid;
   background: white;
   border-radius: 1%;
+  box-shadow: 0px 0px 15px 2px #060606;
+  overflow-y: scroll;
 `;
 
 const ArticleTopic = styled.h2`
@@ -28,7 +28,9 @@ const ArticleTopic = styled.h2`
   color: #060606;
 `;
 
-const ContentSection = styled.section``;
+const ContentSection = styled.section`
+  margin: 4px;
+`;
 
 const DeleteButton = styled.button`
   background: #3c211a;
@@ -37,24 +39,14 @@ const DeleteButton = styled.button`
   color: #ef925e;
 `;
 
-export default function News() {
+export default function News({ title, content }) {
   return (
-    <NewsWrapper_outer>
+    <NewsWrapperOuter>
       <NewsWrapper>
-        <ArticleTopic>Article Topic</ArticleTopic>
-        <ContentSection>
-          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
-          nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-          sed diam voluptua. At vero eos et accusam et justo duo dolores et ea
-          rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem
-          ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur
-          sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-          dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam
-          et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
-          takimata sanctus est Lorem ipsum dolor sit amet.
-        </ContentSection>
-        <DeleteButton>Del</DeleteButton>
+        <ArticleTopic>{title}</ArticleTopic>
+        <ContentSection>{content}</ContentSection>
+        <DeleteButton>delete</DeleteButton>
       </NewsWrapper>
-    </NewsWrapper_outer>
+    </NewsWrapperOuter>
   );
 }

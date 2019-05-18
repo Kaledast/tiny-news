@@ -1,23 +1,24 @@
 import React from "react";
-import News from "./News";
+import NewsList from "./NewsList";
 import Header from "../Header";
 import Footer from "../Footer";
 import styled from "styled-components";
 
-const NewsPageContent = styled.main`
-  display: grid;
-  grid-template-columns: 40px auto 40px;
-  grid-template-rows: 50px auto 50px;
+const NewsPageContent = styled.div`
+  display: flex;
+  flex-direction: column;
+
   background: #e7e8e3;
   font-family: sans-serif;
   height: 100vh;
+  overflow-y: auto;
 `;
 
-export default function NewsPage() {
+export default function NewsPage({ news }) {
   return (
     <NewsPageContent>
       <Header />
-      <News />
+      <NewsList newsarray={news} />
       <Footer />
     </NewsPageContent>
   );
