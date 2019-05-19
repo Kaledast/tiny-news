@@ -15,10 +15,25 @@ const NewsPageContent = styled.div`
 `;
 //  background: #e7e8e3;
 
-export default function NewsPage({ news }) {
+const NewsButton = styled.button`
+  max-width: 50%;
+  min-width: 40%;
+  align-self: center;
+  background: #ef925e;
+  font-weight: bold;
+  margin: 20px;
+  text-shadow: 2px 2px #ef925e;
+  color: #060606;
+  background: #3c211a;
+  border: 2px solid #3c211a;
+  box-shadow: 0px 0px 3px #3c211a;
+`;
+
+export default function NewsPage({ news, onDraw }) {
   return (
     <NewsPageContent>
       <Header />
+      <NewsButton onClick={onDraw(news)}> DRAW NEW </NewsButton>
       <NewsList newsarray={news} />
       <Footer />
     </NewsPageContent>

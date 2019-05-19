@@ -27,9 +27,19 @@ function App() {
     setToLocal("news", news);
   }, [news]);
   //---------------------------------------------------
+  // save news in mogo DB
+  const createNews = (data, history) => {
+    postNews(data)
+      .then(newNews => {
+        setNews([...news, newNews]);
+        // history.push("/"); <- for routing later
+      })
+      .catch(error => console.log(error));
+  };
+
   return (
     <div className="App">
-      <NewsPage news={news} />
+      <NewsPage onDraw={data => console.log(createNews(data))} news={news} />
     </div>
   );
 }
