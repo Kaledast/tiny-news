@@ -1,5 +1,5 @@
 function fetchNews(method, data, id = "") {
-  return fetch("/" + id, {
+  return fetch("/news/" + id, {
     method,
     headers: {
       "Content-Type": "application/json"
@@ -12,8 +12,8 @@ export function postNews(data) {
   return fetchNews("POST", data);
 }
 
-export function getNews(data) {
-  return fetch("/").then(res => res.json());
+export function getNews() {
+  return fetch("/news").then(res => res.json());
 }
 
 export function getFromLocal(name) {

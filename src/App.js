@@ -28,7 +28,7 @@ function App() {
   }, [news]);
   //---------------------------------------------------
   // save news in mogo DB
-  const createNews = (data, history) => {
+  const createNews = data => {
     postNews(data)
       .then(newNews => {
         setNews([...news, newNews]);
@@ -39,7 +39,7 @@ function App() {
 
   return (
     <div className="App">
-      <NewsPage onDraw={data => console.log(createNews(data))} news={news} />
+      <NewsPage onDraw={data => createNews(data)} news={news} />
     </div>
   );
 }
