@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 //mport PropTypes from "prop-types";
 const NewsWrapperOuter = styled.section`
-  overflow: scroll;
+ 
   display: flex;
   align-self: center;
   max-width: 500px;
