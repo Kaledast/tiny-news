@@ -4,6 +4,7 @@ const setupServer = require("./setup-server");
 const app = setupServer();
 
 app.get("/news", (req, res) => {
+  console.log("Hallo");
   News.find()
     .then(news => res.json(news))
     .catch(err => res.json(err));

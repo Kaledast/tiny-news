@@ -1,7 +1,7 @@
 import React from "react";
 import NewsList from "./NewsList";
 import Header from "../Header";
-import Footer from "../Footer";
+//import Footer from "../Footer";
 import styled from "styled-components";
 
 const NewsPageContent = styled.div`
@@ -14,7 +14,7 @@ const NewsPageContent = styled.div`
   background-size: cover;
 `;
 //  background: #e7e8e3;
-
+/*
 const NewsButton = styled.button`
   max-width: 50%;
   min-width: 40%;
@@ -29,21 +29,21 @@ const NewsButton = styled.button`
   border: 2px solid #3c211a;
   box-shadow: 0px 0px 3px #3c211a;
 `;
-
+*/
 export default function NewsPage({ news, handleDB }) {
-  function handleClick() {
+  /* function handleClick() {
     handleDB({
       title: "news.title",
       content: "news.content"
     });
   }
-
+  */
+  //<NewsButton onClick={handleClick}> POST in DB </NewsButton>
   return (
     <NewsPageContent>
       <Header />
-      <NewsButton onClick={handleClick}> POST in DB </NewsButton>
+
       <NewsList newsarray={news} />
-      <Footer />
     </NewsPageContent>
   );
 }
