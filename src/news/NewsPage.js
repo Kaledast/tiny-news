@@ -30,7 +30,7 @@ const NewsButton = styled.button`
   box-shadow: 0px 0px 3px #3c211a;
 `;
 */
-export default function NewsPage({ news, handleDB }) {
+export default function NewsPage({ handleRemove, news, handleDB }) {
   /* function handleClick() {
     handleDB({
       title: "news.title",
@@ -43,7 +43,7 @@ export default function NewsPage({ news, handleDB }) {
     <NewsPageContent>
       <Header />
 
-      <NewsList newsarray={news} />
+      <NewsList removeFunction={handleRemove} newsarray={news} />
     </NewsPageContent>
   );
 }

@@ -35,22 +35,23 @@ const ArticleTopic = styled.h2`
 const ContentSection = styled.section`
   margin: 4px;
 `;
-/*
+
 const DeleteButton = styled.button`
   background: #3c211a;
   margin: 10px;
-  width: 50px;
+  width: 25px;
   color: #ef925e;
 `;
-*/
-export default function News({ title, content }) {
+
+export default function News({ removeFunction, title, content }) {
   return (
     <NewsWrapperOuter>
       <NewsWrapper>
         <ArticleTopic>{title}</ArticleTopic>
         <ContentSection>{content}</ContentSection>
+        <DeleteButton onClick={event => removeFunction(event)}>X</DeleteButton>
       </NewsWrapper>
     </NewsWrapperOuter>
   );
 }
-//<DeleteButton>delete</DeleteButton>
+//

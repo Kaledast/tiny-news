@@ -1,7 +1,5 @@
 export function getNews() {
-  return fetch("/news")
-    .then(res => console.log(res))
-    .then(res => res.json());
+  return fetch("/news").then(res => res.json());
 }
 
 export function postNews(data) {

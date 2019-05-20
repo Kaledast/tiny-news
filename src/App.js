@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { setToLocal, postNews, getNews } from "./services.js";
+import { setToLocal, getFromLocal, postNews, getNews } from "./services.js";
 import NewsPage from "./news/NewsPage.js";
 
 //import styled from "styled-components";
@@ -8,7 +8,9 @@ import NewsPage from "./news/NewsPage.js";
 
 function App() {
   //STATE
-  const [news, setNews] = useState([
+  const [news, setNews] = useState(getFromLocal("news") || []);
+
+  /*useState([
     {
       title: "Britische Drogen-Oma will einfach nur noch sterben",
       content:
@@ -25,7 +27,8 @@ function App() {
         "Die Bauarbeiten auf dem Bunker haben begonnen - doch einige Mieter bangen um ihre Existenz. Außerdem: Der HSV gewinnt vergebens"
     }
   ]);
-  //useState(getFromLocal("news") || []);
+  */
+  //
 
   //---------------------------------------------------
   //lifecycle start (=componentDidMount-method)
@@ -54,9 +57,23 @@ function App() {
       .catch(error => console.log(error));
   };
 
+  const removeNews = event => {
+    const newsArray = [...news]; // make a separate copy of the array
+    const index = newsArray.findIndex(event.target.value);
+    console.log(index);
+    /*if (index !== -1) {
+      newsArray.splice(index, 1);
+      setNews({ news: newsArray });
+    }*/
+  };
+
   return (
     <div className="App">
-      <NewsPage handleDB={data => createNews(data)} news={news} />
+      <NewsPage
+        handleRemove={removeNews}
+        handleDB={data => createNews(data)}
+        news={news}
+      />
     </div>
   );
 }
