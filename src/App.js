@@ -47,7 +47,7 @@ function App() {
     setToLocal("news", news);
   }, [news]);
   //---------------------------------------------------
-  // save news in mogo DB
+  // save news in mongo DB und setNews
   const createNews = data => {
     console.log(data);
     postNews(data)
@@ -57,20 +57,27 @@ function App() {
       .catch(error => console.log(error));
   };
 
-  const removeNews = event => {
-    const newsArray = [...news]; // make a separate copy of the array
-    const index = newsArray.findIndex(event.target.value);
-    console.log(index);
-    /*if (index !== -1) {
-      newsArray.splice(index, 1);
-      setNews({ news: newsArray });
-    }*/
-  };
+  //---------------------------------------------------
+  //helperfunktion findIndexOf
+  function findIndexOfNews(article) {
+    const index = news.findIndex(item => item._id === article._id);
+    return index;
+  }
+
+  //---------------------------------------------------
+  // delete news in mongo DB und setNews
+
+  function handleDeleteNews(article) {
+    const index = findIndexOfNews(article);
+    const newNews = [...news];
+    newNews.splice(index, 1);
+    setNews(newNews);
+  }
 
   return (
     <div className="App">
       <NewsPage
-        handleRemove={removeNews}
+        handleRemove={handleDeleteNews}
         handleDB={data => createNews(data)}
         news={news}
       />

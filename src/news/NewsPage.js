@@ -13,6 +13,16 @@ const NewsPageContent = styled.div`
     no-repeat center center fixed;
   background-size: cover;
 `;
+
+export default function NewsPage({ handleRemove, news }) {
+  return (
+    <NewsPageContent>
+      <Header />
+      <NewsList removeFunction={handleRemove} newsarray={news} />
+    </NewsPageContent>
+  );
+}
+
 //  background: #e7e8e3;
 /*
 const NewsButton = styled.button`
@@ -30,20 +40,3 @@ const NewsButton = styled.button`
   box-shadow: 0px 0px 3px #3c211a;
 `;
 */
-export default function NewsPage({ handleRemove, news, handleDB }) {
-  /* function handleClick() {
-    handleDB({
-      title: "news.title",
-      content: "news.content"
-    });
-  }
-  */
-  //<NewsButton onClick={handleClick}> POST in DB </NewsButton>
-  return (
-    <NewsPageContent>
-      <Header />
-
-      <NewsList removeFunction={handleRemove} newsarray={news} />
-    </NewsPageContent>
-  );
-}

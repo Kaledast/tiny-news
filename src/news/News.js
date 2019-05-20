@@ -43,13 +43,19 @@ const DeleteButton = styled.button`
   color: #ef925e;
 `;
 
-export default function News({ removeFunction, title, content }) {
+export default function News({ deleteNews, article, title, content }) {
   return (
     <NewsWrapperOuter>
       <NewsWrapper>
         <ArticleTopic>{title}</ArticleTopic>
         <ContentSection>{content}</ContentSection>
-        <DeleteButton onClick={event => removeFunction(event)}>X</DeleteButton>
+        <DeleteButton
+          onClick={() => {
+            deleteNews(article);
+          }}
+        >
+          X
+        </DeleteButton>
       </NewsWrapper>
     </NewsWrapperOuter>
   );

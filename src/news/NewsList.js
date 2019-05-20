@@ -9,15 +9,18 @@ const StyledSection = styled.section`
   overflow: scroll;
 `;
 
-export default function NewsList({ newsarray }) {
+export default function NewsList({ removeFunction, newsarray }) {
   return (
     <StyledSection>
-      {newsarray.map(news => (
+      {newsarray.map(article => (
         <News
-          key={uid(news)}
-          title={news.title}
-          content={news.content}
-          {...news}
+          key={uid(article)}
+          id={uid(article)}
+          deleteNews={removeFunction}
+          title={article.title}
+          content={article.content}
+          article={article}
+          {...article}
         />
       ))}
     </StyledSection>
