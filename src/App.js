@@ -29,17 +29,17 @@ function App() {
   //---------------------------------------------------
   // save news in mogo DB
   const createNews = data => {
+    console.log(data);
     postNews(data)
       .then(newNews => {
         setNews([...news, newNews]);
-        // history.push("/"); <- for routing later
       })
       .catch(error => console.log(error));
   };
 
   return (
     <div className="App">
-      <NewsPage onDraw={data => createNews(data)} news={news} />
+      <NewsPage handleDB={data => createNews(data)} news={news} />
     </div>
   );
 }

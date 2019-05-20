@@ -1,13 +1,9 @@
 const mongoose = require("mongoose");
 
 const newsSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    get: value => value.toUpperCase()
-  },
-  content: {
-    type: String
-  }
+  //_id: mongoose.Types.ObjectId,
+  title: String,
+  content: String
 });
 
 module.exports = mongoose.model("News", newsSchema);

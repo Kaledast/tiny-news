@@ -13,7 +13,12 @@ export default function NewsList({ newsarray }) {
   return (
     <StyledSection>
       {newsarray.map(news => (
-        <News key={uid(news)} title={news.title} content={news.content} />
+        <News
+          key={uid(news)}
+          title={news.title}
+          content={news.content}
+          {...news}
+        />
       ))}
     </StyledSection>
   );

@@ -3,6 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 
 module.exports = function() {
+  console.log(path.join(__dirname, "build"));
   mongoose
     .connect("mongodb://localhost:27017/news", {
       useNewUrlParser: true

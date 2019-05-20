@@ -9,8 +9,9 @@ const NewsWrapperOuter = styled.section`
   padding: 13px;
   margin-bottom: 10px;
   border-radius: 1%;
-  border: 1px solid rgba(239, 146, 94, 0.75);
+  border: 1px solid rgba(98, 255, 207, 0.75);
 `;
+//border: 1px solid rgba(239, 146, 94, 0.75);
 //  background: #060606;
 const NewsWrapper = styled.div`
   display: flex;

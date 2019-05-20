@@ -19,6 +19,7 @@ const NewsButton = styled.button`
   max-width: 50%;
   min-width: 40%;
   align-self: center;
+  justify-content: space-between;
   background: #ef925e;
   font-weight: bold;
   margin: 20px;
@@ -29,11 +30,18 @@ const NewsButton = styled.button`
   box-shadow: 0px 0px 3px #3c211a;
 `;
 
-export default function NewsPage({ news, onDraw }) {
+export default function NewsPage({ news, handleDB }) {
+  function handleClick() {
+    handleDB({
+      title: "news.title",
+      content: "news.content"
+    });
+  }
+
   return (
     <NewsPageContent>
       <Header />
-      <NewsButton onClick={onDraw(news)}> DRAW NEW </NewsButton>
+      <NewsButton onClick={handleClick}> POST in DB </NewsButton>
       <NewsList newsarray={news} />
       <Footer />
     </NewsPageContent>

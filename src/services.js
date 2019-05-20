@@ -1,4 +1,16 @@
+export function getNews() {
+  return fetch("/news")
+    .then(res => console.log(res))
+    .then(res => res.json());
+}
+
+export function postNews(data) {
+  return fetchNews("POST", data);
+}
+
 function fetchNews(method, data, id = "") {
+  console.log(data);
+
   return fetch("/news/" + id, {
     method,
     headers: {
@@ -6,14 +18,6 @@ function fetchNews(method, data, id = "") {
     },
     body: JSON.stringify(data)
   }).then(res => res.json());
-}
-
-export function postNews(data) {
-  return fetchNews("POST", data);
-}
-
-export function getNews() {
-  return fetch("/news").then(res => res.json());
 }
 
 export function getFromLocal(name) {

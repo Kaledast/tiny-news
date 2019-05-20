@@ -14,10 +14,19 @@ const HeaderTitle = styled.h1`
   margin-left: 10px;
   text-shadow: 2px 2px #ef925e;
 `;
+
+export default function Header() {
+  return (
+    <Headliner>
+      <HeaderTitle>NEWS TODAY</HeaderTitle>
+    </Headliner>
+  );
+}
+/*
 const Nav = styled.nav`
   display: flex;
   margin-right: 10px;
-  margin-top: 20px;
+  margin-top: 25px;
 `;
 
 const ATag = styled.a`
@@ -25,16 +34,9 @@ const ATag = styled.a`
   margin: 3px;
   color: #ef925e;
 `;
-
-export default function Header() {
-  return (
-    <Headliner>
-      <HeaderTitle>NEWS TODAY</HeaderTitle>
-      <Nav>
-        <ATag href="#1">today</ATag>
-        <ATag href="#2">options</ATag>
-        <ATag href="#3">saved</ATag>
-      </Nav>
-    </Headliner>
-  );
-}
+<Nav>
+<ATag href="#1">today</ATag>
+<ATag href="#2">options</ATag>
+<ATag href="#3">saved</ATag>
+</Nav>
+*/
