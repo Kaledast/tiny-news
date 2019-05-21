@@ -6,8 +6,12 @@ export function postNews(data) {
   return fetchNews("POST", data);
 }
 
+export function deleteNews(data) {
+  return fetchNews("DELETE", data, data._id);
+}
+
 function fetchNews(method, data, id = "") {
-  console.log(data);
+  console.log(data, id);
 
   return fetch("/news/" + id, {
     method,

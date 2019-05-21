@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { setToLocal, getFromLocal, postNews, getNews } from "./services.js";
+import {
+  setToLocal,
+  getFromLocal,
+  postNews,
+  getNews,
+  deleteNews
+} from "./services.js";
 import NewsPage from "./news/NewsPage.js";
 
 //import styled from "styled-components";
@@ -7,7 +13,7 @@ import NewsPage from "./news/NewsPage.js";
 //import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
 
 function App() {
-  //STATE
+  // STATE
   const [news, setNews] = useState(getFromLocal("news") || []);
 
   /*useState([
@@ -31,25 +37,24 @@ function App() {
   //
 
   //---------------------------------------------------
-  //lifecycle start (=componentDidMount-method)
+  // lifecycle start (=componentDidMount-method)
   useEffect(() => {
     loadNews();
   }, []);
-  //load news from localstorage
+  // load news from localstorage
   function loadNews() {
     getNews()
       .then(data => setNews(data))
       .catch(error => console.log(error));
   }
   //---------------------------------------------------
-  //Save news in localstorage
+  // Save news in localstorage
   useEffect(() => {
     setToLocal("news", news);
   }, [news]);
   //---------------------------------------------------
   // save news in mongo DB und setNews
   const createNews = data => {
-    console.log(data);
     postNews(data)
       .then(newNews => {
         setNews([...news, newNews]);
@@ -58,7 +63,7 @@ function App() {
   };
 
   //---------------------------------------------------
-  //helperfunktion findIndexOf
+  // helperfunktion findIndexOf
   function findIndexOfNews(article) {
     const index = news.findIndex(item => item._id === article._id);
     return index;
@@ -71,7 +76,10 @@ function App() {
     const index = findIndexOfNews(article);
     const newNews = [...news];
     newNews.splice(index, 1);
+
     setNews(newNews);
+
+    deleteNews(article).catch(error => console.log(error));
   }
 
   return (
