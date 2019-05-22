@@ -61,3 +61,21 @@ export default function News({ deleteNews, article, title, content }) {
   );
 }
 //
+/*
+   getArticles()
+      .then(data => {
+        const parsedData = data.map(item => {
+          const id = item.url;
+
+          return {
+            id,
+            ...data
+          };
+        });
+        console.log(parsedData);
+        setNews(parsedData);
+        // createApiNews(data);
+      })
+      .catch(error => {
+        console.log(error);
+      });*/

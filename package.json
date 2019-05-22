@@ -1,6 +1,10 @@
 {
   "name": "tiny-news",
   "version": "0.1.0",
+  "author": {
+    "name": "Katja Stadel",
+    "email": "Stadel.katja@web.de"
+  },
   "private": true,
   "proxy": "http://localhost:4000",
   "dependencies": {
