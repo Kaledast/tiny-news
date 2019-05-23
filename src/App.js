@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { setToLocal, getFromLocal, getArticles } from "./services.js";
+import Header from "./Header.js";
 import NewsPage from "./news/NewsPage.js";
+import SavedPage from "./news/SavedPage.js";
+import TestPage from "./news/TestPage.js";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+//import Footer from "./Footer.js";
 //import styled from "styled-components";
 //import PropTypes from "prop-types";
 //import { BrowserRouter as Router, Route, NavLink } from "react-router-dom";
@@ -8,16 +13,18 @@ import NewsPage from "./news/NewsPage.js";
 function App() {
   // STATE
   const [news, setNews] = useState(getFromLocal("news") || []);
+
   //---------------------------------------------------
   // lifecycle start (=componentDidMount-method)
   useEffect(() => {
     loadApiNews();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /*useEffect(() => {
-    setToLocal('filter', filter)
-  }, [filter])
+    setToLocal("filter", filter);
+  }, [filter]);
 */
   function loadApiNews() {
     getArticles()
@@ -33,7 +40,6 @@ function App() {
         });
 
         setNews(parsedData);
-        //createApiNews(data);
       })
       .catch(error => {
         console.log(error);
@@ -68,17 +74,37 @@ function App() {
       { ...newsToSave, saved: !newsToSave.saved },
       ...news.slice(index + 1)
     ]);
+  }
+  //---------------------------------------------------
+  // filter news
+  function filterNews(newsarray) {
+    //const filteredNews = newsarray.filter(article => article.saved===true);
+    //console.log(newsarray.filter(item => item.saved));
 
-    console.log("saved the news!!!");
+    return newsarray.filter(item => item.saved);
   }
 
   return (
     <div className="App">
-      <NewsPage
-        onNewsSave={handleNewsBookmark}
-        handleRemove={handleDeleteNews}
-        news={news}
-      />
+      <BrowserRouter>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={TestPage} />
+          <Route
+            path="/news"
+            render={props => (
+              <NewsPage
+                handleFilter={filterNews}
+                onNewsSave={handleNewsBookmark}
+                handleRemove={handleDeleteNews}
+                news={news}
+                {...props}
+              />
+            )}
+          />
+          <Route path="/saved" component={SavedPage} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }

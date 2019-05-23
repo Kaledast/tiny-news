@@ -51,7 +51,6 @@ const Saved = styled.input.attrs({ type: "checkbox" })``;
 
 export default function News({
   deleteNews,
-  saved,
   title,
   content,
   article,
@@ -65,11 +64,11 @@ export default function News({
   return (
     <NewsWrapperOuter>
       <NewsWrapper>
-        <Saved onChange={() => handleSave(article)} checked={saved} />
-
+        <Saved onChange={() => handleSave(article)} checked={article.saved} />
         <ArticleTopic>{cleanTitle}</ArticleTopic>
+
         <ContentSection>
-          {cleanContent[0]}{" "}
+          {cleanContent[0]}
           <AuthorField href={originalLink}>
             <IconField src="https://img.icons8.com/ios/50/000000/right-squared-filled.png" />
           </AuthorField>
