@@ -8,7 +8,6 @@ const NewsWrapperOuter = styled.section`
   width: auto;
   padding: 13px;
   margin-bottom: 10px;
-  border-radius: 1%;
   border: 1px solid rgba(98, 255, 207, 0.75);
 `;
 //border: 1px solid rgba(239, 146, 94, 0.75);
@@ -18,12 +17,11 @@ const NewsWrapper = styled.div`
   flex-direction: column;
   background: #fff7d4;
 
-  border: 13px solid rgba(239, 146, 94, 0.85);
+  border: 13px solid #3c211a;
   background: white;
-  border-radius: 1%;
   overflow-y: scroll;
 `;
-// #ef925e (orange color)
+// #ef925e (orange color) rgba(239, 146, 94, 0.85);
 // box-shadow: 0px 0px 0px 10px rgba(0, 0, 0, 0.5);
 // box-shadow: 0px 0px 15px 2px #060606;
 
@@ -43,12 +41,39 @@ const DeleteButton = styled.button`
   color: #ef925e;
 `;
 
-export default function News({ deleteNews, article, title, content }) {
+const AuthorField = styled.a``;
+const IconField = styled.img`
+  width: 25px;
+  height: 25px;
+  margin-bottom: 0;
+`;
+const Saved = styled.input.attrs({ type: "checkbox" })``;
+
+export default function News({
+  deleteNews,
+  saved,
+  title,
+  content,
+  article,
+  originalLink,
+  handleSave
+}) {
+  const cleanTitle = title.split("-")[0];
+  const cleanContent = content.split("["); //("… [")
+  //const articleDate = new Date(timestamp);
+  // console.log(articleDate);
   return (
     <NewsWrapperOuter>
       <NewsWrapper>
-        <ArticleTopic>{title}</ArticleTopic>
-        <ContentSection>{content}</ContentSection>
+        <Saved onChange={() => handleSave(article)} checked={saved} />
+
+        <ArticleTopic>{cleanTitle}</ArticleTopic>
+        <ContentSection>
+          {cleanContent[0]}{" "}
+          <AuthorField href={originalLink}>
+            <IconField src="https://img.icons8.com/ios/50/000000/right-squared-filled.png" />
+          </AuthorField>
+        </ContentSection>
         <DeleteButton
           onClick={() => {
             deleteNews(article);
@@ -61,21 +86,3 @@ export default function News({ deleteNews, article, title, content }) {
   );
 }
 //
-/*
-   getArticles()
-      .then(data => {
-        const parsedData = data.map(item => {
-          const id = item.url;
-
-          return {
-            id,
-            ...data
-          };
-        });
-        console.log(parsedData);
-        setNews(parsedData);
-        // createApiNews(data);
-      })
-      .catch(error => {
-        console.log(error);
-      });*/

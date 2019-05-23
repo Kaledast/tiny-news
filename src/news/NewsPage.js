@@ -3,7 +3,7 @@ import NewsList from "./NewsList";
 import Header from "../Header";
 //import Footer from "../Footer";
 import styled from "styled-components";
-
+import img1 from "./images/img1.jpg";
 /*const NewsButton = styled.button`
   max-width: 50%;
   min-width: 40%;
@@ -25,16 +25,19 @@ const NewsPageContent = styled.div`
   flex-direction: column;
   font-family: sans-serif;
   height: 100vh;
-  background: url("https://images.unsplash.com/photo-1546956222-dc66a867af22?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")
-    no-repeat center center fixed;
+  background: url(${img1}) no-repeat center center fixed;
   background-size: cover;
 `;
-
-export default function NewsPage({ handleRemove, news }) {
+//url("https://images.unsplash.com/photo-1546956222-dc66a867af22?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")
+export default function NewsPage({ onNewsSave, handleRemove, news }) {
   return (
     <NewsPageContent>
       <Header />
-      <NewsList removeFunction={handleRemove} newsarray={news} />
+      <NewsList
+        onArticleSave={onNewsSave}
+        removeFunction={handleRemove}
+        newsarray={news}
+      />
     </NewsPageContent>
   );
 }

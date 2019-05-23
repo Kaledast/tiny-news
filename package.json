@@ -5,6 +5,7 @@
     "name": "Katja Stadel",
     "email": "Stadel.katja@web.de"
   },
+  "news powered by": "NewsAPI.org",
   "private": true,
   "proxy": "http://localhost:4000",
   "dependencies": {
@@ -12,7 +13,10 @@
     "body-parser": "^1.19.0",
     "docz": "^1.2.0",
     "docz-theme-default": "^1.2.0",
+    "dotenv": "^8.0.0",
     "express": "^4.17.0",
+    "fs": "0.0.1-security",
+    "moment": "^2.24.0",
     "mongodb": "^3.2.5",
     "mongoose": "^5.5.9",
     "nodemon": "^1.19.0",

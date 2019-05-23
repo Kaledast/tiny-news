@@ -15,18 +15,19 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /*useEffect(() => {
+    setToLocal('filter', filter)
+  }, [filter])
+*/
   function loadApiNews() {
     getArticles()
       .then(data => {
         const parsedData = data.map(item => {
           const id = item.url + item.publishedAt;
-
-          console.log({
-            id,
-            ...item
-          });
+          const saved = false;
           return {
             id,
+            saved,
             ...item
           };
         });
@@ -38,26 +39,6 @@ function App() {
         console.log(error);
       });
   }
-
-  /*
-   getArticles()
-      .then(data => {
-        const parsedData = data.map(item => {
-          const id = item.url;
-
-          return {
-            id,
-            ...data
-          };
-        });
-        console.log(parsedData);
-        setNews(parsedData);
-        // createApiNews(data);
-      })
-      .catch(error => {
-        console.log(error);
-      });*/
-
   //---------------------------------------------------
   // Save news in localstorage
   useEffect(() => {
@@ -66,24 +47,38 @@ function App() {
   //---------------------------------------------------
   // helperfunktion findIndex,Of
   function findIndexOfNews(article) {
-    console.log(article.id, article.source.id);
     const index = news.findIndex(item => item.id === article.id);
     return index;
   }
 
   //---------------------------------------------------
-  // delete news in mongo DB und setNews
-
+  // delete news und setNews
   function handleDeleteNews(article) {
     const index = findIndexOfNews(article);
     const newNews = [...news];
     newNews.splice(index, 1);
     setNews(newNews);
   }
+  //---------------------------------------------------
+  // save news (bookmark)
+  function handleNewsBookmark(newsToSave) {
+    const index = findIndexOfNews(newsToSave);
+    setNews([
+      ...news.slice(0, index),
+      { ...newsToSave, saved: !newsToSave.saved },
+      ...news.slice(index + 1)
+    ]);
+
+    console.log("saved the news!!!");
+  }
 
   return (
     <div className="App">
-      <NewsPage handleRemove={handleDeleteNews} news={news} />
+      <NewsPage
+        onNewsSave={handleNewsBookmark}
+        handleRemove={handleDeleteNews}
+        news={news}
+      />
     </div>
   );
 }
