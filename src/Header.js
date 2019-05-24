@@ -28,25 +28,18 @@ const NavLinks = styled(NavLink)`
   color: #ef925e;
 `;
 
-export default function Header() {
+export default function Header({ handleFilter }) {
   return (
     <Headliner>
       <Nav>
-        <NavLinks exact to="/">
-          TEST
+        <NavLinks onClick={() => handleFilter("saved")} to="/saved">
+          SAVED
         </NavLinks>
-        <NavLinks to="/saved">SAVED</NavLinks>
-        <NavLinks to="/news">NEWS</NavLinks>
+        <NavLinks onClick={() => handleFilter("all")} to="/">
+          NEWS
+        </NavLinks>
       </Nav>
       <HeaderTitle>NEWS TODAY</HeaderTitle>
     </Headliner>
   );
 }
-/*
-
-<Nav>
-<ATag href="#1">today</ATag>
-<ATag href="#2">options</ATag>
-<ATag href="#3">saved</ATag>
-</Nav>
-*/

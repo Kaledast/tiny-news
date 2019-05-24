@@ -49,27 +49,20 @@ const IconField = styled.img`
 `;
 const Saved = styled.input.attrs({ type: "checkbox" })``;
 
-export default function News({
-  deleteNews,
-  title,
-  content,
-  article,
-  originalLink,
-  handleSave
-}) {
+export default function News({ deleteNews, article, handleSave }) {
+  const { title, content, url, saved } = article;
   const cleanTitle = title.split("-")[0];
-  const cleanContent = content.split("["); //("… [")
-  //const articleDate = new Date(timestamp);
-  // console.log(articleDate);
+  const cleanContent = content.split("[");
+
   return (
     <NewsWrapperOuter>
       <NewsWrapper>
-        <Saved onChange={() => handleSave(article)} checked={article.saved} />
+        <Saved onChange={() => handleSave(article)} checked={saved} />
         <ArticleTopic>{cleanTitle}</ArticleTopic>
 
         <ContentSection>
           {cleanContent[0]}
-          <AuthorField href={originalLink}>
+          <AuthorField href={url}>
             <IconField src="https://img.icons8.com/ios/50/000000/right-squared-filled.png" />
           </AuthorField>
         </ContentSection>

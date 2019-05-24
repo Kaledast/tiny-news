@@ -9,24 +9,31 @@ const StyledSection = styled.section`
   overflow: scroll;
 `;
 
-export default function NewsList({ onArticleSave, removeFunction, newsarray }) {
-  return (
-    <StyledSection>
-      {newsarray.map(article => (
-        <News
-          key={article.id}
-          saved={article.saved}
-          handleSave={onArticleSave}
-          deleteNews={removeFunction}
-          title={article.title}
-          content={article.content}
-          timestamp={article.publishedAt}
-          author={article.author}
-          originalLink={article.url}
-          article={article}
-          {...article}
-        />
-      ))}
-    </StyledSection>
-  );
+export default function NewsList({
+  filter,
+  filterNews,
+  onArticleSave,
+  removeFunction,
+  newsarray
+}) {
+  let renderedNews = newsarray.map(article => (
+    <News
+      key={article.id}
+      saved={article.saved}
+      handleSave={onArticleSave}
+      deleteNews={removeFunction}
+      article={article}
+    />
+  ));
+  console.log(filter);
+  if (filter === "saved") {
+    renderedNews = filterNews(renderedNews);
+  }
+
+  return <StyledSection>{renderedNews}</StyledSection>;
 }
+/*
+console.log(filterSetting);
+
+
+*/
