@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Button, Icon } from "semantic-ui-react";
 //mport PropTypes from "prop-types";
 const NewsWrapperOuter = styled.section`
   display: flex;
@@ -42,11 +43,7 @@ const DeleteButton = styled.button`
 `;
 
 const AuthorField = styled.a``;
-const IconField = styled.img`
-  width: 25px;
-  height: 25px;
-  margin-bottom: 0;
-`;
+
 const Saved = styled.input.attrs({ type: "checkbox" })``;
 
 export default function News({ deleteNews, article, handleSave }) {
@@ -63,7 +60,12 @@ export default function News({ deleteNews, article, handleSave }) {
         <ContentSection>
           {cleanContent[0]}
           <AuthorField href={url}>
-            <IconField src="https://img.icons8.com/ios/50/000000/right-squared-filled.png" />
+            <Button animated="vertical">
+              <Button.Content hidden>Original</Button.Content>
+              <Button.Content visible>
+                <Icon name="arrow right" />
+              </Button.Content>
+            </Button>
           </AuthorField>
         </ContentSection>
         <DeleteButton
