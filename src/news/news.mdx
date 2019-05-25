@@ -1,0 +1,22 @@
+---
+name: News
+---
+
+import News from "./News";
+import { Playground, Props } from "docz";
+
+## News Styles
+
+<Playground>
+  <News
+    title="string"
+    content="string"
+    handleSave="function to handle the saved button"
+    deleteNews="function to handle the delete button on News"
+    saved="boolean checkbox"
+  />
+</Playground>
+
+## Props
+
+<Props of={News} />

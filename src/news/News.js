@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { Button, Icon } from "semantic-ui-react";
-//mport PropTypes from "prop-types";
+//import { Button, Icon } from "semantic-ui-react";
+//import newsButtonHorse from "./images/newsButtonHorse.svg";
+import PropTypes from "prop-types";
+
 const NewsWrapperOuter = styled.section`
   display: flex;
   align-self: center;
@@ -59,14 +61,7 @@ export default function News({ deleteNews, article, handleSave }) {
 
         <ContentSection>
           {cleanContent[0]}
-          <AuthorField href={url}>
-            <Button animated="vertical">
-              <Button.Content hidden>Original</Button.Content>
-              <Button.Content visible>
-                <Icon name="arrow right" />
-              </Button.Content>
-            </Button>
-          </AuthorField>
+          <AuthorField href={url} />
         </ContentSection>
         <DeleteButton
           onClick={() => {
@@ -79,4 +74,21 @@ export default function News({ deleteNews, article, handleSave }) {
     </NewsWrapperOuter>
   );
 }
-//
+
+News.propTypes = {
+  title: PropTypes.string, //isRequired erfüllt irgendwie nicht seinen Zweck
+  content: PropTypes.string,
+  handleSave: PropTypes.func,
+  deleteNews: PropTypes.func,
+  saved: PropTypes.bool
+};
+/*
+   <Button animated="vertical">
+              <Button.Content hidden>Original</Button.Content>
+              <Button.Content visible>
+                <Icon>
+                  <img src={newsButtonHorse} />
+                </Icon>
+              </Button.Content>
+            </Button>
+            */
