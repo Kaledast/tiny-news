@@ -8,7 +8,6 @@ const NewsPageContent = styled.div`
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  height: 100vh;
   background: url(${img1}) no-repeat center center fixed;
   background-size: cover;
 `;

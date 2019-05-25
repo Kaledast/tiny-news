@@ -3,34 +3,34 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 const Headliner = styled.header`
-  background: #3c211a;
-  grid-column-start: span 3;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: #7c205b;
 `;
-const HeaderTitle = styled.h1`
+const HeaderTitle = styled.div`
   color: #060606;
-  width: 300px;
-  font-size: 1.7em;
-  margin-left: 10px;
-  text-shadow: 2px 2px #ef925e;
+  font-size: 2em;
+
+  text-shadow: 2px 2px #bff2c3;
 `;
 
 const Nav = styled.nav`
-  display: flex;
-  margin-right: 10px;
-  margin-top: 25px;
+  width: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
 `;
 
 const NavLinks = styled(NavLink)`
-  justify-content: center;
   margin: 3px;
-  color: #ef925e;
+  color: #fdf19a;
 `;
 
 export default function Header({ handleFilter }) {
   return (
     <Headliner>
+      <HeaderTitle>Horse News</HeaderTitle>
       <Nav>
         <NavLinks onClick={() => handleFilter("saved")} to="/saved">
           SAVED
@@ -39,7 +39,6 @@ export default function Header({ handleFilter }) {
           NEWS
         </NavLinks>
       </Nav>
-      <HeaderTitle>NEWS TODAY</HeaderTitle>
     </Headliner>
   );
 }

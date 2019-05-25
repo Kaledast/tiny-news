@@ -3,6 +3,18 @@ import { setToLocal, getFromLocal, getArticles } from "./services.js";
 import Header from "./Header.js";
 import NewsPageFirst from "./news/NewsPageFirst.js";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import styled from "styled-components";
+
+const Appdiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+`;
 
 //import Footer from "./Footer.js";
 //import styled from "styled-components";
@@ -90,7 +102,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <Appdiv className="App">
       <BrowserRouter>
         <Header handleFilter={handleFilterSetting} />
         <Switch>
@@ -109,7 +121,7 @@ function App() {
           />
         </Switch>
       </BrowserRouter>
-    </div>
+    </Appdiv>
   );
 }
 
