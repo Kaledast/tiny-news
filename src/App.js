@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { setToLocal, getFromLocal, getArticles } from "./services.js";
 import Header from "./Header.js";
-import NewsPageFirst from "./news/NewsPageFirst.js";
+import Footer from "./Footer.js";
+import NewsPage from "./news/NewsPage.js";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
+import img from "./news/images/img3.jpg";
 
 const Appdiv = styled.div`
   display: flex;
   flex-direction: column;
+  background: url(${img});
+  background-size: cover;
   position: absolute;
   left: 0;
   top: 0;
-  overflow: hidden;
   width: 100%;
   height: 100vh;
 `;
@@ -109,7 +112,7 @@ function App() {
           <Route
             path="/"
             render={props => (
-              <NewsPageFirst
+              <NewsPage
                 filter={filter}
                 filterNews={handlefilterNews}
                 onNewsSave={handleNewsBookmark}
@@ -120,6 +123,7 @@ function App() {
             )}
           />
         </Switch>
+        <Footer />
       </BrowserRouter>
     </Appdiv>
   );

@@ -7,12 +7,11 @@ const Headliner = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background: #7c205b;
+  background: #2f1953;
 `;
 const HeaderTitle = styled.div`
   color: #060606;
   font-size: 2em;
-
   text-shadow: 2px 2px #bff2c3;
 `;
 
@@ -23,7 +22,7 @@ const Nav = styled.nav`
 `;
 
 const NavLinks = styled(NavLink)`
-  margin: 3px;
+  margin: 0px 15px;
   color: #fdf19a;
 `;
 

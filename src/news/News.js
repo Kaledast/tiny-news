@@ -19,8 +19,7 @@ const NewsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   background: #fff7d4;
-
-  border: 13px solid #3c211a;
+  border: 10px solid #2f1953;
   background: white;
   overflow-y: scroll;
 `;
