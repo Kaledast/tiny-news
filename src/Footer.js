@@ -22,18 +22,20 @@ const HomeButton = styled.button`
   height: 50px;
   width: 50px;
   border-radius: 5px;
-
   border: 1px solid white;
 `;
+
+const Nav = styled.nav``;
+const NavLinks = styled(NavLink)``;
 
 export default function Footer() {
   return (
     <Footliner>
-      <nav>
-        <NavLink to="/">
+      <Nav>
+        <NavLinks onClick={() => console.log("home now")} to="/home">
           <HomeButton />
-        </NavLink>
-      </nav>
+        </NavLinks>
+      </Nav>
     </Footliner>
   );
 }

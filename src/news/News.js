@@ -4,6 +4,7 @@ import styled from "styled-components";
 import heart from "./images/heart.svg";
 import unheart from "./images/unheart.svg";
 import delHorse from "./images/deletehorse.svg";
+import linkToOriginal from "./images/linkOrig.svg";
 import PropTypes from "prop-types";
 
 const NewsWrapperOuter = styled.section`
@@ -22,6 +23,7 @@ const NewsWrapper = styled.div`
   flex-direction: column;
   background: linear-gradient(0deg, #d8d8d8, #e1dad3, white);
   box-shadow: 0px 0px 4px 1px #2f1953;
+  padding: 10px;
 `;
 
 const ArticleTopic = styled.div`
@@ -31,6 +33,8 @@ const ArticleTopic = styled.div`
   font-weight: bold;
   margin-bottom: 5px;
   color: #060606;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
 `;
 
 const ContentSection = styled.section`
@@ -40,17 +44,32 @@ const ContentSection = styled.section`
 const DeleteButton = styled.button`
   background-color: white;
   background: url(${delHorse}) no-repeat center;
-  margin: 4px;
+  margin-bottom: 2px;
   height: 32px;
   width: 32px;
 `;
 
-const AuthorField = styled.a``;
+const LinkButton = styled.button`
+  background-color: white;
+  background: url(${linkToOriginal}) no-repeat center;
+  margin-bottom: 2px;
+  height: 32px;
+  width: 62px;
+`;
+
+const AuthorField = styled.a`
+  background: white;
+  margin-top: 4px;
+  height: 32px;
+  width: 62px;
+  border: 1px solid turquoise;
+`;
 
 const CBwrapper = styled.div`
   position: relative;
   height: 25px;
   width: 25px;
+  margin-bottom: 4px;
 `;
 
 const CBLabel = styled.label`
@@ -60,7 +79,7 @@ const CBLabel = styled.label`
   display: inline-block;
   padding: 0 0 0 0px;
   position: absolute;
-  top: 4px;
+  top: 2px;
   left: 4px;
   z-index: 1;
 `;
@@ -78,40 +97,47 @@ const SavedCB = styled.input`
   height: 25px;
   width: 25px;
   position: absolute;
-  top: 4px;
+  top: 2px;
   left: 4px;
   z-index: 2;
+`;
+
+const IconField = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export default function News({ deleteNews, article, handleSave }) {
   const { title, content, url, saved } = article;
   const cleanTitle = title.split("-")[0];
   const cleanContent = content.split("[");
-  //<Saved onChange={() => handleSave(article)} checked={saved} />
   return (
     <NewsWrapperOuter>
       <NewsWrapper>
-        <CBwrapper>
-          <SavedCB
-            onChange={() => handleSave(article)}
-            checked={saved}
-            id="input"
-            type="checkbox"
+        <IconField>
+          <CBwrapper>
+            <SavedCB
+              onChange={() => handleSave(article)}
+              checked={saved}
+              id="input"
+              type="checkbox"
+            />
+            <CBLabel htmlfor="input" />
+          </CBwrapper>
+          <DeleteButton
+            onClick={() => {
+              deleteNews(article);
+            }}
           />
-          <CBLabel htmlfor="input" />
-        </CBwrapper>
+        </IconField>
+
         <ArticleTopic>{cleanTitle}</ArticleTopic>
 
-        <ContentSection>
-          {cleanContent[0]}
-          <AuthorField href={url} />
-        </ContentSection>
-
-        <DeleteButton
-          onClick={() => {
-            deleteNews(article);
-          }}
-        />
+        <ContentSection>{cleanContent[0]}</ContentSection>
+        <AuthorField href={url}>
+          <LinkButton />
+        </AuthorField>
       </NewsWrapper>
     </NewsWrapperOuter>
   );

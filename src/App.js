@@ -3,6 +3,7 @@ import { setToLocal, getFromLocal, getArticles } from "./services.js";
 import Header from "./Header.js";
 import Footer from "./Footer.js";
 import NewsPage from "./news/NewsPage.js";
+import HomePage from "./home/HomePage.js";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import img from "./news/images/img3.jpg";
@@ -18,10 +19,6 @@ const Appdiv = styled.div`
   width: 100%;
   height: 100vh;
 `;
-
-//import Footer from "./Footer.js";
-//import styled from "styled-components";
-//import PropTypes from "prop-types";
 
 function App() {
   // STATE
@@ -110,7 +107,7 @@ function App() {
         <Header handleFilter={handleFilterSetting} />
         <Switch>
           <Route
-            path="/"
+            path="/news"
             render={props => (
               <NewsPage
                 filter={filter}
@@ -122,6 +119,20 @@ function App() {
               />
             )}
           />
+          <Route
+            path="/saved"
+            render={props => (
+              <NewsPage
+                filter={filter}
+                filterNews={handlefilterNews}
+                onNewsSave={handleNewsBookmark}
+                handleRemove={handleDeleteNews}
+                news={news}
+                {...props}
+              />
+            )}
+          />
+          <Route path="/" render={props => <HomePage {...props} />} />
         </Switch>
         <Footer />
       </BrowserRouter>

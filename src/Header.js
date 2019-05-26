@@ -11,9 +11,16 @@ const Headliner = styled.header`
   background: #2f1953;
   height: 65px;
 `;
+
+const Div = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const HeaderTitle = styled.div`
   color: #060606;
   font-size: 2em;
+  margin-left: 4px;
   text-shadow: 2px 2px #bff2c3;
 `;
 
@@ -39,15 +46,16 @@ const Icondiv = styled.img`
 export default function Header({ handleFilter }) {
   return (
     <Headliner>
-      <HeaderTitle>Horse News</HeaderTitle>
-      <Icondiv />
-
+      <Div>
+        <Icondiv />
+        <HeaderTitle>Horse News</HeaderTitle>
+      </Div>
       <Nav>
+        <NavLinks onClick={() => handleFilter("all")} to="/news">
+          NEWS
+        </NavLinks>
         <NavLinks onClick={() => handleFilter("saved")} to="/saved">
           SAVED
-        </NavLinks>
-        <NavLinks onClick={() => handleFilter("all")} to="/">
-          NEWS
         </NavLinks>
       </Nav>
     </Headliner>

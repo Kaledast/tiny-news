@@ -24,7 +24,7 @@ export default function NewsList({
       article={article}
     />
   ));
-  console.log(filter);
+
   if (filter === "saved") {
     renderedNews = filterNews(renderedNews);
   }
