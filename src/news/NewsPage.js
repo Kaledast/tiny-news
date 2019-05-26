@@ -5,7 +5,6 @@ import styled from "styled-components";
 const NewsPageContent = styled.div`
   display: flex;
   flex-direction: column;
-  height: 90%;
   font-family: sans-serif;
 `;
 //background: linear-gradient(0deg, white 40%, #979797);

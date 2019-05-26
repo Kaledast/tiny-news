@@ -5,6 +5,7 @@ import styled from "styled-components";
 const StyledSection = styled.section`
   align-self: center;
   overflow: scroll;
+  height: 100%;
 `;
 
 export default function NewsList({
