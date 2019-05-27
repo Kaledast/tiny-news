@@ -40,6 +40,7 @@ function App() {
   function loadApiNews() {
     getArticles()
       .then(data => {
+        console.log(data);
         const parsedData = data.map(item => {
           const id = item.url + item.publishedAt;
           const saved = false;

@@ -111,9 +111,9 @@ const IconField = styled.div`
 
 export default function News({ deleteNews, article, handleSave }) {
   const { title, content, url, saved } = article;
-  const cleanTitle = title.split("-")[0];
-  const cleanContent = content.split("[");
-  console.log(cleanContent);
+  const cleanTitle = title && title.split("-")[0];
+  const cleanContent = content && content.split("[")[0];
+
   return (
     <NewsWrapperOuter>
       <NewsWrapper>
@@ -136,7 +136,7 @@ export default function News({ deleteNews, article, handleSave }) {
 
         <ArticleTopic>{cleanTitle}</ArticleTopic>
 
-        <ContentSection>{cleanContent[0]}</ContentSection>
+        <ContentSection>{cleanContent}</ContentSection>
         <AuthorField href={url}>
           <LinkButton />
         </AuthorField>
@@ -152,13 +152,3 @@ News.propTypes = {
   deleteNews: PropTypes.func,
   saved: PropTypes.bool
 };
-/*
-   <Button animated="vertical">
-              <Button.Content hidden>Original</Button.Content>
-              <Button.Content visible>
-                <Icon>
-                  <img src={newsButtonHorse} />
-                </Icon>
-              </Button.Content>
-            </Button>
-            */
