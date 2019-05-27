@@ -24,6 +24,7 @@ function App() {
   // STATE
   const [news, setNews] = useState(getFromLocal("news") || []);
   const [filter, setFilter] = useState(getFromLocal("filter") || "all");
+  const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
   const [rubrik, setRubrik] = useState("general");
 
   //---------------------------------------------------
@@ -66,6 +67,10 @@ function App() {
     setToLocal("news", news);
   }, [news]);
 
+  useEffect(() => {
+    setToLocal("savedNews", savedNews);
+  }, [savedNews]);
+
   //---------------------------------------------------
   // helperfunktion findIndex,Of
   function findIndexOfNews(article) {
@@ -90,13 +95,12 @@ function App() {
       { ...newsToSave, saved: !newsToSave.saved },
       ...news.slice(index + 1)
     ]);
+    setSavedNews([...savedNews, newsToSave]);
   }
   //---------------------------------------------------
   // filter news
 
   function handlefilterNews(newsarray) {
-    console.log(newsarray);
-
     const savedNews = newsarray.filter(item => item.props.saved);
     return savedNews;
   }
@@ -138,7 +142,7 @@ function App() {
                 filterNews={handlefilterNews}
                 onNewsSave={handleNewsBookmark}
                 handleRemove={handleDeleteNews}
-                news={news}
+                news={savedNews}
                 {...props}
               />
             )}

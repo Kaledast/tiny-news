@@ -17,11 +17,11 @@ const HomeBody = styled.div`
   padding: 30px;
 `;
 
-const Header = styled.h1`
+const Header = styled.h2`
   color: white;
 `;
 
-const SubHeader = styled.h2`
+const SubHeader = styled.h3`
   color: white;
 `;
 
@@ -76,7 +76,6 @@ const TechnologyButton = styled.button`
 const Buttoncontainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  border: 1px dotted white;
   align-items: center;
   justify-content: space-evenly;
 

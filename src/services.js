@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-const HeadlineOption = "everything"; //"top-headlines" && "everything";
-const country = "us";
+//const HeadlineOption = "everything"; //"top-headlines" && "everything";
+//const country = "us";
 
 /*
 console.log(

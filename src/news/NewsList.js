@@ -27,6 +27,7 @@ export default function NewsList({
 
   if (filter === "saved") {
     renderedNews = filterNews(renderedNews);
+    console.log("this is filter;", filter);
   }
 
   return <StyledSection>{renderedNews}</StyledSection>;
