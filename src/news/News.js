@@ -47,6 +47,7 @@ const DeleteButton = styled.button`
   margin-bottom: 2px;
   height: 32px;
   width: 32px;
+  border-radius: 50%;
 `;
 
 const LinkButton = styled.button`
@@ -112,6 +113,7 @@ export default function News({ deleteNews, article, handleSave }) {
   const { title, content, url, saved } = article;
   const cleanTitle = title.split("-")[0];
   const cleanContent = content.split("[");
+  console.log(cleanContent);
   return (
     <NewsWrapperOuter>
       <NewsWrapper>

@@ -1,15 +1,14 @@
 import dotenv from "dotenv";
 dotenv.config();
-
+/*
 console.log(
-  "https://newsapi.org/v2/top-headlines?country=de&apiKey=" +
-    process.env.REACT_APP_API_KEY
+  `https://newsapi.org/v2/top-headlines?country=de&apiKey=
+    ${process.env.REACT_APP_API_KEY}`
 );
-
+*/
 export function getArticles() {
-  const apiURL =
-    "https://newsapi.org/v2/top-headlines?country=de&apiKey=" +
-    process.env.REACT_APP_API_KEY;
+  const apiURL = `https://newsapi.org/v2/top-headlines?country=de&apiKey=xy
+  ${process.env.REACT_APP_API_KEY}`;
 
   const req = new Request(apiURL);
 
