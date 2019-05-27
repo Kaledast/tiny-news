@@ -24,23 +24,26 @@ function App() {
   // STATE
   const [news, setNews] = useState(getFromLocal("news") || []);
   const [filter, setFilter] = useState(getFromLocal("filter") || "all");
+  const [rubrik, setRubrik] = useState("general");
 
   //---------------------------------------------------
   // lifecycle start (=componentDidMount-method)
   useEffect(() => {
     loadApiNews();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    loadApiNews();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rubrik]);
 
   useEffect(() => {
     setToLocal("filter", filter);
   }, [filter]);
 
   function loadApiNews() {
-    getArticles()
+    getArticles(rubrik)
       .then(data => {
-        console.log(data);
         const parsedData = data.map(item => {
           const id = item.url + item.publishedAt;
           const saved = false;
@@ -102,6 +105,13 @@ function App() {
     setFilter(filter);
   }
 
+  //---------------------------------------------------
+  // rubriken setzen
+  function collectApiSettings(values) {
+    setRubrik(values);
+    console.log(values);
+  }
+
   return (
     <Appdiv className="App">
       <BrowserRouter>
@@ -133,7 +143,12 @@ function App() {
               />
             )}
           />
-          <Route path="/" render={props => <HomePage {...props} />} />
+          <Route
+            path="/"
+            render={props => (
+              <HomePage rubrikFunktion={collectApiSettings} {...props} />
+            )}
+          />
         </Switch>
         <Footer />
       </BrowserRouter>

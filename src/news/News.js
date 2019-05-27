@@ -113,7 +113,7 @@ export default function News({ deleteNews, article, handleSave }) {
   const { title, content, url, saved } = article;
   const cleanTitle = title && title.split("-")[0];
   const cleanContent = content && content.split("[")[0];
-
+  console.log(article);
   return (
     <NewsWrapperOuter>
       <NewsWrapper>

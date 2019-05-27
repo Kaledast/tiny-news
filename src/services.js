@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-const topicTheme = "Beauty";
 const HeadlineOption = "everything"; //"top-headlines" && "everything";
 const country = "us";
 
@@ -17,8 +16,10 @@ https://newsapi.org/v2/sources?apiKey=ac3a791efaef4b87b7ab8ed0d4b6efed
 `https://newsapi.org/v2/${HeadlineOption}?q=${topicTheme}&country=${country}&apiKey=ac3a791efaef4b87b7ab8ed0d4b6efed`;
 */
 
-export function getArticles() {
-  const apiURL = `https://newsapi.org/v2/everything?q=${topicTheme}&apiKey =ac3a791efaef4b87b7ab8ed0d4b6efed`;
+export function getArticles(props) {
+  console.log(props);
+  const topicTheme = props;
+  const apiURL = `https://newsapi.org/v2/everything?q=${topicTheme}&apiKey=ac3a791efaef4b87b7ab8ed0d4b6efed`;
 
   const req = new Request(apiURL);
 
