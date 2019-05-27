@@ -7,8 +7,7 @@ console.log(
 );
 */
 export function getArticles() {
-  const apiURL = `https://newsapi.org/v2/top-headlines?country=de&apiKey=xy
-  ${process.env.REACT_APP_API_KEY}`;
+  const apiURL = `https://newsapi.org/v2/top-headlines?country=de&apiKey=ac3a791efaef4b87b7ab8ed0d4b6efed`;
 
   const req = new Request(apiURL);
 
