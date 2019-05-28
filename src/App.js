@@ -25,16 +25,11 @@ function App() {
   const [news, setNews] = useState(getFromLocal("news") || []);
   const [filter, setFilter] = useState(getFromLocal("filter") || "all");
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
-  const [rubrik, setRubrik] = useState("general");
+  const [rubrik, setRubrik] = useState(getFromLocal("rubrik") || "general");
   const [deleted, setDeleted] = useState(getFromLocal("deleted") || []);
   //---------------------------------------------------
   // lifecycle start (=componentDidMount-method)
   // Code-Review2 (brauche ich diesen Teil noch?)
-  useEffect(() => {
-    loadApiNews();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   useEffect(() => {
     loadApiNews();
@@ -62,9 +57,9 @@ function App() {
           };
         });
         //setNews(parsedData);
-        checkAlreadyDeletedNews(deleted, savedNews, parsedData);
         //Code Review1!!!
         //anstatt: setNews(parsedData);
+        checkAlreadyDeletedNews(deleted, savedNews, parsedData);
       })
       .catch(error => {
         console.log(error);
@@ -91,7 +86,6 @@ function App() {
   // Save news in localstorage
   useEffect(() => {
     setToLocal("news", news);
-    console.log("localstorage of NEWS changed");
   }, [news]);
 
   useEffect(() => {
@@ -148,9 +142,9 @@ function App() {
 
   //---------------------------------------------------
   // rubriken setzen
-  function collectApiSettings(values) {
-    setRubrik(values);
-    console.log(values);
+  function collectApiSettings(rubrikval) {
+    setRubrik(rubrikval);
+    console.log(rubrikval);
   }
 
   return (

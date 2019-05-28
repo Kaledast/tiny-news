@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Buttoncontainer from "./Buttoncontainer.js";
 import Entertainment from "../news/images/entertainButt.svg";
 import General from "../news/images/GeneralButt.svg";
 import Business from "../news/images/BusinessButt.svg";
@@ -15,14 +16,6 @@ const HomeBody = styled.div`
   background: black;
   height: 100%;
   padding: 30px;
-`;
-
-const Header = styled.h2`
-  color: white;
-`;
-
-const SubHeader = styled.h3`
-  color: white;
 `;
 
 const EntertainmentButton = styled.button`
@@ -73,30 +66,45 @@ const TechnologyButton = styled.button`
   border-radius: 10%;
 `;
 
-const Buttoncontainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-evenly;
-
-  width: auto;
-  height: 50%;
-`;
-
 export default function HomePage({ rubrikFunktion }) {
+  const rubrikArray = [
+    { id: 1, val: "entertainment", img: Entertainment },
+    { id: 2, val: "general", img: General },
+    { id: 3, val: "business", img: Business },
+    { id: 4, val: "health", img: Health },
+    { id: 5, val: "science", img: Science },
+    { id: 6, val: "sports", img: Sports },
+    { id: 7, val: "technology", img: Technology }
+  ];
+
   return (
     <HomeBody>
-      <Header>Welcome HOME little pony</Header>
-      <SubHeader>Choose your destination wisely...</SubHeader>
-      <Buttoncontainer>
-        <EntertainmentButton onClick={() => rubrikFunktion("entertainment")} />
-        <GeneralButton onClick={() => rubrikFunktion("general")} />
-        <BusinessButton onClick={() => rubrikFunktion("business")} />
-        <HealthButton onClick={() => rubrikFunktion("health")} />
-        <ScienceButton onClick={() => rubrikFunktion("science")} />
-        <SportsButton onClick={() => rubrikFunktion("sports")} />
-        <TechnologyButton onClick={() => rubrikFunktion("technology")} />
-      </Buttoncontainer>
+      <Buttoncontainer rubrikFunktion={rubrikFunktion} rubriken={rubrikArray} />
     </HomeBody>
   );
 }
+/*
+        <NavLink to="/news">
+          <EntertainmentButton
+            onClick={() => rubrikFunktion("entertainment")}
+          />
+        </NavLink>
+        <NavLink to="/news">
+          <GeneralButton onClick={() => rubrikFunktion("general")} />
+        </NavLink>
+        <NavLink to="/news">
+          <BusinessButton onClick={() => rubrikFunktion("business")} />
+        </NavLink>
+        <NavLink to="/news">
+          <HealthButton onClick={() => rubrikFunktion("health")} />
+        </NavLink>
+        <NavLink to="/news">
+          <ScienceButton onClick={() => rubrikFunktion("science")} />
+        </NavLink>
+        <NavLink to="/news">
+          <SportsButton onClick={() => rubrikFunktion("sports")} />
+        </NavLink>
+        <NavLink to="/news">
+          <TechnologyButton onClick={() => rubrikFunktion("technology")} />
+        </NavLink>
+        */
