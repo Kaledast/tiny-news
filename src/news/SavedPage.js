@@ -7,14 +7,15 @@ const NewsPageContent = styled.div`
   flex-direction: column;
   font-family: sans-serif;
 `;
-
-export default function NewsPage({
+//background: linear-gradient(0deg, white 40%, #979797);
+//url("https://images.unsplash.com/photo-1546956222-dc66a867af22?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80")
+export default function SavedPage({
   filter,
   filterNews,
   onNewsSave,
   handleRemove,
-  safedNews,
-  news
+  news,
+  newssaved
 }) {
   return (
     <NewsPageContent>
@@ -23,8 +24,8 @@ export default function NewsPage({
         filterNews={filterNews}
         onArticleSave={onNewsSave}
         removeFunction={handleRemove}
-        safeNews={safedNews}
         newsarray={news}
+        newsarraySafed={newssaved}
       />
     </NewsPageContent>
   );

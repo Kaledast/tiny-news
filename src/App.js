@@ -70,6 +70,8 @@ function App() {
   useEffect(() => {
     setToLocal("savedNews", savedNews);
   }, [savedNews]);
+  //  const updatedSafedNews = savedNews.filter(item => item.saved);
+  //  setToLocal("savedNews", updatedSafedNews);
 
   //---------------------------------------------------
   // helperfunktion findIndex,Of
@@ -90,18 +92,17 @@ function App() {
   // save news (bookmark)
   function handleNewsBookmark(newsToSave) {
     const index = findIndexOfNews(newsToSave);
-    setNews([
-      ...news.slice(0, index),
-      { ...newsToSave, saved: !newsToSave.saved },
-      ...news.slice(index + 1)
-    ]);
+    const newSavedNews = { ...newsToSave, saved: !newsToSave.saved };
+    setNews([...news.slice(0, index), newSavedNews, ...news.slice(index + 1)]);
+
     setSavedNews([...savedNews, newsToSave]);
+    console.log("setSavedNews done!", [...savedNews, newsToSave]);
   }
   //---------------------------------------------------
   // filter news
-
   function handlefilterNews(newsarray) {
     const savedNews = newsarray.filter(item => item.props.saved);
+
     return savedNews;
   }
 
@@ -129,6 +130,7 @@ function App() {
                 filterNews={handlefilterNews}
                 onNewsSave={handleNewsBookmark}
                 handleRemove={handleDeleteNews}
+                safedNews={savedNews}
                 news={news}
                 {...props}
               />
@@ -142,7 +144,8 @@ function App() {
                 filterNews={handlefilterNews}
                 onNewsSave={handleNewsBookmark}
                 handleRemove={handleDeleteNews}
-                news={savedNews}
+                safedNews={savedNews}
+                news={news}
                 {...props}
               />
             )}

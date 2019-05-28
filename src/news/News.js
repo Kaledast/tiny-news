@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-//import { Button, Icon } from "semantic-ui-react";
 import heart from "./images/heart.svg";
 import unheart from "./images/unheart.svg";
 import delHorse from "./images/deletehorse.svg";
@@ -17,7 +16,7 @@ const NewsWrapperOuter = styled.section`
   box-shadow: 0px -5px 0px 5px #2f1953;
   border: 1px solid #2f1953;
 `;
-//
+
 const NewsWrapper = styled.div`
   display: flex;
   flex-direction: column;

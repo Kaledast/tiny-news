@@ -13,7 +13,8 @@ export default function NewsList({
   filterNews,
   onArticleSave,
   removeFunction,
-  newsarray
+  newsarray,
+  safeNews
 }) {
   let renderedNews = newsarray.map(article => (
     <News
@@ -25,8 +26,19 @@ export default function NewsList({
     />
   ));
 
+  let rendereSafedNews = safeNews.map(article => (
+    <News
+      key={article.id}
+      saved={article.saved}
+      handleSave={onArticleSave}
+      deleteNews={removeFunction}
+      article={article}
+    />
+  ));
+
+  console.log("Newslist", safeNews);
   if (filter === "saved") {
-    renderedNews = filterNews(renderedNews);
+    renderedNews = rendereSafedNews; //filterNews(renderedNews);
     console.log("this is filter;", filter);
   }
 
