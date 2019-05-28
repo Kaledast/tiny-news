@@ -26,10 +26,16 @@ function App() {
   const [filter, setFilter] = useState(getFromLocal("filter") || "all");
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
   const [rubrik, setRubrik] = useState("general");
-
+  const [deleted, setDeleted] = useState(getFromLocal("deleted") || []);
   //---------------------------------------------------
   // lifecycle start (=componentDidMount-method)
   // Code-Review2 (brauche ich diesen Teil noch?)
+  useEffect(() => {
+    loadApiNews();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     loadApiNews();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,6 +44,10 @@ function App() {
   useEffect(() => {
     setToLocal("filter", filter);
   }, [filter]);
+
+  useEffect(() => {
+    setToLocal("deleted", deleted);
+  }, [deleted]);
 
   function loadApiNews() {
     getArticles(rubrik)
@@ -51,7 +61,8 @@ function App() {
             ...item
           };
         });
-        checkAlreadyDeletedNews(news, parsedData);
+        //setNews(parsedData);
+        checkAlreadyDeletedNews(deleted, parsedData);
         //Code Review1!!!
         //anstatt: setNews(parsedData);
       })
@@ -60,15 +71,18 @@ function App() {
       });
   }
   //Code Review1!!!
-  function checkAlreadyDeletedNews(storageNews, ApiNews) {
-    const storageIDs = storageNews.map(item => item.id);
+  function checkAlreadyDeletedNews(deletedNews, ApiNews) {
+    console.log("deleted News validierung", deletedNews);
+    const deletedIDs = deletedNews.map(item => item.id);
     const ApiIDs = ApiNews.map(item => item.id);
 
-    const validArticles = ApiIDs.filter(value => storageIDs.includes(value));
-
+    const validArticles = ApiIDs.filter(value => !deletedIDs.includes(value));
+    //nehme nur Karten neu auf, die noch nicht in localstorage deleted wurden, da user diese offenbar nicht lesen möchte
     const validArticleArray = ApiNews.filter(item =>
       validArticles.includes(item.id)
     );
+    console.log("checkfun locally deleted:", deletedIDs);
+    console.log("checkfun valids:", validArticleArray);
     setNews(validArticleArray);
   }
   //---------------------------------------------------
@@ -81,8 +95,6 @@ function App() {
   useEffect(() => {
     setToLocal("savedNews", savedNews);
   }, [savedNews]);
-  //  const updatedSafedNews = savedNews.filter(item => item.saved);
-  //  setToLocal("savedNews", updatedSafedNews);
 
   //---------------------------------------------------
   // helperfunktion findIndex,Of
@@ -95,21 +107,26 @@ function App() {
   //---------------------------------------------------
   // delete news und setNews
   function handleDeleteNews(article) {
+    console.log(article);
     if (filter === "saved") {
       const indexSafed = findIndexOfNews(article, savedNews);
+      setDeleted([...deleted, article]);
+
       const newSafedNews = [...savedNews];
       newSafedNews.splice(indexSafed, 1);
       setSavedNews(newSafedNews);
     } else {
       const index = findIndexOfNews(article, news);
       const newNews = [...news];
+
+      setDeleted([...deleted, article]);
       newNews.splice(index, 1);
       setNews(newNews);
     }
   }
 
   //---------------------------------------------------
-  // save news (bookmark)
+  // save news (bookmark) - kein Togglen mehr
   function handleNewsBookmark(newsToSave) {
     const index = findIndexOfNews(newsToSave, news);
     //delete Article that was bookmarked from News-List to show in saved-list only
@@ -119,26 +136,11 @@ function App() {
       ...newsToSave,
       saved: !newsToSave.saved
     };
-
     setSavedNews([...savedNews, newSavedNews]);
-    //handleNewsBookmarkSafed(newsToSave, savedNews);
   }
 
-  function handleNewsBookmarkSafed(newsToSave, newsBookmarkedArray) {
-    const indexSafed = findIndexOfNews(newsToSave, newsBookmarkedArray);
-    console.log(
-      "already Bookmarked Cards: ",
-      newsBookmarkedArray[indexSafed].saved
-    );
-  }
   //---------------------------------------------------
-  // filter news
-  /*function handlefilterNews(newsarray) {
-    const savedNews = newsarray.filter(item => item.props.saved);
-
-    return savedNews;
-  }*/
-
+  // Filter setzen
   function handleFilterSetting(filter) {
     setFilter(filter);
   }
