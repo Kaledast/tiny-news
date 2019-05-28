@@ -17,6 +17,7 @@ export default function NewsList({
 }) {
   let renderedNews = newsarray.map(article => (
     <News
+      key={article.id}
       handleSave={onArticleSave}
       deleteNews={removeFunction}
       article={article}
@@ -26,6 +27,7 @@ export default function NewsList({
   if (filter === "saved") {
     renderedNews = safeNews.map(article => (
       <News
+        key={article.id}
         handleSave={removeFunction}
         deleteNews={removeFunction}
         article={article}

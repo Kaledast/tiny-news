@@ -83,7 +83,7 @@ const Buttoncontainer = styled.div`
   height: 50%;
 `;
 
-export default function HomePage({ props, rubrikFunktion }) {
+export default function HomePage({ rubrikFunktion }) {
   return (
     <HomeBody>
       <Header>Welcome HOME little pony</Header>

@@ -62,7 +62,7 @@ function App() {
           };
         });
         //setNews(parsedData);
-        checkAlreadyDeletedNews(deleted, parsedData);
+        checkAlreadyDeletedNews(deleted, savedNews, parsedData);
         //Code Review1!!!
         //anstatt: setNews(parsedData);
       })
@@ -71,17 +71,19 @@ function App() {
       });
   }
   //Code Review1!!!
-  function checkAlreadyDeletedNews(deletedNews, ApiNews) {
+  function checkAlreadyDeletedNews(deletedNews, savedNews, ApiNews) {
     console.log("deleted News validierung", deletedNews);
     const deletedIDs = deletedNews.map(item => item.id);
+    const savedNewsIDs = savedNews.map(item => item.id);
+    const invalidIds = [...new Set([...deletedIDs, ...savedNewsIDs])];
     const ApiIDs = ApiNews.map(item => item.id);
 
-    const validArticles = ApiIDs.filter(value => !deletedIDs.includes(value));
+    const validArticles = ApiIDs.filter(value => !invalidIds.includes(value));
     //nehme nur Karten neu auf, die noch nicht in localstorage deleted wurden, da user diese offenbar nicht lesen möchte
     const validArticleArray = ApiNews.filter(item =>
       validArticles.includes(item.id)
     );
-    console.log("checkfun locally deleted:", deletedIDs);
+    console.log("checkfun locally invalids:", invalidIds);
     console.log("checkfun valids:", validArticleArray);
     setNews(validArticleArray);
   }
@@ -107,7 +109,6 @@ function App() {
   //---------------------------------------------------
   // delete news und setNews
   function handleDeleteNews(article) {
-    console.log(article);
     if (filter === "saved") {
       const indexSafed = findIndexOfNews(article, savedNews);
       setDeleted([...deleted, article]);
