@@ -10,7 +10,6 @@ const StyledSection = styled.section`
 
 export default function NewsList({
   filter,
-  filterNews,
   onArticleSave,
   removeFunction,
   newsarray,
@@ -18,8 +17,6 @@ export default function NewsList({
 }) {
   let renderedNews = newsarray.map(article => (
     <News
-      key={article.id}
-      saved={article.saved}
       handleSave={onArticleSave}
       deleteNews={removeFunction}
       article={article}
@@ -28,18 +25,14 @@ export default function NewsList({
 
   let rendereSafedNews = safeNews.map(article => (
     <News
-      key={article.id}
-      saved={article.saved}
       handleSave={onArticleSave}
       deleteNews={removeFunction}
       article={article}
     />
   ));
 
-  console.log("Newslist", safeNews);
   if (filter === "saved") {
-    renderedNews = rendereSafedNews; //filterNews(renderedNews);
-    console.log("this is filter;", filter);
+    renderedNews = rendereSafedNews;
   }
 
   return <StyledSection>{renderedNews}</StyledSection>;

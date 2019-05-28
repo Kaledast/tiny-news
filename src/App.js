@@ -33,6 +33,7 @@ function App() {
     loadApiNews();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   useEffect(() => {
     loadApiNews();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,15 +76,16 @@ function App() {
 
   //---------------------------------------------------
   // helperfunktion findIndex,Of
-  function findIndexOfNews(article) {
-    const index = news.findIndex(item => item.id === article.id);
+  function findIndexOfNews(article, newsArray) {
+    const index = newsArray.findIndex(item => item.id === article.id);
+
     return index;
   }
 
   //---------------------------------------------------
   // delete news und setNews
   function handleDeleteNews(article) {
-    const index = findIndexOfNews(article);
+    const index = findIndexOfNews(article, news);
     const newNews = [...news];
     newNews.splice(index, 1);
     setNews(newNews);
@@ -91,20 +93,30 @@ function App() {
   //---------------------------------------------------
   // save news (bookmark)
   function handleNewsBookmark(newsToSave) {
-    const index = findIndexOfNews(newsToSave);
-    const newSavedNews = { ...newsToSave, saved: !newsToSave.saved };
-    setNews([...news.slice(0, index), newSavedNews, ...news.slice(index + 1)]);
+    const index = findIndexOfNews(newsToSave, news);
+    const indexSafed = findIndexOfNews(newsToSave, savedNews);
 
-    setSavedNews([...savedNews, newsToSave]);
-    console.log("setSavedNews done!", [...savedNews, newsToSave]);
+    const newSavedNews = {
+      ...newsToSave,
+      saved: !newsToSave.saved
+    };
+    //setNews([...news.slice(0, index),newSavedNews, ...news.slice(index + 1)
+
+    setNews([...news.slice(0, index), ...news.slice(index + 1)]);
+    console.log(newSavedNews);
+    setSavedNews([
+      ...savedNews.slice(0, indexSafed),
+      newSavedNews,
+      ...savedNews.slice(indexSafed + 1)
+    ]);
   }
   //---------------------------------------------------
   // filter news
-  function handlefilterNews(newsarray) {
+  /*function handlefilterNews(newsarray) {
     const savedNews = newsarray.filter(item => item.props.saved);
 
     return savedNews;
-  }
+  }*/
 
   function handleFilterSetting(filter) {
     setFilter(filter);
@@ -127,7 +139,6 @@ function App() {
             render={props => (
               <NewsPage
                 filter={filter}
-                filterNews={handlefilterNews}
                 onNewsSave={handleNewsBookmark}
                 handleRemove={handleDeleteNews}
                 safedNews={savedNews}
@@ -141,7 +152,6 @@ function App() {
             render={props => (
               <NewsPage
                 filter={filter}
-                filterNews={handlefilterNews}
                 onNewsSave={handleNewsBookmark}
                 handleRemove={handleDeleteNews}
                 safedNews={savedNews}

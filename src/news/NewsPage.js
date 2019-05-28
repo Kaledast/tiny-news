@@ -10,7 +10,6 @@ const NewsPageContent = styled.div`
 
 export default function NewsPage({
   filter,
-  filterNews,
   onNewsSave,
   handleRemove,
   safedNews,
@@ -20,7 +19,6 @@ export default function NewsPage({
     <NewsPageContent>
       <NewsList
         filter={filter}
-        filterNews={filterNews}
         onArticleSave={onNewsSave}
         removeFunction={handleRemove}
         safeNews={safedNews}

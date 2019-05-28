@@ -109,12 +109,13 @@ const IconField = styled.div`
 `;
 
 export default function News({ deleteNews, article, handleSave }) {
-  const { title, content, url, saved } = article;
+  const { title, content, url, saved, id } = article;
+  const key = id;
   const cleanTitle = title && title.split("-")[0];
   const cleanContent = content && content.split("[")[0];
 
   return (
-    <NewsWrapperOuter>
+    <NewsWrapperOuter key={key}>
       <NewsWrapper>
         <IconField>
           <CBwrapper>
