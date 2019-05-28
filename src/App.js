@@ -29,11 +29,7 @@ function App() {
 
   //---------------------------------------------------
   // lifecycle start (=componentDidMount-method)
-  useEffect(() => {
-    loadApiNews();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  // Code-Review2 (brauche ich diesen Teil noch?)
   useEffect(() => {
     loadApiNews();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,17 +51,31 @@ function App() {
             ...item
           };
         });
-
-        setNews(parsedData);
+        checkAlreadyDeletedNews(news, parsedData);
+        //Code Review1!!!
+        //anstatt: setNews(parsedData);
       })
       .catch(error => {
         console.log(error);
       });
   }
+  //Code Review1!!!
+  function checkAlreadyDeletedNews(storageNews, ApiNews) {
+    const storageIDs = storageNews.map(item => item.id);
+    const ApiIDs = ApiNews.map(item => item.id);
+
+    const validArticles = ApiIDs.filter(value => storageIDs.includes(value));
+
+    const validArticleArray = ApiNews.filter(item =>
+      validArticles.includes(item.id)
+    );
+    setNews(validArticleArray);
+  }
   //---------------------------------------------------
   // Save news in localstorage
   useEffect(() => {
     setToLocal("news", news);
+    console.log("localstorage of NEWS changed");
   }, [news]);
 
   useEffect(() => {
@@ -85,30 +95,41 @@ function App() {
   //---------------------------------------------------
   // delete news und setNews
   function handleDeleteNews(article) {
-    const index = findIndexOfNews(article, news);
-    const newNews = [...news];
-    newNews.splice(index, 1);
-    setNews(newNews);
+    if (filter === "saved") {
+      const indexSafed = findIndexOfNews(article, savedNews);
+      const newSafedNews = [...savedNews];
+      newSafedNews.splice(indexSafed, 1);
+      setSavedNews(newSafedNews);
+    } else {
+      const index = findIndexOfNews(article, news);
+      const newNews = [...news];
+      newNews.splice(index, 1);
+      setNews(newNews);
+    }
   }
+
   //---------------------------------------------------
   // save news (bookmark)
   function handleNewsBookmark(newsToSave) {
     const index = findIndexOfNews(newsToSave, news);
-    const indexSafed = findIndexOfNews(newsToSave, savedNews);
+    //delete Article that was bookmarked from News-List to show in saved-list only
+    setNews([...news.slice(0, index), ...news.slice(index + 1)]);
 
     const newSavedNews = {
       ...newsToSave,
       saved: !newsToSave.saved
     };
-    //setNews([...news.slice(0, index),newSavedNews, ...news.slice(index + 1)
 
-    setNews([...news.slice(0, index), ...news.slice(index + 1)]);
-    console.log(newSavedNews);
-    setSavedNews([
-      ...savedNews.slice(0, indexSafed),
-      newSavedNews,
-      ...savedNews.slice(indexSafed + 1)
-    ]);
+    setSavedNews([...savedNews, newSavedNews]);
+    //handleNewsBookmarkSafed(newsToSave, savedNews);
+  }
+
+  function handleNewsBookmarkSafed(newsToSave, newsBookmarkedArray) {
+    const indexSafed = findIndexOfNews(newsToSave, newsBookmarkedArray);
+    console.log(
+      "already Bookmarked Cards: ",
+      newsBookmarkedArray[indexSafed].saved
+    );
   }
   //---------------------------------------------------
   // filter news

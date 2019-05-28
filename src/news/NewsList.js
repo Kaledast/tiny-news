@@ -22,17 +22,15 @@ export default function NewsList({
       article={article}
     />
   ));
-
-  let rendereSafedNews = safeNews.map(article => (
-    <News
-      handleSave={onArticleSave}
-      deleteNews={removeFunction}
-      article={article}
-    />
-  ));
-
+  //Code Review3 ersetze handleSave durch remove Function
   if (filter === "saved") {
-    renderedNews = rendereSafedNews;
+    renderedNews = safeNews.map(article => (
+      <News
+        handleSave={removeFunction}
+        deleteNews={removeFunction}
+        article={article}
+      />
+    ));
   }
 
   return <StyledSection>{renderedNews}</StyledSection>;
