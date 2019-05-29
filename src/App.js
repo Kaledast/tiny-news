@@ -69,6 +69,7 @@ function App() {
     <Appdiv className="App">
       <BrowserRouter>
         <Header lastTopic={topic} />
+
         <Switch>
           <Route
             path="/news/:topic?"

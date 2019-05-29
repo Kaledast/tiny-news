@@ -28,6 +28,7 @@
     "react-favicon": "0.0.16",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
+    "react-search-field": "^1.0.0",
     "react-uid": "^2.2.0",
     "semantic-ui-react": "^0.87.1",
     "styled-components": "^4.2.0"

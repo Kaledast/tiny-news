@@ -3,6 +3,11 @@ import styled from "styled-components";
 import { NavLink, withRouter } from "react-router-dom";
 import headerIcon from "./news/images/IconHorse.svg";
 
+const SearchBar = styled.input`
+  margin-top: 10px;
+  width: 230px;
+`;
+
 const Headliner = styled.header`
   display: flex;
   justify-content: space-between;
@@ -46,14 +51,34 @@ const Logo = styled.img`
 function Header({ lastTopic, history }) {
   useEffect(() => {});
 
+  const handleSubmit = event => {
+    if (event) {
+      event.preventDefault();
+    }
+    console.log("form is hooked");
+  };
+
+  const handleInputChange = event => {
+    event.persist();
+    console.log(event.target.value);
+  };
+
   return (
     <Headliner>
       <Div>
         <Logo />
         <HeaderTitle>Horse News</HeaderTitle>
       </Div>
+      <form onSubmit={handleSubmit} searchText="Search topic">
+        <SearchBar
+          onChange={handleInputChange}
+          type="text"
+          placeholder="Search..."
+        />
+        <button type="submit">{"submit"}</button>
+      </form>
+
       <Nav>
-        <StyledNavLink to={`/news/${lastTopic}`}>NEWS</StyledNavLink>
         <StyledNavLink to="/saved">SAVED</StyledNavLink>
       </Nav>
     </Headliner>
@@ -61,3 +86,4 @@ function Header({ lastTopic, history }) {
 }
 
 export default withRouter(Header);
+//<StyledNavLink to={`/news/${lastTopic}`}>NEWS</StyledNavLink>
