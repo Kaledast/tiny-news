@@ -108,8 +108,8 @@ const IconField = styled.div`
   justify-content: space-between;
 `;
 
-export default function News({ deleteNews, article, handleSave }) {
-  const { title, content, url, saved } = article;
+export default function News({ deleteNews, article, onSave, saved }) {
+  const { title, content, url } = article;
   const cleanTitle = title && title.split("-")[0];
   const cleanContent = content && content.split("[")[0];
 
@@ -119,8 +119,8 @@ export default function News({ deleteNews, article, handleSave }) {
         <IconField>
           <CBwrapper>
             <SavedCB
-              onChange={() => handleSave(article)}
-              checked={saved}
+              onChange={() => onSave(article)}
+              checked={Boolean(saved)}
               id="input"
               type="checkbox"
             />

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import homeButton from "./news/images/HomeButton.svg";
+import optionButton from "./news/images/OptionsButton.svg";
 
 const Footliner = styled.footer`
   display: flex;
@@ -22,6 +23,16 @@ const HomeButton = styled.button`
   height: 50px;
   width: 50px;
   border-radius: 5px;
+  margin: 4px;
+  border: 1px solid white;
+`;
+
+const OptionsButton = styled.button`
+  background: url(${optionButton}) no-repeat center;
+  height: 50px;
+  width: 50px;
+  border-radius: 5px;
+  margin: 4px;
   border: 1px solid white;
 `;
 
@@ -34,6 +45,9 @@ export default function Footer() {
       <Nav>
         <NavLinks onClick={() => console.log("home now")} to="/home">
           <HomeButton />
+        </NavLinks>
+        <NavLinks onClick={() => console.log("options now")} to="/options">
+          <OptionsButton />
         </NavLinks>
       </Nav>
     </Footliner>

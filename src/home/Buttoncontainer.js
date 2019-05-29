@@ -12,15 +12,14 @@ const ButtonContainer = styled.nav`
   height: 50%;
 `;
 
-export default function Buttoncontainer({ rubriken, rubrikFunktion }) {
+export default function Buttoncontainer({ topics }) {
   //console.log("Buttons:", rubriken.map(item => item.val));
 
-  const renderButtons = rubriken.map(rubrik => (
-    <Buttons
-      key={rubrik.id}
-      rubrikItem={rubrik}
-      rubrikFunktion={rubrikFunktion}
-    />
-  ));
-  return <ButtonContainer>{renderButtons}</ButtonContainer>;
+  return (
+    <ButtonContainer>
+      {topics.map(topic => (
+        <Buttons key={topic.id} topic={topic} />
+      ))}
+    </ButtonContainer>
+  );
 }

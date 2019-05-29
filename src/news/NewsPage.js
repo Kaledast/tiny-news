@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import NewsList from "./NewsList";
 import styled from "styled-components";
 
@@ -9,20 +9,29 @@ const NewsPageContent = styled.div`
 `;
 
 export default function NewsPage({
-  filter,
+  showSaved,
   onNewsSave,
-  handleRemove,
-  safedNews,
-  news
+  onNewsRemove,
+  savedNews,
+  news,
+  match,
+  onLoadNews
 }) {
+  const {
+    params: { topic }
+  } = match;
+
+  useEffect(() => {
+    onLoadNews && onLoadNews(topic || "general");
+  }, [topic]);
+
   return (
     <NewsPageContent>
       <NewsList
-        filter={filter}
         onArticleSave={onNewsSave}
-        removeFunction={handleRemove}
-        safeNews={safedNews}
-        newsarray={news}
+        onArticleRemove={onNewsRemove}
+        savedNews={savedNews}
+        news={news}
       />
     </NewsPageContent>
   );

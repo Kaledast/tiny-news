@@ -30,11 +30,11 @@ const Nav = styled.nav`
   margin-bottom: 10px;
 `;
 
-const NavLinks = styled(NavLink)`
+const StyledNavLink = styled(NavLink)`
   margin: 0px 15px;
   color: #fdf19a;
 `;
-const Icondiv = styled.img`
+const Logo = styled.img`
   background: url(${headerIcon}) no-repeat center;
   height: 43px;
   width: 43px;
@@ -43,20 +43,16 @@ const Icondiv = styled.img`
   border: 1px solid white;
 `;
 
-export default function Header({ handleFilter }) {
+export default function Header() {
   return (
     <Headliner>
       <Div>
-        <Icondiv />
+        <Logo />
         <HeaderTitle>Horse News</HeaderTitle>
       </Div>
       <Nav>
-        <NavLinks onClick={() => handleFilter("all")} to="/news">
-          NEWS
-        </NavLinks>
-        <NavLinks onClick={() => handleFilter("saved")} to="/saved">
-          SAVED
-        </NavLinks>
+        <StyledNavLink to="/news">NEWS</StyledNavLink>
+        <StyledNavLink to="/saved">SAVED</StyledNavLink>
       </Nav>
     </Headliner>
   );

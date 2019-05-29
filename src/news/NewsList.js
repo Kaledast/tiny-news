@@ -9,31 +9,22 @@ const StyledSection = styled.section`
 `;
 
 export default function NewsList({
-  filter,
   onArticleSave,
-  removeFunction,
-  newsarray,
-  safeNews
+  onArticleRemove,
+  news,
+  savedNews
 }) {
-  let renderedNews = newsarray.map(article => (
-    <News
-      key={article.id}
-      handleSave={onArticleSave}
-      deleteNews={removeFunction}
-      article={article}
-    />
-  ));
-  //Code Review3 ersetze handleSave durch remove Function
-  if (filter === "saved") {
-    renderedNews = safeNews.map(article => (
-      <News
-        key={article.id}
-        handleSave={removeFunction}
-        deleteNews={removeFunction}
-        article={article}
-      />
-    ));
-  }
-
-  return <StyledSection>{renderedNews}</StyledSection>;
+  return (
+    <StyledSection>
+      {news.map(article => (
+        <News
+          key={article.id}
+          onSave={onArticleSave}
+          deleteNews={onArticleRemove}
+          article={article}
+          saved={Boolean(savedNews.find(item => item.id === article.id))}
+        />
+      ))}
+    </StyledSection>
+  );
 }
