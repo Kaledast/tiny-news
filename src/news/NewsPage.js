@@ -9,17 +9,13 @@ const NewsPageContent = styled.div`
 `;
 
 export default function NewsPage({
-  showSaved,
   onNewsSave,
-  onNewsRemove,
   savedNews,
   news,
   match,
   onLoadNews
 }) {
-  const {
-    params: { topic }
-  } = match;
+  const { topic } = match.params;
 
   useEffect(() => {
     onLoadNews && onLoadNews(topic || "general");
@@ -27,12 +23,7 @@ export default function NewsPage({
 
   return (
     <NewsPageContent>
-      <NewsList
-        onArticleSave={onNewsSave}
-        onArticleRemove={onNewsRemove}
-        savedNews={savedNews}
-        news={news}
-      />
+      <NewsList onArticleSave={onNewsSave} savedNews={savedNews} news={news} />
     </NewsPageContent>
   );
 }

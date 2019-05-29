@@ -8,19 +8,13 @@ const StyledSection = styled.section`
   height: 100%;
 `;
 
-export default function NewsList({
-  onArticleSave,
-  onArticleRemove,
-  news,
-  savedNews
-}) {
+export default function NewsList({ onArticleSave, news, savedNews }) {
   return (
     <StyledSection>
       {news.map(article => (
         <News
           key={article.id}
           onSave={onArticleSave}
-          deleteNews={onArticleRemove}
           article={article}
           saved={Boolean(savedNews.find(item => item.id === article.id))}
         />

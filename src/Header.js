@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import headerIcon from "./news/images/IconHorse.svg";
 
 const Headliner = styled.header`
@@ -43,7 +43,9 @@ const Logo = styled.img`
   border: 1px solid white;
 `;
 
-export default function Header() {
+function Header({ lastTopic, history }) {
+  useEffect(() => {});
+
   return (
     <Headliner>
       <Div>
@@ -51,9 +53,11 @@ export default function Header() {
         <HeaderTitle>Horse News</HeaderTitle>
       </Div>
       <Nav>
-        <StyledNavLink to="/news">NEWS</StyledNavLink>
+        <StyledNavLink to={`/news/${lastTopic}`}>NEWS</StyledNavLink>
         <StyledNavLink to="/saved">SAVED</StyledNavLink>
       </Nav>
     </Headliner>
   );
 }
+
+export default withRouter(Header);

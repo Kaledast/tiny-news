@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Buttoncontainer from "./Buttoncontainer.js";
+import Buttons from "./Buttons.js";
 
 const HomeBody = styled.div`
   display: flex;
@@ -11,7 +11,16 @@ const HomeBody = styled.div`
   padding: 30px;
 `;
 
-export default function HomePage() {
+const ButtonContainer = styled.nav`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  width: auto;
+  height: 50%;
+`;
+
+export default function HomePage({ onTopicSelect }) {
   const topics = [
     { id: "entertainment", img: require("../news/images/EntertainButton.svg") },
     { id: "general", img: require("../news/images/GeneralButton.svg") },
@@ -24,7 +33,11 @@ export default function HomePage() {
 
   return (
     <HomeBody>
-      <Buttoncontainer topics={topics} />
+      <ButtonContainer>
+        {topics.map(topic => (
+          <Buttons key={topic.id} topic={topic} onSelect={onTopicSelect} />
+        ))}
+      </ButtonContainer>
     </HomeBody>
   );
 }

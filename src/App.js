@@ -23,13 +23,9 @@ const Appdiv = styled.div`
 
 function App() {
   // STATE
+  const [topic, setTopic] = useState("");
   const [news, setNews] = useState(getFromLocal("news") || []);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
-  const [deleted, setDeleted] = useState(getFromLocal("deleted") || []);
-
-  useEffect(() => {
-    setToLocal("deleted", deleted);
-  }, [deleted]);
 
   function loadApiNews(topic) {
     getArticles(topic)
@@ -56,10 +52,6 @@ function App() {
     setToLocal("savedNews", savedNews);
   }, [savedNews]);
 
-  function handleDeleteNews(article) {
-    setDeleted([...deleted, article.id]);
-  }
-
   function handleNewsBookmark(article) {
     const found = savedNews.find(item => item.id === article.id);
     setSavedNews(
@@ -67,19 +59,22 @@ function App() {
     );
   }
 
-  const filteredNews = news.filter(item => !deleted.includes(item.id));
+  function handleTopicSelect(topic) {
+    setTopic(topic);
+  }
+
+  const filteredNews = news.filter(item => !savedNews.includes(item.id));
 
   return (
     <Appdiv className="App">
       <BrowserRouter>
-        <Header />
+        <Header lastTopic={topic} />
         <Switch>
           <Route
-            path="/news/:topic"
+            path="/news/:topic?"
             render={props => (
               <NewsPage
                 onNewsSave={handleNewsBookmark}
-                onNewsRemove={handleDeleteNews}
                 savedNews={savedNews}
                 news={filteredNews}
                 onLoadNews={loadApiNews}
@@ -92,7 +87,6 @@ function App() {
             render={props => (
               <NewsPage
                 onNewsSave={handleNewsBookmark}
-                onNewsRemove={handleDeleteNews}
                 savedNews={savedNews}
                 news={savedNews}
                 {...props}
@@ -100,7 +94,12 @@ function App() {
             )}
           />
           <Route path="/options" render={props => <OptionsPage {...props} />} />
-          <Route path="/" render={props => <HomePage {...props} />} />
+          <Route
+            path="/"
+            render={props => (
+              <HomePage {...props} onTopicSelect={handleTopicSelect} />
+            )}
+          />
         </Switch>
         <Footer />
       </BrowserRouter>
