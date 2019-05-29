@@ -7,7 +7,6 @@ const ButtonContainer = styled.nav`
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
-
   width: auto;
   height: 50%;
 `;

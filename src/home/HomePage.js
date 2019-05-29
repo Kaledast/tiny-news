@@ -1,12 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import Buttoncontainer from "./Buttoncontainer.js";
-import General from "../news/images/GeneralButt.svg";
-import Business from "../news/images/BusinessButt.svg";
-import Health from "../news/images/HealthButt.svg";
-import Science from "../news/images/ScienceButt.svg";
-import Sports from "../news/images/SportsButt.svg";
-import Technology from "../news/images/TechnologyButt.svg";
 
 const HomeBody = styled.div`
   display: flex;
@@ -19,16 +13,13 @@ const HomeBody = styled.div`
 
 export default function HomePage() {
   const topics = [
-    {
-      id: "entertainment",
-      img: require("../news/images/entertainButt.svg")
-    },
-    { id: "general", img: General },
-    { id: "business", img: Business },
-    { id: "health", img: Health },
-    { id: "science", img: Science },
-    { id: "sports", img: Sports },
-    { id: "technology", img: Technology }
+    { id: "entertainment", img: require("../news/images/EntertainButton.svg") },
+    { id: "general", img: require("../news/images/GeneralButton.svg") },
+    { id: "business", img: require("../news/images/BusinessButton.svg") },
+    { id: "health", img: require("../news/images/HealthButton.svg") },
+    { id: "science", img: require("../news/images/ScienceButton.svg") },
+    { id: "sports", img: require("../news/images/SportsButton.svg") },
+    { id: "technology", img: require("../news/images/TechnologyButton.svg") }
   ];
 
   return (

@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import homeButton from "./news/images/HomeButton.svg";
-import optionButton from "./news/images/OptionsButton.svg";
+import optionsButton from "./news/images/OptionsButton.svg";
 
-const Footliner = styled.footer`
+const StyledFooter = styled.footer`
   display: flex;
   justify-content: center;
+  align-items: stretch;
   position: absolute;
   bottom: 0;
   left: 0;
@@ -18,38 +19,42 @@ const Footliner = styled.footer`
   z-index: 10;
 `;
 
-const HomeButton = styled.button`
+const HomeButton = styled.div`
   background: url(${homeButton}) no-repeat center;
   height: 50px;
   width: 50px;
   border-radius: 5px;
-  margin: 4px;
   border: 1px solid white;
 `;
 
-const OptionsButton = styled.button`
-  background: url(${optionButton}) no-repeat center;
+const OptionsButton = styled.div`
+  background: url(${optionsButton}) no-repeat center;
   height: 50px;
   width: 50px;
   border-radius: 5px;
-  margin: 4px;
   border: 1px solid white;
 `;
 
-const Nav = styled.nav``;
-const NavLinks = styled(NavLink)``;
+const StyledNav = styled.nav`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  & > * {
+    margin: 0 10px 0 10px;
+  }
+`;
 
 export default function Footer() {
   return (
-    <Footliner>
-      <Nav>
-        <NavLinks onClick={() => console.log("home now")} to="/home">
+    <StyledFooter>
+      <StyledNav>
+        <Link to="/home">
           <HomeButton />
-        </NavLinks>
-        <NavLinks onClick={() => console.log("options now")} to="/options">
+        </Link>
+        <Link to="/options">
           <OptionsButton />
-        </NavLinks>
-      </Nav>
-    </Footliner>
+        </Link>
+      </StyledNav>
+    </StyledFooter>
   );
 }

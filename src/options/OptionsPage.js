@@ -10,10 +10,14 @@ const Container = styled.div`
   padding: 30px;
 `;
 
+const StyledContent = styled.h1`
+  color: white;
+`;
+
 export default function OptionsPage() {
   return (
     <Container>
-      <h1>Choose your Options here...</h1>
+      <StyledContent>Choose your Options here...</StyledContent>
     </Container>
   );
 }

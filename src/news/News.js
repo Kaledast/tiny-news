@@ -2,11 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import heart from "./images/heart.svg";
 import unheart from "./images/unheart.svg";
-import delHorse from "./images/deletehorse.svg";
 import linkToOriginal from "./images/linkOrig.svg";
 import PropTypes from "prop-types";
 
-const NewsWrapperOuter = styled.section`
+const DivWrapperOuter = styled.div`
   display: flex;
   align-self: center;
   max-width: 500px;
@@ -17,7 +16,7 @@ const NewsWrapperOuter = styled.section`
   border: 1px solid #2f1953;
 `;
 
-const NewsWrapper = styled.div`
+const DivWrapper = styled.div`
   display: flex;
   flex-direction: column;
   background: linear-gradient(0deg, #d8d8d8, #e1dad3, white);
@@ -40,16 +39,7 @@ const ContentSection = styled.section`
   margin: 4px;
 `;
 
-const DeleteButton = styled.button`
-  background-color: white;
-  background: url(${delHorse}) no-repeat center;
-  margin-bottom: 2px;
-  height: 32px;
-  width: 32px;
-  border-radius: 50%;
-`;
-
-const LinkButton = styled.button`
+const LinkButton = styled.div`
   background-color: white;
   background: url(${linkToOriginal}) no-repeat center;
   margin-bottom: 2px;
@@ -65,14 +55,14 @@ const AuthorField = styled.a`
   border: 1px solid turquoise;
 `;
 
-const CBwrapper = styled.div`
+const CheckBoxwrapper = styled.div`
   position: relative;
   height: 25px;
   width: 25px;
   margin-bottom: 4px;
 `;
 
-const CBLabel = styled.label`
+const CheckBoxLabel = styled.label`
   background: url(${unheart}) no-repeat center;
   height: 25px;
   width: 25px;
@@ -84,8 +74,8 @@ const CBLabel = styled.label`
   z-index: 1;
 `;
 
-const SavedCB = styled.input`
-  &:checked + ${CBLabel} {
+const SavedCheckBox = styled.input`
+  &:checked + ${CheckBoxLabel} {
     background: url(${heart}) no-repeat center;
     height: 25px;
     width: 25px;
@@ -102,36 +92,23 @@ const SavedCB = styled.input`
   z-index: 2;
 `;
 
-const IconField = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-export default function News({ deleteNews, article, onSave, saved }) {
+export default function News({ article, onSave, saved }) {
   const { title, content, url } = article;
   const cleanTitle = title && title.split("-")[0];
   const cleanContent = content && content.split("[")[0];
 
   return (
-    <NewsWrapperOuter>
-      <NewsWrapper>
-        <IconField>
-          <CBwrapper>
-            <SavedCB
-              onChange={() => onSave(article)}
-              checked={Boolean(saved)}
-              id="input"
-              type="checkbox"
-            />
-            <CBLabel htmlfor="input" />
-          </CBwrapper>
-          <DeleteButton
-            onClick={() => {
-              deleteNews(article);
-            }}
+    <DivWrapperOuter>
+      <DivWrapper>
+        <CheckBoxwrapper>
+          <SavedCheckBox
+            onChange={() => onSave(article)}
+            checked={Boolean(saved)}
+            id="input"
+            type="checkbox"
           />
-        </IconField>
+          <CheckBoxLabel htmlfor="input" />
+        </CheckBoxwrapper>
 
         <ArticleTopic>{cleanTitle}</ArticleTopic>
 
@@ -139,8 +116,8 @@ export default function News({ deleteNews, article, onSave, saved }) {
         <AuthorField href={url}>
           <LinkButton />
         </AuthorField>
-      </NewsWrapper>
-    </NewsWrapperOuter>
+      </DivWrapper>
+    </DivWrapperOuter>
   );
 }
 
@@ -148,6 +125,5 @@ News.propTypes = {
   title: PropTypes.string, //isRequired erfüllt irgendwie nicht seinen Zweck
   content: PropTypes.string,
   handleSave: PropTypes.func,
-  deleteNews: PropTypes.func,
   saved: PropTypes.bool
 };
