@@ -2,9 +2,11 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, withRouter } from "react-router-dom";
 import headerIcon from "./news/images/IconHorse.svg";
+import { Link } from "react-router-dom";
 
 const SearchBar = styled.input`
   margin-top: 10px;
+  height: 20px;
   width: 230px;
 `;
 
@@ -48,19 +50,17 @@ const Logo = styled.img`
   border: 1px solid white;
 `;
 
-function Header({ lastTopic, history }) {
+function Header({ onTopicSelect, history }) {
   useEffect(() => {});
 
   const handleSubmit = event => {
     if (event) {
       event.preventDefault();
     }
-    console.log("form is hooked");
-  };
-
-  const handleInputChange = event => {
-    event.persist();
-    console.log(event.target.value);
+    const [input] = event.target.children;
+    console.log("Your Search", input.value);
+    onTopicSelect(input.value);
+    history.push(`/news/${input.value}`);
   };
 
   return (
@@ -69,13 +69,10 @@ function Header({ lastTopic, history }) {
         <Logo />
         <HeaderTitle>Horse News</HeaderTitle>
       </Div>
+
       <form onSubmit={handleSubmit} searchText="Search topic">
-        <SearchBar
-          onChange={handleInputChange}
-          type="text"
-          placeholder="Search..."
-        />
-        <button type="submit">{"submit"}</button>
+        <SearchBar type="text" placeholder="Search..." />
+        <button type="submit">search</button>
       </form>
 
       <Nav>

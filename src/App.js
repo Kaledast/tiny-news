@@ -11,6 +11,7 @@ import OptionsPage from "./options/OptionsPage.js";
 
 const Appdiv = styled.div`
   display: flex;
+
   flex-direction: column;
   background: url(${img});
   background-size: cover;
@@ -68,7 +69,7 @@ function App() {
   return (
     <Appdiv className="App">
       <BrowserRouter>
-        <Header lastTopic={topic} />
+        <Header onTopicSelect={handleTopicSelect} lastTopic={topic} />
 
         <Switch>
           <Route

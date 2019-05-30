@@ -27,6 +27,7 @@ const DivWrapper = styled.div`
 const ArticleTopic = styled.div`
   text-align: center;
   line-height: 1.2;
+  font-family: "Times New Roman", Times, serif;
   font-size: 1.4em;
   font-weight: bold;
   margin-bottom: 5px;
@@ -36,6 +37,7 @@ const ArticleTopic = styled.div`
 `;
 
 const ContentSection = styled.section`
+  font-family: "Times New Roman", Times, serif;
   margin: 4px;
 `;
 
