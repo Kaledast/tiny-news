@@ -95,10 +95,9 @@ const SavedCheckBox = styled.input`
 `;
 
 export default function News({ article, onSave, saved }) {
-  const { title, content, url } = article;
+  const { title, content, description, url } = article;
   const cleanTitle = title && title.split("-")[0];
-  const cleanContent = content && content.split("[")[0];
-
+  const cleanContent = (content && content.split("[")[0]) || description;
   return (
     <DivWrapperOuter>
       <DivWrapper>

@@ -24,15 +24,16 @@ const Appdiv = styled.div`
 function App() {
   // STATE
   const [topic, setTopic] = useState("");
+  const [search, setSearch] = useState("");
   const [language, setLanguage] = useState(getFromLocal("language") || "en");
   const [country, setCountry] = useState(getFromLocal("country") || "all");
   const [news, setNews] = useState(getFromLocal("news") || []);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
 
   function loadApiNews() {
-    getArticles(topic, language, country)
+    getArticles(topic, search, language, country)
       .then(data => {
-        const parsedData = data.map(item => {
+        const parsedData = data.articles.map(item => {
           return {
             id: item.url + item.publishedAt,
             saved: false,
@@ -74,6 +75,10 @@ function App() {
     setTopic(topic);
   }
 
+  function handleSearchSelect(search) {
+    setSearch(search);
+  }
+
   function handleLanguageSelect(inputval) {
     setLanguage(inputval);
   }
@@ -87,7 +92,7 @@ function App() {
   return (
     <Appdiv className="App">
       <BrowserRouter>
-        <Header onTopicSelect={handleTopicSelect} lastTopic={topic} />
+        <Header onSearchSelect={handleSearchSelect} search={search} />
 
         <Switch>
           <Route

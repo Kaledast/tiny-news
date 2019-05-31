@@ -53,7 +53,7 @@ const StyledForm = styled.form`
   background: white;
 `;
 
-function Header({ onTopicSelect, history }) {
+function Header({ onSearchSelect, history }) {
   useEffect(() => {});
 
   const handleSubmit = event => {
@@ -62,7 +62,7 @@ function Header({ onTopicSelect, history }) {
     }
     const [input] = event.target.children;
     console.log("Your Search", input.value);
-    onTopicSelect(input.value);
+    onSearchSelect(input.value);
     history.push(`/news/${input.value}`);
   };
 
@@ -86,4 +86,3 @@ function Header({ onTopicSelect, history }) {
 }
 
 export default withRouter(Header);
-//<StyledNavLink to={`/news/${lastTopic}`}>NEWS</StyledNavLink>

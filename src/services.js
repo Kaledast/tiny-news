@@ -16,18 +16,23 @@ https://newsapi.org/v2/sources?apiKey=ac3a791efaef4b87b7ab8ed0d4b6efed
 */
 
 //https://newsapi.org/v2/everything?q=${topicTheme}&apiKey=${process.env.REACT_APP_API_KEY}
-export function getArticles(topic, country, language) {
-  console.log("get Articles gets props:", topic, country, language);
-
-  const apiURL = `https://newsapi.org/v2/everything?q=${topic}&language=${language}&country=${country}&apiKey=${
+export function getArticles(topic, search, country, language) {
+  console.log("api", search);
+  const apiURL = `https://newsapi.org/v2/top-headlines?q=${search}&country=${country}&category=${topic}&language=${language}&apiKey=${
     process.env.REACT_APP_API_KEY
   }`;
+
+  /*
+  https://newsapi.org/v2/everything?language=en&country=us&apiKey=ac3a791efaef4b87b7ab8ed0d4b6efed
+  https://newsapi.org/v2/everything?q=${topic}&language=${language}&country=${country}&apiKey=${
+    process.env.REACT_APP_API_KEY
+*/
 
   const req = new Request(apiURL);
 
   return fetch(req)
     .then(res => res.json())
-    .then(data => data.articles);
+    .then(data => data);
 }
 
 export function getFromLocal(name) {

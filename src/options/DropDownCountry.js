@@ -83,11 +83,7 @@ export default function DropDownCountry({ country, handleChangeDropdown }) {
           onChange={event => handleChangeDropdown(event.target.value)}
         >
           {countries.map(item => {
-            return (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            );
+            return <option key={item} value={item}>{item}</option>;
           })}
         </SelectOption>
       </label>
