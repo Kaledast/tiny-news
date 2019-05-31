@@ -3,7 +3,9 @@ import styled from "styled-components";
 import { NavLink, withRouter } from "react-router-dom";
 import headerIcon from "./news/images/IconHorse.svg";
 
-const SearchBar = styled.input``;
+const SearchBar = styled.input`
+  max-width: 130px;
+`;
 
 const StyledHeader = styled.header`
   display: flex;
@@ -39,7 +41,7 @@ const StyledNavLink = styled(NavLink)`
 const Logo = styled.img`
   background: url(${headerIcon}) no-repeat center;
   height: 43px;
-  width: 43px;
+  min-width: 43px;
   padding: 0;
   border-radius: 5px;
   border: 1px solid white;
@@ -47,9 +49,8 @@ const Logo = styled.img`
 
 const StyledForm = styled.form`
   display: flex;
-  margin: 10px;
+  justify-self: center;
   background: white;
-  width: auto;
 `;
 
 function Header({ onTopicSelect, history }) {

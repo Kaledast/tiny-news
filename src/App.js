@@ -25,6 +25,8 @@ const Appdiv = styled.div`
 function App() {
   // STATE
   const [topic, setTopic] = useState("");
+  const [language, setLanguage] = useState(getFromLocal("language") || "en");
+  const [country, setCountry] = useState(getFromLocal("country") || "all");
   const [news, setNews] = useState(getFromLocal("news") || []);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
 
@@ -50,6 +52,14 @@ function App() {
   }, [news]);
 
   useEffect(() => {
+    setToLocal("language", language);
+  }, [language]);
+
+  useEffect(() => {
+    setToLocal("country", country);
+  }, [country]);
+
+  useEffect(() => {
     setToLocal("savedNews", savedNews);
   }, [savedNews]);
 
@@ -62,6 +72,14 @@ function App() {
 
   function handleTopicSelect(topic) {
     setTopic(topic);
+  }
+
+  function handleLanguageSelect(inputval) {
+    setLanguage(inputval);
+  }
+
+  function handleCountrySelect(inputval) {
+    setCountry(inputval);
   }
 
   const filteredNews = news.filter(item => !savedNews.includes(item.id));
@@ -95,7 +113,18 @@ function App() {
               />
             )}
           />
-          <Route path="/options" render={props => <OptionsPage {...props} />} />
+          <Route
+            path="/options"
+            render={props => (
+              <OptionsPage
+                language={language}
+                country={country}
+                handleLanguageSelect={handleLanguageSelect}
+                handleCountrySelect={handleCountrySelect}
+                {...props}
+              />
+            )}
+          />
           <Route
             path="/"
             render={props => (
