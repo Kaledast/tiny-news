@@ -3,6 +3,9 @@ import styled from "styled-components";
 
 const SelectOption = styled.select`
   color: white;
+  background: black;
+  width: 50px;
+  border: 1px solid white;
 `;
 
 const StyledSubmit = styled.input`
@@ -39,7 +42,11 @@ export default function DropDownLanguage({ language, handleChangeDropdown }) {
           onChange={event => handleChangeDropdown(event.target.value)}
         >
           {languages.map(item => {
-            return <option value={item}>{item}</option>;
+            return (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            );
           })}
         </SelectOption>
       </label>

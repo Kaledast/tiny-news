@@ -1,4 +1,16 @@
 import React from "react";
+import styled from "styled-components";
+
+const SelectOption = styled.select`
+  color: white;
+  background: black;
+  width: 50px;
+  border: 1px solid white;
+`;
+
+const StyledSubmit = styled.input`
+  color: white;
+`;
 
 export default function DropDownCountry({ country, handleChangeDropdown }) {
   function handleSubmit(event) {
@@ -66,16 +78,20 @@ export default function DropDownCountry({ country, handleChangeDropdown }) {
     <form onSubmit={handleSubmit}>
       <label>
         Change Country:
-        <select
+        <SelectOption
           value={country}
           onChange={event => handleChangeDropdown(event.target.value)}
         >
           {countries.map(item => {
-            return <option value={item}>{item}</option>;
+            return (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            );
           })}
-        </select>
+        </SelectOption>
       </label>
-      <input type="submit" value="Submit" />
+      <StyledSubmit type="submit" value="Submit" />
     </form>
   );
 }

@@ -13,9 +13,11 @@ const Container = styled.div`
   padding: 30px;
 `;
 
-const StyledContent = styled.h1`
+const StyledTitle = styled.h1`
   color: white;
 `;
+
+const StyledContent = styled.div``;
 
 export default function OptionsPage({
   handleLanguageSelect,
@@ -25,15 +27,18 @@ export default function OptionsPage({
 }) {
   return (
     <Container>
-      <StyledContent>Choose your Options here...</StyledContent>
-      <DropDownLanguage
-        language={language}
-        handleChangeDropdown={handleLanguageSelect}
-      />
-      <DropDownCountry
-        country={country}
-        handleChangeDropdown={handleCountrySelect}
-      />
+      <StyledTitle>Options</StyledTitle>
+      <StyledContent>
+        <DropDownLanguage
+          language={language}
+          handleChangeDropdown={handleLanguageSelect}
+        />
+
+        <DropDownCountry
+          country={country}
+          handleChangeDropdown={handleCountrySelect}
+        />
+      </StyledContent>
     </Container>
   );
 }

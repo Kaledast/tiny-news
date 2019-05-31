@@ -11,7 +11,6 @@ import OptionsPage from "./options/OptionsPage.js";
 
 const Appdiv = styled.div`
   display: flex;
-
   flex-direction: column;
   background: url(${img});
   background-size: cover;
@@ -30,8 +29,8 @@ function App() {
   const [news, setNews] = useState(getFromLocal("news") || []);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
 
-  function loadApiNews(topic) {
-    getArticles(topic)
+  function loadApiNews() {
+    getArticles(topic, language, country)
       .then(data => {
         const parsedData = data.map(item => {
           return {
@@ -47,6 +46,7 @@ function App() {
         console.log(error);
       });
   }
+
   useEffect(() => {
     setToLocal("news", news);
   }, [news]);

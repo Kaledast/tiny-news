@@ -16,9 +16,10 @@ https://newsapi.org/v2/sources?apiKey=ac3a791efaef4b87b7ab8ed0d4b6efed
 */
 
 //https://newsapi.org/v2/everything?q=${topicTheme}&apiKey=${process.env.REACT_APP_API_KEY}
-export function getArticles(props) {
-  const topicTheme = props;
-  const apiURL = `https://newsapi.org/v2/everything?q=${topicTheme}&apiKey=${
+export function getArticles(topic, country, language) {
+  console.log("get Articles gets props:", topic, country, language);
+
+  const apiURL = `https://newsapi.org/v2/everything?q=${topic}&language=${language}&country=${country}&apiKey=${
     process.env.REACT_APP_API_KEY
   }`;
 
