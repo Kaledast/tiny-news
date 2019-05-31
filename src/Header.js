@@ -2,15 +2,10 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, withRouter } from "react-router-dom";
 import headerIcon from "./news/images/IconHorse.svg";
-import { Link } from "react-router-dom";
 
-const SearchBar = styled.input`
-  margin-top: 10px;
-  height: 20px;
-  width: 230px;
-`;
+const SearchBar = styled.input``;
 
-const Headliner = styled.header`
+const StyledHeader = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -50,6 +45,13 @@ const Logo = styled.img`
   border: 1px solid white;
 `;
 
+const StyledForm = styled.form`
+  display: flex;
+  margin: 10px;
+  background: white;
+  width: auto;
+`;
+
 function Header({ onTopicSelect, history }) {
   useEffect(() => {});
 
@@ -64,21 +66,21 @@ function Header({ onTopicSelect, history }) {
   };
 
   return (
-    <Headliner>
+    <StyledHeader>
       <Div>
         <Logo />
         <HeaderTitle>Horse News</HeaderTitle>
       </Div>
 
-      <form onSubmit={handleSubmit} searchText="Search topic">
+      <StyledForm onSubmit={handleSubmit} searchtext="Search topic">
         <SearchBar type="text" placeholder="Search..." />
-        <button type="submit">search</button>
-      </form>
+        <button type="submit">go!</button>
+      </StyledForm>
 
       <Nav>
         <StyledNavLink to="/saved">SAVED</StyledNavLink>
       </Nav>
-    </Headliner>
+    </StyledHeader>
   );
 }
 
