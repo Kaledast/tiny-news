@@ -33,6 +33,7 @@ function App() {
   function loadApiNews() {
     getArticles(topic, search, language, country)
       .then(data => {
+        console.log(data);
         const parsedData = data.articles.map(item => {
           return {
             id: item.url + item.publishedAt,

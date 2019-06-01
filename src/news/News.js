@@ -27,7 +27,7 @@ const DivWrapper = styled.div`
 const ArticleTopic = styled.div`
   text-align: center;
   line-height: 1.2;
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Playfair Display", "Times New Roman", serif;
   font-size: 1.4em;
   font-weight: bold;
   margin-bottom: 5px;
@@ -94,10 +94,18 @@ const SavedCheckBox = styled.input`
   z-index: 2;
 `;
 
+const StyledImage = styled.img`
+  max-width: 350px;
+  -webkit-filter: sepia(80%) contrast(1) opacity(0.8);
+  filter: sepia(80%) grayscale(1) contrast(1) opacity(0.8);
+  mix-blend-mode: multiply;
+`;
+
 export default function News({ article, onSave, saved }) {
-  const { title, content, description, url } = article;
+  const { title, content, description, url, urlToImage } = article;
   const cleanTitle = title && title.split("-")[0];
   const cleanContent = (content && content.split("[")[0]) || description;
+
   return (
     <DivWrapperOuter>
       <DivWrapper>
@@ -112,6 +120,8 @@ export default function News({ article, onSave, saved }) {
         </CheckBoxwrapper>
 
         <ArticleTopic>{cleanTitle}</ArticleTopic>
+
+        {urlToImage ? <StyledImage src={urlToImage} alt="" /> : ""}
 
         <ContentSection>{cleanContent}</ContentSection>
         <AuthorField href={url}>
