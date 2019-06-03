@@ -32,10 +32,6 @@ function App() {
   function loadApiNews() {
     getArticles(topic, search, country)
       .then(data => {
-        console.log(
-          "api data:",
-          data.articles.length > 0 ? "viele news" : "keine news"
-        );
         const parsedData = data.articles.map(item => {
           return {
             id: item.url + item.publishedAt,
@@ -44,7 +40,24 @@ function App() {
           };
         });
 
-        setNews(parsedData);
+        const failData = [
+          {
+            author: null,
+            content:
+              "Nothing new to report for this topic, please choose something else",
+            description: "",
+            id: "404",
+            publishedAt: "404",
+            saved: false,
+            source: { id: null, name: null },
+            title: "No news available",
+            url: null,
+            failed: true,
+            urlToImage: null
+          }
+        ];
+        console.log("news data:", parsedData);
+        setNews(parsedData.length ? parsedData : failData);
       })
       .catch(error => {
         console.log(error);

@@ -51,6 +51,7 @@ const StyledForm = styled.form`
   display: flex;
   justify-self: center;
   background: white;
+  margin-left: 10px;
 `;
 
 function Header({ onSearchSelect, history }) {

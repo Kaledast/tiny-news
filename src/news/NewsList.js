@@ -1,6 +1,7 @@
 import React from "react";
 import News from "./News";
 import styled from "styled-components";
+import { constants } from "zlib";
 
 const StyledSection = styled.section`
   align-self: center;
@@ -9,9 +10,17 @@ const StyledSection = styled.section`
 `;
 
 export default function NewsList({ onArticleSave, news, savedNews }) {
+  const cleanedNews = news.filter(article => {
+    return (
+      article.content !== null &&
+      article.urlToImage !== null &&
+      article.content.split("%").length < 3
+    );
+  });
+
   return (
     <StyledSection>
-      {news.map(article => (
+      {cleanedNews.map(article => (
         <News
           key={article.id}
           onSave={onArticleSave}

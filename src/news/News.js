@@ -105,32 +105,56 @@ const StyledImage = styled.img`
 export default function News({ article, onSave, saved }) {
   const { title, content, description, url, urlToImage } = article;
   const cleanTitle = title && title.split("-")[0];
-  const cleanContent = (content && content.split("[")[0]) || description;
+  let cleanContent = (content && content.split("[")[0]) || description;
+  const invalidStrings = [";;", "  ", ".,", ",.", "()", "%%", "//", "--"];
 
-  return (
-    <DivWrapperOuter>
-      <DivWrapper>
-        <CheckBoxwrapper>
-          <SavedCheckBox
-            onChange={() => onSave(article)}
-            checked={Boolean(saved)}
-            id="input"
-            type="checkbox"
-          />
-          <CheckBoxLabel htmlfor="input" />
-        </CheckBoxwrapper>
+  if (article.content !== null) {
+    cleanContent = invalidStrings.some(substring =>
+      cleanContent.includes(substring)
+    )
+      ? ""
+      : cleanContent;
+  }
+  //invalidStrings.some(substring => cleanContent.includes(substring))
 
-        <ArticleTopic>{cleanTitle}</ArticleTopic>
+  if ("failed" in article) {
+    return (
+      <DivWrapperOuter>
+        <DivWrapper>
+          <ArticleTopic>{cleanTitle}</ArticleTopic>
 
-        {urlToImage ? <StyledImage src={urlToImage} alt="" /> : ""}
+          {urlToImage ? <StyledImage src={urlToImage} alt="" /> : ""}
 
-        <ContentSection>{cleanContent}</ContentSection>
-        <AuthorField href={url}>
-          <LinkButton />
-        </AuthorField>
-      </DivWrapper>
-    </DivWrapperOuter>
-  );
+          <ContentSection>{cleanContent}</ContentSection>
+        </DivWrapper>
+      </DivWrapperOuter>
+    );
+  } else {
+    return (
+      <DivWrapperOuter>
+        <DivWrapper>
+          <CheckBoxwrapper>
+            <SavedCheckBox
+              onChange={() => onSave(article)}
+              checked={Boolean(saved)}
+              id="input"
+              type="checkbox"
+            />
+            <CheckBoxLabel htmlfor="input" />
+          </CheckBoxwrapper>
+
+          <ArticleTopic>{cleanTitle}</ArticleTopic>
+
+          {urlToImage ? <StyledImage src={urlToImage} alt="" /> : ""}
+
+          <ContentSection>{cleanContent}</ContentSection>
+          <AuthorField href={url}>
+            <LinkButton />
+          </AuthorField>
+        </DivWrapper>
+      </DivWrapperOuter>
+    );
+  }
 }
 
 News.propTypes = {
