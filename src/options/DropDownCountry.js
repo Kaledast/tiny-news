@@ -8,10 +8,6 @@ const SelectOption = styled.select`
   border: 1px solid white;
 `;
 
-const StyledSubmit = styled.input`
-  color: white;
-`;
-
 export default function DropDownCountry({ country, handleChangeDropdown }) {
   function handleSubmit(event) {
     alert("Your favorite country is: " + country);
@@ -83,11 +79,14 @@ export default function DropDownCountry({ country, handleChangeDropdown }) {
           onChange={event => handleChangeDropdown(event.target.value)}
         >
           {countries.map(item => {
-            return <option key={item} value={item}>{item}</option>;
+            return (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            );
           })}
         </SelectOption>
       </label>
-      <StyledSubmit type="submit" value="Submit" />
     </form>
   );
 }

@@ -25,15 +25,17 @@ function App() {
   // STATE
   const [topic, setTopic] = useState("");
   const [search, setSearch] = useState("");
-  const [language, setLanguage] = useState(getFromLocal("language") || "en");
   const [country, setCountry] = useState(getFromLocal("country") || "all");
   const [news, setNews] = useState(getFromLocal("news") || []);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
 
   function loadApiNews() {
-    getArticles(topic, search, language, country)
+    getArticles(topic, search, country)
       .then(data => {
-        console.log(data);
+        console.log(
+          "api data:",
+          data.articles.length > 0 ? "viele news" : "keine news"
+        );
         const parsedData = data.articles.map(item => {
           return {
             id: item.url + item.publishedAt,
@@ -54,8 +56,8 @@ function App() {
   }, [news]);
 
   useEffect(() => {
-    setToLocal("language", language);
-  }, [language]);
+    loadApiNews();
+  }, [country]);
 
   useEffect(() => {
     setToLocal("country", country);
@@ -78,10 +80,6 @@ function App() {
 
   function handleSearchSelect(search) {
     setSearch(search);
-  }
-
-  function handleLanguageSelect(inputval) {
-    setLanguage(inputval);
   }
 
   function handleCountrySelect(inputval) {
@@ -123,9 +121,7 @@ function App() {
             path="/options"
             render={props => (
               <OptionsPage
-                language={language}
                 country={country}
-                handleLanguageSelect={handleLanguageSelect}
                 handleCountrySelect={handleCountrySelect}
                 {...props}
               />

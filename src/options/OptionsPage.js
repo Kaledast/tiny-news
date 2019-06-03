@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import DropDownLanguage from "./DropDownLanguage.js";
 import DropDownCountry from "./DropDownCountry.js";
 
 const Container = styled.div`
@@ -19,21 +18,11 @@ const StyledTitle = styled.h1`
 
 const StyledContent = styled.div``;
 
-export default function OptionsPage({
-  handleLanguageSelect,
-  handleCountrySelect,
-  language,
-  country
-}) {
+export default function OptionsPage({ handleCountrySelect, country }) {
   return (
     <Container>
       <StyledTitle>Options</StyledTitle>
       <StyledContent>
-        <DropDownLanguage
-          language={language}
-          handleChangeDropdown={handleLanguageSelect}
-        />
-
         <DropDownCountry
           country={country}
           handleChangeDropdown={handleCountrySelect}
