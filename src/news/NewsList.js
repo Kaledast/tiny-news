@@ -1,7 +1,6 @@
 import React from "react";
 import News from "./News";
 import styled from "styled-components";
-import { constants } from "zlib";
 
 const StyledSection = styled.section`
   align-self: center;

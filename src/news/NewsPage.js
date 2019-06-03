@@ -9,6 +9,7 @@ const NewsPageContent = styled.div`
 `;
 
 export default function NewsPage({
+  loadingState,
   onNewsSave,
   savedNews,
   news,
@@ -21,9 +22,22 @@ export default function NewsPage({
     onLoadNews && onLoadNews(topic || "general");
   }, [topic]);
 
-  return (
-    <NewsPageContent>
-      <NewsList onArticleSave={onNewsSave} savedNews={savedNews} news={news} />
-    </NewsPageContent>
-  );
+  function loading() {
+    const returnComponent =
+      loadingState === "true" ? (
+        <h1>loading...</h1>
+      ) : (
+        <NewsPageContent>
+          <NewsList
+            onArticleSave={onNewsSave}
+            savedNews={savedNews}
+            news={news}
+          />
+        </NewsPageContent>
+      );
+    console.log(loadingState, returnComponent);
+    return returnComponent;
+  }
+
+  return loading();
 }

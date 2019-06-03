@@ -23,6 +23,7 @@ const Appdiv = styled.div`
 
 function App() {
   // STATE
+  const [isLoading, setIsLoading] = useState("true");
   const [topic, setTopic] = useState("");
   const [search, setSearch] = useState("");
   const [country, setCountry] = useState(getFromLocal("country") || "all");
@@ -30,6 +31,7 @@ function App() {
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
 
   function loadApiNews() {
+    setIsLoading("true");
     getArticles(topic, search, country)
       .then(data => {
         const parsedData = data.articles.map(item => {
@@ -56,7 +58,7 @@ function App() {
             urlToImage: null
           }
         ];
-        console.log("news data:", parsedData);
+
         setNews(parsedData.length ? parsedData : failData);
       })
       .catch(error => {
@@ -66,6 +68,7 @@ function App() {
 
   useEffect(() => {
     setToLocal("news", news);
+    setIsLoading("false");
   }, [news]);
 
   useEffect(() => {
@@ -111,6 +114,7 @@ function App() {
             path="/news/:topic?"
             render={props => (
               <NewsPage
+                loadingState={isLoading}
                 onNewsSave={handleNewsBookmark}
                 savedNews={savedNews}
                 news={filteredNews}

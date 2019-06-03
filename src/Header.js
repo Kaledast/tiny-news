@@ -62,7 +62,6 @@ function Header({ onSearchSelect, history }) {
       event.preventDefault();
     }
     const [input] = event.target.children;
-    console.log("Your Search", input.value);
     onSearchSelect(input.value);
     history.push(`/news/${input.value}`);
   };
