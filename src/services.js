@@ -1,23 +1,8 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-/*
-          'q=Apple&' +
-          'from=2019-05-29&' +
-          'sortBy=popularity&' +
-*/
-//const HeadlineOption = "everything"; //"top-headlines" && "everything";
-
-/*
-
-https://newsapi.org/v2/sources?apiKey=ac3a791efaef4b87b7ab8ed0d4b6efed
-
-`https://newsapi.org/v2/${HeadlineOption}?q=${topicTheme}&country=${country}&apiKey=ac3a791efaef4b87b7ab8ed0d4b6efed`;
-*/
-
-//https://newsapi.org/v2/everything?q=${topicTheme}&apiKey=${process.env.REACT_APP_API_KEY}
 export function getArticles(topic, search, country) {
-  const apiURL = `https://newsapi.org/v2/top-headlines?q=${search}&country=${country}&category=${topic}&apiKey=${
+  const apiURL = `https://newsapi.org/v2/top-headlines?q=${search}&pageSize=100&country=${country}&category=${topic}&apiKey=${
     process.env.REACT_APP_API_KEY
   }`;
 
