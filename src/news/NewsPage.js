@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import NewsList from "./NewsList";
 import styled from "styled-components";
+import Loading from "./Loading.js";
 
 const NewsPageContent = styled.div`
   display: flex;
@@ -23,18 +24,17 @@ export default function NewsPage({
   }, [topic]);
 
   function loading() {
-    const returnComponent =
-      loadingState === "true" ? (
-        <h1>loading...</h1>
-      ) : (
-        <NewsPageContent>
-          <NewsList
-            onArticleSave={onNewsSave}
-            savedNews={savedNews}
-            news={news}
-          />
-        </NewsPageContent>
-      );
+    const returnComponent = loadingState ? (
+      <Loading />
+    ) : (
+      <NewsPageContent>
+        <NewsList
+          onArticleSave={onNewsSave}
+          savedNews={savedNews}
+          news={news}
+        />
+      </NewsPageContent>
+    );
     console.log(loadingState, returnComponent);
     return returnComponent;
   }

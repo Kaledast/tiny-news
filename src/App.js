@@ -23,7 +23,7 @@ const Appdiv = styled.div`
 
 function App() {
   // STATE
-  const [isLoading, setIsLoading] = useState("true");
+  const [isLoading, setIsLoading] = useState(true);
   const [topic, setTopic] = useState("");
   const [search, setSearch] = useState("");
   const [country, setCountry] = useState(getFromLocal("country") || "all");
@@ -31,7 +31,7 @@ function App() {
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
 
   function loadApiNews() {
-    setIsLoading("true");
+    setIsLoading(true);
     getArticles(topic, search, country)
       .then(data => {
         const parsedData = data.articles.map(item => {
@@ -68,7 +68,7 @@ function App() {
 
   useEffect(() => {
     setToLocal("news", news);
-    setIsLoading("false");
+    setIsLoading(false);
   }, [news]);
 
   useEffect(() => {
