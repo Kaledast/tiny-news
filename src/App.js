@@ -35,7 +35,8 @@ function App() {
 
   function loadApiNews() {
     setIsLoading(true);
-    getArticles(topic, search, country)
+
+    getArticles(topic, search, country, apiKey)
       .then(data => {
         handleNewsNotFound(data);
         const parsedData = newsFound
@@ -62,7 +63,7 @@ function App() {
                 urlToImage: null
               }
             ];
-        console.log("parsed", parsedData);
+
         console.log("newsFound in load Api News", newsFound);
         setNews(parsedData);
       })
@@ -112,7 +113,9 @@ function App() {
   }
 
   function handleNewsNotFound(data) {
-    setNewsFound(data.articles.length > 0);
+    setNewsFound(Number(data.articles.length) > 0);
+    console.log(Number(data.articles.length) > 0);
+    console.log(newsFound);
   }
 
   function handleApiKey(key) {
@@ -124,7 +127,7 @@ function App() {
   if (!apiKey) {
     return (
       <Appdiv className="App">
-        <LoginPage onSubmit={handleApiKey} />
+        <LoginPage handleApiKey={handleApiKey} />
       </Appdiv>
     );
   }

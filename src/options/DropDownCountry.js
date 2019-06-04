@@ -9,13 +9,7 @@ const SelectOption = styled.select`
 `;
 
 export default function DropDownCountry({ country, handleChangeDropdown }) {
-  function handleSubmit(event) {
-    alert("Your favorite country is: " + country);
-    event.preventDefault();
-  }
-
   const countries = [
-    "all",
     "ae",
     "ar",
     "at",
@@ -71,7 +65,7 @@ export default function DropDownCountry({ country, handleChangeDropdown }) {
   ];
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form>
       <label>
         Change Country:
         <SelectOption
