@@ -8,12 +8,7 @@ const StyledSection = styled.section`
   height: 100%;
 `;
 
-export default function NewsList({
-  foundState,
-  onArticleSave,
-  news,
-  savedNews
-}) {
+export default function NewsList({ onArticleSave, news, savedNews }) {
   let cleanedNews = news.filter(article => {
     return (
       article.content !== null &&
@@ -21,17 +16,16 @@ export default function NewsList({
       article.content.split("%").length < 3
     );
   });
-
-  if (!foundState) {
-    cleanedNews = news;
+  console.log(cleanedNews.length);
+  if (cleanedNews.length < 1) {
+    cleanedNews = ["404"];
   }
 
   return (
     <StyledSection>
       {cleanedNews.map(article => (
         <News
-          foundState={foundState}
-          key={article.id}
+          key={article.id || Math.random()}
           onSave={onArticleSave}
           article={article}
           saved={Boolean(savedNews.find(item => item.id === article.id))}

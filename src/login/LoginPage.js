@@ -11,6 +11,10 @@ const StyledForm = styled.form`
   align-items: center;
 `;
 
+const StyledLink = styled.a`
+  margin: 10px;
+`;
+
 export default function LoginPage({ onSubmit }) {
   //const redirectURL = "https://newsapi.org/account";
 
@@ -21,7 +25,9 @@ export default function LoginPage({ onSubmit }) {
 
   return (
     <StyledForm onSubmit={handleSubmit}>
-      <a href="https://newsapi.org/account">Get Key here...</a>
+      <StyledLink href="https://newsapi.org/account">
+        Get Key here...
+      </StyledLink>
 
       <label htmlFor="enterKey">
         Key:

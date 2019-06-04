@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import { NavLink, withRouter } from "react-router-dom";
 import headerIcon from "./news/images/IconHorse.svg";
@@ -61,7 +61,6 @@ function Header({ onSearchSelect, history }) {
     }
 
     const [input] = event.target.children;
-    console.log("search", input.value);
     onSearchSelect(input.value);
     history.push(`/news/${input.value}`);
   };

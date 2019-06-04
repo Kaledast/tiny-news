@@ -26,45 +26,24 @@ function App() {
   // STATE
   const [isLoading, setIsLoading] = useState(true);
   const [topic, setTopic] = useState("");
-  const [newsFound, setNewsFound] = useState(true);
   const [apiKey, setApiKey] = useState(getFromLocal("apiKey"));
   const [search, setSearch] = useState("");
   const [country, setCountry] = useState(getFromLocal("country") || "all");
-  const [news, setNews] = useState(getFromLocal("news") || []);
+  const [news, setNews] = useState([]);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
 
   function loadApiNews() {
     setIsLoading(true);
-
     getArticles(topic, search, country, apiKey)
       .then(data => {
-        handleNewsNotFound(data);
-        const parsedData = newsFound
-          ? data.articles.map(item => {
-              return {
-                id: item.url + item.publishedAt,
-                saved: false,
-                ...item
-              };
-            })
-          : [
-              {
-                author: null,
-                content:
-                  "Nothing new to report for this topic, please choose something else",
-                description: "",
-                id: "404",
-                publishedAt: "404",
-                saved: false,
-                source: { id: null, name: null },
-                title: "No news available",
-                url: null,
-                failed: true,
-                urlToImage: null
-              }
-            ];
-
-        console.log("newsFound in load Api News", newsFound);
+        const parsedData = data.articles.map(item => {
+          return {
+            id: item.url + item.publishedAt,
+            saved: false,
+            ...item
+          };
+        });
+        console.log(parsedData);
         setNews(parsedData);
       })
       .catch(error => {
@@ -78,16 +57,13 @@ function App() {
   }, [news]);
 
   useEffect(() => {
+    setToLocal("country", country);
     loadApiNews();
-  }, [country, search]);
+  }, [country]);
 
   useEffect(() => {
     setToLocal("apiKey", apiKey);
   }, [apiKey]);
-
-  useEffect(() => {
-    setToLocal("country", country);
-  }, [country]);
 
   useEffect(() => {
     setToLocal("savedNews", savedNews);
@@ -112,17 +88,12 @@ function App() {
     setCountry(inputval);
   }
 
-  function handleNewsNotFound(data) {
-    setNewsFound(Number(data.articles.length) > 0);
-    console.log(Number(data.articles.length) > 0);
-    console.log(newsFound);
-  }
-
   function handleApiKey(key) {
     setApiKey(key);
   }
 
-  const filteredNews = news.filter(item => !savedNews.includes(item.id));
+  const filteredNews =
+    news.length > 0 ? news.filter(item => !savedNews.includes(item.id)) : news;
 
   if (!apiKey) {
     return (
@@ -142,7 +113,6 @@ function App() {
             path="/news/:topic?"
             render={props => (
               <NewsPage
-                foundState={newsFound}
                 loadingState={isLoading}
                 onNewsSave={handleNewsBookmark}
                 savedNews={savedNews}

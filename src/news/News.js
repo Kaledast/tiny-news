@@ -102,31 +102,22 @@ const StyledImage = styled.img`
   align-self: center;
 `;
 
-export default function News({ foundState, article, onSave, saved }) {
-  const { title, content, description, url, urlToImage } = article;
-  const cleanTitle = title && title.split("-")[0];
-  let cleanContent = (content && content.split("[")[0]) || description;
-  const invalidStrings = [";;", "  ", ".,", ",.", "()", "%%", "//", "--"];
+export default function News({ article, onSave, saved }) {
+  console.log("is called");
+  if (article !== "404") {
+    const { title, content, description, url, urlToImage } = article;
+    const cleanTitle = title && title.split("-")[0];
+    let cleanContent = (content && content.split("[")[0]) || description;
+    const invalidStrings = [";;", "  ", ".,", ",.", "()", "%%", "//", "--"];
 
-  if (article.content !== null) {
-    cleanContent = invalidStrings.some(substring =>
-      cleanContent.includes(substring)
-    )
-      ? ""
-      : cleanContent;
-  }
+    if (article.content !== null) {
+      cleanContent = invalidStrings.some(substring =>
+        cleanContent.includes(substring)
+      )
+        ? ""
+        : cleanContent;
+    }
 
-  if (!foundState) {
-    return (
-      <DivWrapperOuter>
-        <DivWrapper>
-          <ArticleTopic>{cleanTitle}</ArticleTopic>
-          {urlToImage ? <StyledImage src={urlToImage} alt="" /> : ""}
-          <ContentSection>{cleanContent}</ContentSection>
-        </DivWrapper>
-      </DivWrapperOuter>
-    );
-  } else {
     return (
       <DivWrapperOuter>
         <DivWrapper>
@@ -148,6 +139,19 @@ export default function News({ foundState, article, onSave, saved }) {
           <AuthorField href={url}>
             <LinkButton />
           </AuthorField>
+        </DivWrapper>
+      </DivWrapperOuter>
+    );
+  } else {
+    return (
+      <DivWrapperOuter>
+        <DivWrapper>
+          <ArticleTopic>{"No news available"}</ArticleTopic>
+          <ContentSection>
+            {
+              "Nothing new to report for your request, please choose something else"
+            }
+          </ContentSection>
         </DivWrapper>
       </DivWrapperOuter>
     );
