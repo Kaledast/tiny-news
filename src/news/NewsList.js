@@ -8,8 +8,13 @@ const StyledSection = styled.section`
   height: 100%;
 `;
 
-export default function NewsList({ onArticleSave, news, savedNews }) {
-  const cleanedNews = news.filter(article => {
+export default function NewsList({
+  foundState,
+  onArticleSave,
+  news,
+  savedNews
+}) {
+  let cleanedNews = news.filter(article => {
     return (
       article.content !== null &&
       article.urlToImage !== null &&
@@ -17,10 +22,15 @@ export default function NewsList({ onArticleSave, news, savedNews }) {
     );
   });
 
+  if (!foundState) {
+    cleanedNews = news;
+  }
+
   return (
     <StyledSection>
       {cleanedNews.map(article => (
         <News
+          foundState={foundState}
           key={article.id}
           onSave={onArticleSave}
           article={article}

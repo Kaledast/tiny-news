@@ -15,13 +15,15 @@ export default function NewsPage({
   savedNews,
   news,
   match,
-  onLoadNews
+  onLoadNews,
+  foundState
 }) {
-  const { topic } = match.params;
+  const { topic, search } = match.params;
 
   useEffect(() => {
-    onLoadNews && onLoadNews(topic || "general");
-  }, [topic]);
+    onLoadNews && onLoadNews(topic || search || "general");
+  }, [topic, search]);
+  console.log("news in Newspage", news);
 
   function loading() {
     const returnComponent = loadingState ? (
@@ -30,12 +32,12 @@ export default function NewsPage({
       <NewsPageContent>
         <NewsList
           onArticleSave={onNewsSave}
+          foundState={foundState}
           savedNews={savedNews}
           news={news}
         />
       </NewsPageContent>
     );
-    console.log(loadingState, returnComponent);
     return returnComponent;
   }
 

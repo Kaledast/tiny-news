@@ -55,13 +55,13 @@ const StyledForm = styled.form`
 `;
 
 function Header({ onSearchSelect, history }) {
-  useEffect(() => {});
-
   const handleSubmit = event => {
     if (event) {
       event.preventDefault();
     }
+
     const [input] = event.target.children;
+    console.log("search", input.value);
     onSearchSelect(input.value);
     history.push(`/news/${input.value}`);
   };

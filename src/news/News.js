@@ -102,7 +102,8 @@ const StyledImage = styled.img`
   align-self: center;
 `;
 
-export default function News({ article, onSave, saved }) {
+export default function News({ foundState, article, onSave, saved }) {
+  console.log("news article", article);
   const { title, content, description, url, urlToImage } = article;
   const cleanTitle = title && title.split("-")[0];
   let cleanContent = (content && content.split("[")[0]) || description;
@@ -117,14 +118,12 @@ export default function News({ article, onSave, saved }) {
   }
   //invalidStrings.some(substring => cleanContent.includes(substring))
 
-  if ("failed" in article) {
+  if (!foundState) {
     return (
       <DivWrapperOuter>
         <DivWrapper>
           <ArticleTopic>{cleanTitle}</ArticleTopic>
-
           {urlToImage ? <StyledImage src={urlToImage} alt="" /> : ""}
-
           <ContentSection>{cleanContent}</ContentSection>
         </DivWrapper>
       </DivWrapperOuter>
