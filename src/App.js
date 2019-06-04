@@ -4,6 +4,7 @@ import Header from "./Header.js";
 import Footer from "./Footer.js";
 import NewsPage from "./news/NewsPage.js";
 import HomePage from "./home/HomePage.js";
+import LoginPage from "./login/LoginPage.js";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import img from "./news/images/img3.jpg";
@@ -26,6 +27,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [topic, setTopic] = useState("");
   const [newsFound, setNewsFound] = useState(true);
+  const [apiKey, setApiKey] = useState(getFromLocal("apiKey"));
   const [search, setSearch] = useState("");
   const [country, setCountry] = useState(getFromLocal("country") || "all");
   const [news, setNews] = useState(getFromLocal("news") || []);
@@ -79,6 +81,10 @@ function App() {
   }, [country, search]);
 
   useEffect(() => {
+    setToLocal("apiKey", apiKey);
+  }, [apiKey]);
+
+  useEffect(() => {
     setToLocal("country", country);
   }, [country]);
 
@@ -107,10 +113,21 @@ function App() {
 
   function handleNewsNotFound(data) {
     setNewsFound(data.articles.length > 0);
-    console.log("newsFound in handle", newsFound);
+  }
+
+  function handleApiKey(key) {
+    setApiKey(key);
   }
 
   const filteredNews = news.filter(item => !savedNews.includes(item.id));
+
+  if (!apiKey) {
+    return (
+      <Appdiv className="App">
+        <LoginPage onSubmit={handleApiKey} />
+      </Appdiv>
+    );
+  }
 
   return (
     <Appdiv className="App">

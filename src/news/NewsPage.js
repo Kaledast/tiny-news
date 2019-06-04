@@ -23,7 +23,6 @@ export default function NewsPage({
   useEffect(() => {
     onLoadNews && onLoadNews(topic || search || "general");
   }, [topic, search]);
-  console.log("news in Newspage", news);
 
   function loading() {
     const returnComponent = loadingState ? (
