@@ -53,6 +53,7 @@ export default function LoginPage({ handleApiKey, history }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    console.log(event.target.apikey.value);
     handleApiKey(event.target.apikey.value);
     //history.push("/home");
   }
@@ -85,12 +86,3 @@ export default function LoginPage({ handleApiKey, history }) {
     </StyledContainer>
   );
 }
-//{ onSubmit }
-//onSubmit={handleSubmit}
-//const redirectURL = "https://newsapi.org/account";
-/*
-  function handleSubmit(event) {
-    event.preventDefault();
-    onSubmit(event.target.apikey.value);
-  }
-*/

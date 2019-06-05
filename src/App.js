@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { setToLocal, getFromLocal, getArticles } from "./services.js";
+import {
+  setToLocal,
+  getFromLocal,
+  getArticles,
+  validateKey
+} from "./services.js";
 import Header from "./Header.js";
 import Footer from "./Footer.js";
 import NewsPage from "./news/NewsPage.js";
@@ -45,6 +50,7 @@ function App() {
           };
         });
         setNews(parsedData);
+        setIsLoading(false);
       })
       .catch(error => {
         console.log(error);
@@ -53,13 +59,15 @@ function App() {
 
   useEffect(() => {
     setToLocal("news", news);
-    setIsLoading(false);
   }, [news]);
 
   useEffect(() => {
     setToLocal("country", country);
+
     loadApiNews();
   }, [country]);
+
+  console.log(authenticated);
 
   useEffect(() => {
     setToLocal("apiKey", apiKey);
@@ -70,9 +78,12 @@ function App() {
   }, [savedNews]);
 
   function handleResponseStatus(responseStatus) {
-    setIsAuthenticated(responseStatus === 401 ? false : true);
-
-    console.log(responseStatus);
+    if (responseStatus === 401) {
+      setIsAuthenticated(false);
+      setApiKey("");
+    } else {
+      setIsAuthenticated(true);
+    }
   }
 
   function handleNewsBookmark(article) {
@@ -97,24 +108,19 @@ function App() {
   }
 
   function handleApiKey(key) {
+    validateKey(key, handleResponseStatus);
     setApiKey(key);
-    loadApiNews();
-    console.log(apiKey);
   }
 
   const filteredNews =
     news.length > 0 ? news.filter(item => !savedNews.includes(item.id)) : news;
 
-  function handleIsAuth() {
-    return authenticated;
-  }
-
-  const ProtectedRoute = ({ component: LoginPage, ...rest }) => (
+  const ProtectedRoute = ({ component: protectedPage, ...rest }) => (
     <Route
       {...rest}
       render={props =>
-        apiKey ? (
-          <LoginPage handleApiKey={handleApiKey} {...props} />
+        authenticated ? (
+          <protectedPage handleApiKey={handleApiKey} {...props} />
         ) : (
           <Redirect to="/login" />
         )
@@ -131,11 +137,7 @@ function App() {
           <Route
             path="/login"
             render={props => (
-              <LoginPage
-                handleIsAuth={handleIsAuth}
-                handleApiKey={handleApiKey}
-                {...props}
-              />
+              <LoginPage handleApiKey={handleApiKey} {...props} />
             )}
           />
           <Route
