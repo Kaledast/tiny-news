@@ -5,7 +5,7 @@ import Footer from "./Footer.js";
 import NewsPage from "./news/NewsPage.js";
 import HomePage from "./home/HomePage.js";
 import LoginPage from "./login/LoginPage.js";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import img from "./news/images/img3.jpg";
 import OptionsPage from "./options/OptionsPage.js";
@@ -25,6 +25,7 @@ const Appdiv = styled.div`
 function App() {
   // STATE
   const [isLoading, setIsLoading] = useState(true);
+  const [authenticated, setIsAuthenticated] = useState(false);
   const [topic, setTopic] = useState("");
   const [apiKey, setApiKey] = useState(getFromLocal("apiKey"));
   const [search, setSearch] = useState("");
@@ -34,7 +35,7 @@ function App() {
 
   function loadApiNews() {
     setIsLoading(true);
-    getArticles(topic, search, country, apiKey)
+    getArticles(topic, search, country, apiKey, handleResponseStatus)
       .then(data => {
         const parsedData = data.articles.map(item => {
           return {
@@ -68,6 +69,12 @@ function App() {
     setToLocal("savedNews", savedNews);
   }, [savedNews]);
 
+  function handleResponseStatus(responseStatus) {
+    setIsAuthenticated(responseStatus === 401 ? false : true);
+
+    console.log(responseStatus);
+  }
+
   function handleNewsBookmark(article) {
     const found = savedNews.find(item => item.id === article.id);
     setSavedNews(
@@ -91,18 +98,29 @@ function App() {
 
   function handleApiKey(key) {
     setApiKey(key);
+    loadApiNews();
+    console.log(apiKey);
   }
 
   const filteredNews =
     news.length > 0 ? news.filter(item => !savedNews.includes(item.id)) : news;
 
-  if (!apiKey) {
-    return (
-      <Appdiv className="App">
-        <LoginPage handleApiKey={handleApiKey} />
-      </Appdiv>
-    );
+  function handleIsAuth() {
+    return authenticated;
   }
+
+  const ProtectedRoute = ({ component: LoginPage, ...rest }) => (
+    <Route
+      {...rest}
+      render={props =>
+        apiKey ? (
+          <LoginPage handleApiKey={handleApiKey} {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
+    />
+  );
 
   return (
     <Appdiv className="App">
@@ -110,6 +128,16 @@ function App() {
         <Header onSearchSelect={handleSearchSelect} search={search} />
 
         <Switch>
+          <Route
+            path="/login"
+            render={props => (
+              <LoginPage
+                handleIsAuth={handleIsAuth}
+                handleApiKey={handleApiKey}
+                {...props}
+              />
+            )}
+          />
           <Route
             path="/news/:topic?"
             render={props => (
