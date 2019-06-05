@@ -16,7 +16,7 @@ export default function NewsList({ onArticleSave, news, savedNews }) {
       article.content.split("%").length < 3
     );
   });
-  console.log(cleanedNews.length);
+
   if (cleanedNews.length < 1) {
     cleanedNews = ["404"];
   }
@@ -25,7 +25,7 @@ export default function NewsList({ onArticleSave, news, savedNews }) {
     <StyledSection>
       {cleanedNews.map(article => (
         <News
-          key={article.id || Math.random()}
+          key={article.id || "404 not found"}
           onSave={onArticleSave}
           article={article}
           saved={Boolean(savedNews.find(item => item.id === article.id))}

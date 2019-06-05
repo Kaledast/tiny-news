@@ -63,6 +63,7 @@ function Header({ onSearchSelect, history }) {
     const [input] = event.target.children;
     onSearchSelect(input.value);
     history.push(`/news/${input.value}`);
+    input.value = "";
   };
 
   return (

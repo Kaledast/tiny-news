@@ -9,7 +9,8 @@ const Button = styled.div`
   border-radius: 10%;
 `;
 
-export default function Buttons({ topic, onSelect }) {
+export default function Buttons({ topic, onSelect, location }) {
+  console.log(location);
   return (
     <Link to={`/news/${topic.id}`} onClick={() => onSelect(topic.id)}>
       <Button buttonIcon={topic.img} />

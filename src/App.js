@@ -43,7 +43,6 @@ function App() {
             ...item
           };
         });
-        console.log(parsedData);
         setNews(parsedData);
       })
       .catch(error => {
@@ -78,10 +77,12 @@ function App() {
 
   function handleTopicSelect(topic) {
     setTopic(topic);
+    setSearch("");
   }
 
   function handleSearchSelect(search) {
     setSearch(search);
+    setTopic("");
   }
 
   function handleCountrySelect(inputval) {
