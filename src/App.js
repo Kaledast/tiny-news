@@ -40,7 +40,7 @@ function App() {
 
   function loadApiNews() {
     setIsLoading(true);
-    getArticles(topic, search, country, apiKey, handleResponseStatus)
+    getArticles(topic, search, country, apiKey)
       .then(data => {
         const parsedData = data.articles.map(item => {
           return {
@@ -63,15 +63,13 @@ function App() {
 
   useEffect(() => {
     setToLocal("country", country);
-
-    loadApiNews();
+    //console.log(authenticated);
+    authenticated ? loadApiNews() : console.log("not authenticated");
   }, [country]);
 
-  console.log(authenticated);
-
   useEffect(() => {
-    setToLocal("apiKey", apiKey);
-  }, [apiKey]);
+    authenticated ? setToLocal("apiKey", apiKey) : setToLocal("apiKey", "");
+  }, [authenticated]);
 
   useEffect(() => {
     setToLocal("savedNews", savedNews);
@@ -107,7 +105,7 @@ function App() {
     setCountry(inputval);
   }
 
-  function handleApiKey(key) {
+  function handleApiKey(key, history) {
     validateKey(key, handleResponseStatus);
     setApiKey(key);
   }
@@ -115,29 +113,19 @@ function App() {
   const filteredNews =
     news.length > 0 ? news.filter(item => !savedNews.includes(item.id)) : news;
 
-  const ProtectedRoute = ({ component: protectedPage, ...rest }) => (
-    <Route
-      {...rest}
-      render={props =>
-        authenticated ? (
-          <protectedPage handleApiKey={handleApiKey} {...props} />
-        ) : (
-          <Redirect to="/login" />
-        )
-      }
-    />
-  );
-
   return (
     <Appdiv className="App">
       <BrowserRouter>
         <Header onSearchSelect={handleSearchSelect} search={search} />
-
         <Switch>
           <Route
             path="/login"
             render={props => (
-              <LoginPage handleApiKey={handleApiKey} {...props} />
+              <LoginPage
+                authentication={authenticated}
+                handleApiKey={handleApiKey}
+                {...props}
+              />
             )}
           />
           <Route

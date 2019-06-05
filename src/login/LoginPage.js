@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-//https://newsapi.org/account
-/* document.location.replace("http://www.server.de"); */
 const StyledContainer = styled.div`
   display: flex;
 
@@ -48,14 +46,15 @@ const StyledSubmitButton = styled.button`
   border-radius: 3px;
 `;
 
-export default function LoginPage({ handleApiKey, history }) {
-  /*  const key = "ac3a791efaef4b87b7ab8ed0d4b6efed";*/
+export default function LoginPage({ authentication, handleApiKey, history }) {
+  /* key = "ac3a791efaef4b87b7ab8ed0d4b6efed";*/
+
+  authentication ? history.push("/home") : console.log("try again");
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(event.target.apikey.value);
     handleApiKey(event.target.apikey.value);
-    //history.push("/home");
+    event.target.apikey.value = "";
   }
 
   return (
