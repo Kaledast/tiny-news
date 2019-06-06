@@ -3,12 +3,13 @@ import { useState } from "react";
 const useGlobalState = () => {
   const [state, setState] = useState({ value: "" });
   const [isAuth, setIsAuth] = useState({ value: false });
+  const [Key, setKey] = useState({ value: "hello!" });
 
-  const actions = action => {
-    const { type, payload } = action;
+  const stateSetting = setting => {
+    const { type, input } = setting;
     switch (type) {
       case "setState":
-        return setState(payload);
+        return setState(input);
       default:
         return state;
     }
@@ -24,7 +25,17 @@ const useGlobalState = () => {
     }
   };
 
-  return { state, actions, isAuth, auths };
+  const KeySetting = key => {
+    const { type, input } = key;
+    switch (type) {
+      case "setKey":
+        return setKey(input);
+      default:
+        return Key;
+    }
+  };
+
+  return { state, stateSetting, isAuth, auths, KeySetting, Key };
 };
 
 export default useGlobalState;

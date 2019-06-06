@@ -1,13 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-
 import Context from "../store/Context";
 
 const StyledContainer = styled.div`
   display: flex;
-
   align-self: center;
-
   margin-top: 40px;
   flex-direction: column;
   justify-content: center;
@@ -48,9 +45,9 @@ const StyledSubmitButton = styled.button`
   border-radius: 3px;
 `;
 
-export default function LoginPage({ handleSubmit, history }) {
-  const { state } = useContext(Context);
-  const { isAuth } = useContext(Context);
+export default function LoginPage({ keyValidation, handleSubmit, history }) {
+  const { state, isAuth, KeySetting, Key } = useContext(Context);
+  console.log("login authorization:", isAuth.value);
 
   return (
     <StyledContainer>
@@ -59,7 +56,15 @@ export default function LoginPage({ handleSubmit, history }) {
       </StyledLink>
       <StyledForm
         onSubmit={event => {
+          event.preventDefault();
           handleSubmit(event, history);
+          //set key to global state
+          KeySetting({
+            type: "setKey",
+            input: { ...Key, value: event.target.apikey.value }
+          });
+
+          keyValidation(event.target.apikey.value);
         }}
       >
         <StyledSection>
@@ -77,8 +82,9 @@ export default function LoginPage({ handleSubmit, history }) {
         </label>
         <StyledSubmitButton>submit!</StyledSubmitButton>
         <StyledSection>{state.value}</StyledSection>
-        <h1>{isAuth.value}</h1>
+        <h1>{Key.value}</h1>
       </StyledForm>
     </StyledContainer>
   );
 }
+//isAuth.value +

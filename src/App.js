@@ -35,11 +35,13 @@ function App() {
   const [country, setCountry] = useState(getFromLocal("country") || "all");
   const [news, setNews] = useState([]);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
-  const { state, actions, auths, isAuth } = useContext(Context);
+  const { state, stateSetting, auths, isAuth, Key } = useContext(Context);
 
-  function loadApiNews() {
+  function loadApiNews(key) {
     setIsLoading(true);
-    getArticles(topic, search, country, apiKey)
+    // const key = !isAuthenticated ? Key.value : apiKey ? apiKey : Key.value;
+    console.log("key in load api", key);
+    getArticles(topic, search, country, key)
       .then(data => {
         keyValidation(data);
         const parsedData = data.articles.map(item => {
@@ -68,17 +70,19 @@ function App() {
   function handleSubmit(event) {
     event.preventDefault();
     handleApiKey(event.target.apikey.value);
-    loadApiNews();
     event.target.apikey.value = "";
+    event.target.apikey.focus();
   }
   // 2) wird in loadApiNews aufgerufen und setzt State für Authenticated
   function keyValidation(data) {
-    console.log("keyvalidation:", data);
+    //from Local is delayed (fail)
     setToLocal("isAuthenticated", data.code !== "apiKeyInvalid");
+
+    //from Context
     if (data.code === "apiKeyInvalid") {
-      actions({
+      stateSetting({
         type: "setState",
-        payload: {
+        input: {
           ...state,
           value: "your key is is not valid, please try again"
         }
@@ -86,7 +90,7 @@ function App() {
     } else if (data.status === "ok") {
       auths({
         type: "setIsAuth",
-        payload: { ...isAuth, value: "true" }
+        input: { ...isAuth, value: true }
       });
     } else {
       return;
@@ -120,13 +124,23 @@ function App() {
 
   function handleApiKey(key) {
     setToLocal("apiKey", key);
+    console.log("app key set here:", key);
+    loadApiNews(key);
+  }
+
+  function validateKey(key) {
+    loadApiNews(key);
   }
 
   const filteredNews =
     news.length > 0 ? news.filter(item => !savedNews.includes(item.id)) : news;
 
   const ProtectedRoute = ({ isAuthenticated, ...props }) => {
-    return isAuthenticated ? <Route {...props} /> : <Redirect to="/login" />;
+    return isAuth.value || isAuthenticated ? (
+      <Route {...props} />
+    ) : (
+      <Redirect to="/login" />
+    );
   };
 
   return (
@@ -137,7 +151,11 @@ function App() {
           <Route
             path="/login"
             render={props => (
-              <LoginPage handleSubmit={handleSubmit} {...props} />
+              <LoginPage
+                keyValidation={validateKey}
+                handleSubmit={handleSubmit}
+                {...props}
+              />
             )}
           />
           <Route
@@ -187,23 +205,3 @@ function App() {
 }
 
 export default App;
-
-/*
-  function handleResponseStatus(responseStatus) {
-    console.log("response status", responseStatus);
-    if (responseStatus === 401 || responseStatus) {
-      setToLocal("authenticated", false);
-      setApiKey("");
-    } else {
-      setIsAuthenticated(true);
-      setToLocal("authenticated", true);
-    }
-  }
-
-export function validateKey(apiKey, handleResponseStatus) {
-  const apiURL = `https://newsapi.org/v2/top-headlines?q=trump&apiKey=${apiKey}`;
-  const req = new Request(apiURL);
-  console.log("validate");
-  fetch(req).then(res => handleResponseStatus(res.status));
-}
-  */
