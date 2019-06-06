@@ -1,22 +1,24 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-export default function ProtectedRoute({
+export const ProtectedRoute = ({
+  component: Component,
   authenticated,
-  protectedPage,
-  props,
-  handleApiKey
-}) {
+  handleApiKey,
+  ...rest
+}) => {
+  console.log("protected", { ...rest });
+
   return (
     <Route
+      {...rest}
       render={props =>
         authenticated ? (
-          <protectedPage {...props} />
+          <Component {...props} />
         ) : (
           <Redirect handleApiKey={handleApiKey} to="/login" />
         )
       }
-      {...props}
     />
   );
-}
+};

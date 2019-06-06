@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 const StyledContainer = styled.div`
@@ -46,17 +46,7 @@ const StyledSubmitButton = styled.button`
   border-radius: 3px;
 `;
 
-export default function LoginPage({ authentication, handleApiKey, history }) {
-  /* key = "ac3a791efaef4b87b7ab8ed0d4b6efed";*/
-
-  authentication ? history.push("/home") : console.log("try again");
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    handleApiKey(event.target.apikey.value);
-    event.target.apikey.value = "";
-  }
-
+export default function LoginPage({ handleSubmit, history }) {
   return (
     <StyledContainer>
       <StyledLink href="https://newsapi.org/account">
@@ -64,7 +54,7 @@ export default function LoginPage({ authentication, handleApiKey, history }) {
       </StyledLink>
       <StyledForm
         onSubmit={event => {
-          handleSubmit(event);
+          handleSubmit(event, history);
         }}
       >
         <StyledSection>

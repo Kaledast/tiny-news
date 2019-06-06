@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import DropDownCountry from "./DropDownCountry.js";
 
@@ -18,7 +18,13 @@ const StyledTitle = styled.h1`
 
 const StyledContent = styled.div``;
 
-export default function OptionsPage({ handleCountrySelect, country }) {
+export default function OptionsPage({ handleCountrySelect, country, match }) {
+  //const { topic } = match.params;
+  console.log(match.params);
+  /*useEffect(() => {
+    onLoadNews && onLoadNews(topic || "general");
+  }, [topic]);
+*/
   return (
     <Container>
       <StyledTitle>Options</StyledTitle>

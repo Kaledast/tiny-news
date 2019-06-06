@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  setToLocal,
-  getFromLocal,
-  getArticles,
-  validateKey
-} from "./services.js";
+import { setToLocal, getFromLocal, getArticles } from "./services.js";
 import Header from "./Header.js";
 import Footer from "./Footer.js";
 import NewsPage from "./news/NewsPage.js";
@@ -30,8 +25,10 @@ const Appdiv = styled.div`
 function App() {
   // STATE
   const [isLoading, setIsLoading] = useState(true);
-  const [authenticated, setIsAuthenticated] = useState(false);
-  const [topic, setTopic] = useState("");
+  const [authenticated, setIsAuthenticated] = useState(
+    getFromLocal("authenticated")
+  );
+  const [topic, setTopic] = useState("general");
   const [apiKey, setApiKey] = useState(getFromLocal("apiKey"));
   const [search, setSearch] = useState("");
   const [country, setCountry] = useState(getFromLocal("country") || "all");
@@ -42,6 +39,8 @@ function App() {
     setIsLoading(true);
     getArticles(topic, search, country, apiKey)
       .then(data => {
+        setToLocal("authenticated", data.code === "apiKeyInvalid");
+        console.log("auth ", authenticated, data.code);
         const parsedData = data.articles.map(item => {
           return {
             id: item.url + item.publishedAt,
@@ -61,28 +60,15 @@ function App() {
     setToLocal("news", news);
   }, [news]);
 
+  /*
   useEffect(() => {
     setToLocal("country", country);
-    //console.log(authenticated);
-    authenticated ? loadApiNews() : console.log("not authenticated");
+    loadApiNews();
   }, [country]);
-
-  useEffect(() => {
-    authenticated ? setToLocal("apiKey", apiKey) : setToLocal("apiKey", "");
-  }, [authenticated]);
-
+*/
   useEffect(() => {
     setToLocal("savedNews", savedNews);
   }, [savedNews]);
-
-  function handleResponseStatus(responseStatus) {
-    if (responseStatus === 401) {
-      setIsAuthenticated(false);
-      setApiKey("");
-    } else {
-      setIsAuthenticated(true);
-    }
-  }
 
   function handleNewsBookmark(article) {
     const found = savedNews.find(item => item.id === article.id);
@@ -105,13 +91,34 @@ function App() {
     setCountry(inputval);
   }
 
-  function handleApiKey(key, history) {
-    validateKey(key, handleResponseStatus);
-    setApiKey(key);
+  function handleApiKey(key) {
+    setToLocal("apiKey", key);
+  }
+
+  /*
+  console.log("login", authentication);
+  useEffect(() => {
+    console.log("authentication login", authentication);
+    authentication ? history.push("/home") : history.push("/login");
+  }, [authentication]);
+
+   key = "ac3a791efaef4b87b7ab8ed0d4b6efed";
+*/
+  function handleSubmit(event, history) {
+    console.log(authenticated);
+    event.preventDefault();
+    handleApiKey(event.target.apikey.value);
+    event.target.apikey.value = "";
+    loadApiNews();
+    console.log(authenticated);
   }
 
   const filteredNews =
     news.length > 0 ? news.filter(item => !savedNews.includes(item.id)) : news;
+
+  const ProtectedRoute = ({ isAuthenticated, ...props }) => {
+    return isAuthenticated ? <Route {...props} /> : <Redirect to="/login" />;
+  };
 
   return (
     <Appdiv className="App">
@@ -123,7 +130,7 @@ function App() {
             render={props => (
               <LoginPage
                 authentication={authenticated}
-                handleApiKey={handleApiKey}
+                handleSubmit={handleSubmit}
                 {...props}
               />
             )}
@@ -152,21 +159,20 @@ function App() {
               />
             )}
           />
-          <Route
+          <ProtectedRoute
+            isAuthenticated={authenticated}
+            exact
             path="/options"
-            render={props => (
-              <OptionsPage
-                country={country}
-                handleCountrySelect={handleCountrySelect}
-                {...props}
-              />
-            )}
+            component={OptionsPage}
+            country={country}
+            handleCountrySelect={handleCountrySelect}
           />
-          <Route
+
+          <ProtectedRoute
+            isAuthenticated={authenticated}
             path="/"
-            render={props => (
-              <HomePage {...props} onTopicSelect={handleTopicSelect} />
-            )}
+            component={HomePage}
+            onTopicSelect={handleTopicSelect}
           />
         </Switch>
         <Footer />
@@ -176,3 +182,23 @@ function App() {
 }
 
 export default App;
+
+/*
+  function handleResponseStatus(responseStatus) {
+    console.log("response status", responseStatus);
+    if (responseStatus === 401 || responseStatus) {
+      setToLocal("authenticated", false);
+      setApiKey("");
+    } else {
+      setIsAuthenticated(true);
+      setToLocal("authenticated", true);
+    }
+  }
+
+export function validateKey(apiKey, handleResponseStatus) {
+  const apiURL = `https://newsapi.org/v2/top-headlines?q=trump&apiKey=${apiKey}`;
+  const req = new Request(apiURL);
+  console.log("validate");
+  fetch(req).then(res => handleResponseStatus(res.status));
+}
+  */
