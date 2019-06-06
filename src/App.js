@@ -65,7 +65,7 @@ function App() {
    key = "ac3a791efaef4b87b7ab8ed0d4b6efed";
 */
   // 1) wird in login aufgerufen und setzt den key zur überprüfung
-  function handleSubmit(event, history) {
+  function handleSubmit(event) {
     event.preventDefault();
     handleApiKey(event.target.apikey.value);
     loadApiNews();
@@ -83,11 +83,13 @@ function App() {
           value: "your key is is not valid, please try again"
         }
       });
-    } else {
+    } else if (data.status === "ok") {
       auths({
         type: "setIsAuth",
-        payload: { ...isAuth, value: true }
+        payload: { ...isAuth, value: "true" }
       });
+    } else {
+      return;
     }
   }
 

@@ -52,10 +52,6 @@ export default function LoginPage({ handleSubmit, history }) {
   const { state } = useContext(Context);
   const { isAuth } = useContext(Context);
 
-  useEffect(() => {
-    isAuth ? history.push("home") : console.log("try again");
-  }, [isAuth]);
-
   return (
     <StyledContainer>
       <StyledLink href="https://newsapi.org/account">
@@ -80,7 +76,8 @@ export default function LoginPage({ handleSubmit, history }) {
           />
         </label>
         <StyledSubmitButton>submit!</StyledSubmitButton>
-        <h1>{state.value}</h1>
+        <StyledSection>{state.value}</StyledSection>
+        <h1>{isAuth.value}</h1>
       </StyledForm>
     </StyledContainer>
   );
