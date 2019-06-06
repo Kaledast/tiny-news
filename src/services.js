@@ -10,6 +10,7 @@ export function getArticles(topic, search, country, apiKey) {
   }pageSize=100${
     country ? "&country=" + country + "&" : ""
   }category=${topic}&apiKey=${url_apiKey}`;
+
   const req = new Request(apiURL);
 
   return fetch(req)

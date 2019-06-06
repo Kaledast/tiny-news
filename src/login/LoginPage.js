@@ -1,5 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
+
+import Context from "../store/Context";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -47,6 +49,13 @@ const StyledSubmitButton = styled.button`
 `;
 
 export default function LoginPage({ handleSubmit, history }) {
+  const { state } = useContext(Context);
+  const { isAuth } = useContext(Context);
+
+  useEffect(() => {
+    isAuth ? history.push("home") : console.log("try again");
+  }, [isAuth]);
+
   return (
     <StyledContainer>
       <StyledLink href="https://newsapi.org/account">
@@ -71,6 +80,7 @@ export default function LoginPage({ handleSubmit, history }) {
           />
         </label>
         <StyledSubmitButton>submit!</StyledSubmitButton>
+        <h1>{state.value}</h1>
       </StyledForm>
     </StyledContainer>
   );

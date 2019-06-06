@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { setToLocal, getFromLocal, getArticles } from "./services.js";
 import Header from "./Header.js";
+import Context from "./store/Context";
 import Footer from "./Footer.js";
 import NewsPage from "./news/NewsPage.js";
 import HomePage from "./home/HomePage.js";
@@ -25,8 +26,8 @@ const Appdiv = styled.div`
 function App() {
   // STATE
   const [isLoading, setIsLoading] = useState(true);
-  const [authenticated, setIsAuthenticated] = useState(
-    getFromLocal("authenticated")
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    getFromLocal("isAuthenticated" || false)
   );
   const [topic, setTopic] = useState("general");
   const [apiKey, setApiKey] = useState(getFromLocal("apiKey"));
@@ -34,13 +35,13 @@ function App() {
   const [country, setCountry] = useState(getFromLocal("country") || "all");
   const [news, setNews] = useState([]);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
+  const { state, actions, auths, isAuth } = useContext(Context);
 
   function loadApiNews() {
     setIsLoading(true);
     getArticles(topic, search, country, apiKey)
       .then(data => {
-        setToLocal("authenticated", data.code === "apiKeyInvalid");
-        console.log("auth ", authenticated, data.code);
+        keyValidation(data);
         const parsedData = data.articles.map(item => {
           return {
             id: item.url + item.publishedAt,
@@ -61,11 +62,35 @@ function App() {
   }, [news]);
 
   /*
-  useEffect(() => {
-    setToLocal("country", country);
-    loadApiNews();
-  }, [country]);
+   key = "ac3a791efaef4b87b7ab8ed0d4b6efed";
 */
+  // 1) wird in login aufgerufen und setzt den key zur überprüfung
+  function handleSubmit(event, history) {
+    event.preventDefault();
+    handleApiKey(event.target.apikey.value);
+    loadApiNews();
+    event.target.apikey.value = "";
+  }
+  // 2) wird in loadApiNews aufgerufen und setzt State für Authenticated
+  function keyValidation(data) {
+    console.log("keyvalidation:", data);
+    setToLocal("isAuthenticated", data.code !== "apiKeyInvalid");
+    if (data.code === "apiKeyInvalid") {
+      actions({
+        type: "setState",
+        payload: {
+          ...state,
+          value: "your key is is not valid, please try again"
+        }
+      });
+    } else {
+      auths({
+        type: "setIsAuth",
+        payload: { ...isAuth, value: true }
+      });
+    }
+  }
+
   useEffect(() => {
     setToLocal("savedNews", savedNews);
   }, [savedNews]);
@@ -95,24 +120,6 @@ function App() {
     setToLocal("apiKey", key);
   }
 
-  /*
-  console.log("login", authentication);
-  useEffect(() => {
-    console.log("authentication login", authentication);
-    authentication ? history.push("/home") : history.push("/login");
-  }, [authentication]);
-
-   key = "ac3a791efaef4b87b7ab8ed0d4b6efed";
-*/
-  function handleSubmit(event, history) {
-    console.log(authenticated);
-    event.preventDefault();
-    handleApiKey(event.target.apikey.value);
-    event.target.apikey.value = "";
-    loadApiNews();
-    console.log(authenticated);
-  }
-
   const filteredNews =
     news.length > 0 ? news.filter(item => !savedNews.includes(item.id)) : news;
 
@@ -128,11 +135,7 @@ function App() {
           <Route
             path="/login"
             render={props => (
-              <LoginPage
-                authentication={authenticated}
-                handleSubmit={handleSubmit}
-                {...props}
-              />
+              <LoginPage handleSubmit={handleSubmit} {...props} />
             )}
           />
           <Route
@@ -160,7 +163,7 @@ function App() {
             )}
           />
           <ProtectedRoute
-            isAuthenticated={authenticated}
+            isAuthenticated={isAuthenticated}
             exact
             path="/options"
             component={OptionsPage}
@@ -169,7 +172,7 @@ function App() {
           />
 
           <ProtectedRoute
-            isAuthenticated={authenticated}
+            isAuthenticated={isAuthenticated}
             path="/"
             component={HomePage}
             onTopicSelect={handleTopicSelect}
