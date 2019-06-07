@@ -76,6 +76,7 @@ function App() {
   function keyValidation(data, key) {
     setToLocal("isAuthenticated", data.code !== "apiKeyInvalid");
     setIsAuthenticated(data.code !== "apiKeyInvalid");
+    console.log("validation:", isAuth.value, isAuthenticated);
 
     if (data.code === "apiKeyInvalid") {
       setToLocal("apiKey", "");
@@ -132,15 +133,24 @@ function App() {
 
   const filteredNews =
     news.length > 0 ? news.filter(item => !savedNews.includes(item.id)) : news;
-  /*
-  const ProtectedRoute = ({ isAuthenticated, ...props }) => {
-    return isAuth.value || isAuthenticated ? (
-      <Route {...props} />
-    ) : (
-      <Redirect to="/login" />
-    );
-  };
-*/
+
+  const ProtectedRoute = ({ component: Component, ...rest }) => (
+    <Route
+      {...rest}
+      render={props =>
+        isAuthenticated ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login"
+            }}
+          />
+        )
+      }
+    />
+  );
+
   return (
     <Appdiv className="App">
       <BrowserRouter>
@@ -188,12 +198,10 @@ function App() {
               />
             )}
           />
-
-          <Route
+          <ProtectedRoute
             path="/"
-            render={props => (
-              <HomePage onTopicSelect={handleTopicSelect} {...props} />
-            )}
+            onTopicSelect={handleTopicSelect}
+            component={HomePage}
           />
         </Switch>
         <Footer />
@@ -212,10 +220,10 @@ export default App;
             handleCountry={handleCountrySelect}
           />
 
-                    <ProtectedRoute
-            isAuthenticated={isAuthenticated}
+            <Route
             path="/"
-            component={HomePage}
-            onTopicSelect={handleTopicSelect}
+            render={props => (
+              <HomePage onTopicSelect={handleTopicSelect} {...props} />
+            )}
           />
           */

@@ -49,7 +49,7 @@ export default function LoginPage({ handleSubmit, history }) {
   const { state, isAuth, KeySetting, Key } = useContext(Context);
   console.log("login authorization:", isAuth.value);
   if (isAuth) {
-    history.push("/home");
+    //history.push("/home");
   }
   return (
     <StyledContainer>

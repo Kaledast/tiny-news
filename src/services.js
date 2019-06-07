@@ -12,7 +12,7 @@ export function getArticles(topic, search, country, apiKey) {
     search ? "q=" + search + "&" : ""
   }pageSize=100${
     country ? "&country=" + country + "&" : ""
-  }category=${topic}&apiKey=${apiKey}`;
+  }category=${topic}&apiKey=${url_apiKey}`;
 
   const req = new Request(apiURL);
 

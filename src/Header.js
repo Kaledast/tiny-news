@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import Context from "./store/Context";
 import styled from "styled-components";
 import { NavLink, withRouter } from "react-router-dom";
 import headerIcon from "./news/images/IconHorse.svg";
@@ -55,34 +56,43 @@ const StyledForm = styled.form`
 `;
 
 function Header({ onSearchSelect, history }) {
-  const handleSubmit = event => {
-    if (event) {
-      event.preventDefault();
-    }
+  const { isAuth } = useContext(Context);
 
+  const handleSubmit = event => {
+    event.preventDefault();
     const [input] = event.target.children;
     onSearchSelect(input.value);
     history.push(`/news/${input.value}`);
     input.value = "";
   };
 
-  return (
-    <StyledHeader>
-      <Div>
-        <Logo />
-        <HeaderTitle>Tiny News</HeaderTitle>
-      </Div>
+  function LoginHeader() {
+    const returnHeader = isAuth.value ? (
+      <StyledHeader>
+        <Div>
+          <Logo />
+          <HeaderTitle>Tiny News</HeaderTitle>
+        </Div>
+        <StyledForm onSubmit={handleSubmit} searchtext="Search topic">
+          <SearchBar type="text" placeholder="Search..." />
+          <button type="submit">go!</button>
+        </StyledForm>
+        <Nav>
+          <StyledNavLink to="/saved">SAVED</StyledNavLink>
+        </Nav>
+      </StyledHeader>
+    ) : (
+      <StyledHeader>
+        <Div>
+          <Logo />
+          <HeaderTitle>Tiny News</HeaderTitle>
+        </Div>
+      </StyledHeader>
+    );
 
-      <StyledForm onSubmit={handleSubmit} searchtext="Search topic">
-        <SearchBar type="text" placeholder="Search..." />
-        <button type="submit">go!</button>
-      </StyledForm>
-
-      <Nav>
-        <StyledNavLink to="/saved">SAVED</StyledNavLink>
-      </Nav>
-    </StyledHeader>
-  );
+    return returnHeader;
+  }
+  return LoginHeader();
 }
 
 export default withRouter(Header);
