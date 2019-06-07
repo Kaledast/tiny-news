@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import NewsList from "./NewsList";
 import styled from "styled-components";
 import Loading from "./Loading.js";
+import { getFromLocal } from "../services";
 
 const NewsPageContent = styled.div`
   display: flex;
@@ -20,7 +21,7 @@ export default function NewsPage({
   const { topic } = match.params;
 
   useEffect(() => {
-    onLoadNews && onLoadNews(topic || "general");
+    onLoadNews(getFromLocal("apiKey"));
   }, [topic]);
 
   function loading() {

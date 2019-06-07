@@ -35,12 +35,15 @@ function App() {
   const [country, setCountry] = useState(getFromLocal("country") || "all");
   const [news, setNews] = useState([]);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
-  const { state, stateSetting, auths, isAuth, Key } = useContext(Context);
+  const { state, stateSetting, isAuth, Key } = useContext(Context);
 
   function loadApiNews(key) {
     setIsLoading(true);
-    // const key = !isAuthenticated ? Key.value : apiKey ? apiKey : Key.value;
+    console.log("country", country);
+    console.log("search", search);
+    console.log("topic", topic);
     console.log("key in load api", key);
+
     getArticles(topic, search, country, key)
       .then(data => {
         keyValidation(data);
@@ -73,11 +76,18 @@ function App() {
     event.target.apikey.value = "";
     event.target.apikey.focus();
   }
+
+  function handleApiKey(key) {
+    setToLocal("apiKey", key);
+    setApiKey(key);
+    loadApiNews(key);
+  }
+
   // 2) wird in loadApiNews aufgerufen und setzt State für Authenticated
   function keyValidation(data) {
     //from Local is delayed (fail)
     setToLocal("isAuthenticated", data.code !== "apiKeyInvalid");
-
+    setIsAuthenticated(data.code !== "apiKeyInvalid");
     //from Context
     if (data.code === "apiKeyInvalid") {
       stateSetting({
@@ -88,14 +98,13 @@ function App() {
         }
       });
     } else if (data.status === "ok") {
-      auths({
-        type: "setIsAuth",
-        input: { ...isAuth, value: true }
-      });
+      setIsAuthenticated(true);
+      setToLocal("isAuthenticated", true);
     } else {
       return;
     }
   }
+  console.log("auth in app of localstorage", isAuthenticated);
 
   useEffect(() => {
     setToLocal("savedNews", savedNews);
@@ -119,22 +128,14 @@ function App() {
   }
 
   function handleCountrySelect(inputval) {
+    console.log("handle country", inputval);
     setCountry(inputval);
-  }
-
-  function handleApiKey(key) {
-    setToLocal("apiKey", key);
-    console.log("app key set here:", key);
-    loadApiNews(key);
-  }
-
-  function validateKey(key) {
-    loadApiNews(key);
+    setToLocal("country", inputval);
   }
 
   const filteredNews =
     news.length > 0 ? news.filter(item => !savedNews.includes(item.id)) : news;
-
+  /*
   const ProtectedRoute = ({ isAuthenticated, ...props }) => {
     return isAuth.value || isAuthenticated ? (
       <Route {...props} />
@@ -142,7 +143,7 @@ function App() {
       <Redirect to="/login" />
     );
   };
-
+*/
   return (
     <Appdiv className="App">
       <BrowserRouter>
@@ -151,11 +152,7 @@ function App() {
           <Route
             path="/login"
             render={props => (
-              <LoginPage
-                keyValidation={validateKey}
-                handleSubmit={handleSubmit}
-                {...props}
-              />
+              <LoginPage handleSubmit={handleSubmit} {...props} />
             )}
           />
           <Route
@@ -182,20 +179,23 @@ function App() {
               />
             )}
           />
-          <ProtectedRoute
-            isAuthenticated={isAuthenticated}
-            exact
+          <Route
             path="/options"
-            component={OptionsPage}
-            country={country}
-            handleCountrySelect={handleCountrySelect}
+            render={props => (
+              <OptionsPage
+                component={OptionsPage}
+                country={country}
+                handleCountry={handleCountrySelect}
+                {...props}
+              />
+            )}
           />
 
-          <ProtectedRoute
-            isAuthenticated={isAuthenticated}
+          <Route
             path="/"
-            component={HomePage}
-            onTopicSelect={handleTopicSelect}
+            render={props => (
+              <HomePage onTopicSelect={handleTopicSelect} {...props} />
+            )}
           />
         </Switch>
         <Footer />
@@ -205,3 +205,19 @@ function App() {
 }
 
 export default App;
+/*          <ProtectedRoute
+            isAuthenticated={isAuthenticated}
+            exact
+            path="/options"
+            component={OptionsPage}
+            country={country}
+            handleCountry={handleCountrySelect}
+          />
+
+                    <ProtectedRoute
+            isAuthenticated={isAuthenticated}
+            path="/"
+            component={HomePage}
+            onTopicSelect={handleTopicSelect}
+          />
+          */

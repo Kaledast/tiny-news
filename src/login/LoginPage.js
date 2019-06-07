@@ -45,9 +45,9 @@ const StyledSubmitButton = styled.button`
   border-radius: 3px;
 `;
 
-export default function LoginPage({ keyValidation, handleSubmit, history }) {
-  const { state, isAuth, KeySetting, Key } = useContext(Context);
-  console.log("login authorization:", isAuth.value);
+export default function LoginPage({ handleSubmit, history }) {
+  const { state, KeySetting, Key } = useContext(Context);
+  //console.log("login authorization:", isAuth.value);
 
   return (
     <StyledContainer>
@@ -63,8 +63,6 @@ export default function LoginPage({ keyValidation, handleSubmit, history }) {
             type: "setKey",
             input: { ...Key, value: event.target.apikey.value }
           });
-
-          keyValidation(event.target.apikey.value);
         }}
       >
         <StyledSection>
@@ -87,4 +85,3 @@ export default function LoginPage({ keyValidation, handleSubmit, history }) {
     </StyledContainer>
   );
 }
-//isAuth.value +

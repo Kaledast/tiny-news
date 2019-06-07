@@ -18,20 +18,16 @@ const StyledTitle = styled.h1`
 
 const StyledContent = styled.div``;
 
-export default function OptionsPage({ handleCountrySelect, country, match }) {
-  //const { topic } = match.params;
-  console.log(match.params);
-  /*useEffect(() => {
-    onLoadNews && onLoadNews(topic || "general");
-  }, [topic]);
-*/
+export default function OptionsPage({ handleCountry, country, match }) {
+  console.log("option page called", match.params);
+
   return (
     <Container>
       <StyledTitle>Options</StyledTitle>
       <StyledContent>
         <DropDownCountry
           country={country}
-          handleChangeDropdown={handleCountrySelect}
+          handleChangeDropdown={handleCountry}
         />
       </StyledContent>
     </Container>

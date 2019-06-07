@@ -2,7 +2,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export function getArticles(topic, search, country, apiKey) {
-  console.log("service calls global key:", apiKey);
+  console.log("service calls key:", apiKey);
+
   //console.log("service local key:", getFromLocal(apiKey));
 
   const url_apiKey = process.env.REACT_APP_API_KEY || apiKey;

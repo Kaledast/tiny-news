@@ -9,6 +9,7 @@ const SelectOption = styled.select`
 `;
 
 export default function DropDownCountry({ country, handleChangeDropdown }) {
+  console.log(country);
   const countries = [
     "ae",
     "ar",
@@ -70,7 +71,10 @@ export default function DropDownCountry({ country, handleChangeDropdown }) {
         Change Country:
         <SelectOption
           value={country}
-          onChange={event => handleChangeDropdown(event.target.value)}
+          onChange={event => {
+            console.log(event);
+            handleChangeDropdown(event.target.value);
+          }}
         >
           {countries.map(item => {
             return (
