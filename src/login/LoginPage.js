@@ -45,28 +45,22 @@ const StyledSubmitButton = styled.button`
   border-radius: 3px;
 `;
 
-export default function LoginPage({ handleSubmit, history }) {
-  const { state, isAuth, KeySetting, Key } = useContext(Context);
-  console.log("login authorization:", isAuth.value);
-  if (isAuth) {
-    //history.push("/home");
+export default function LoginPage({ onSubmit, history }) {
+  function handleSubmit(event) {
+    console.log(event);
+
+    event.preventDefault();
+    const form = event.target;
+    onSubmit(form.apikey.value, history);
+    form.reset();
   }
+
   return (
     <StyledContainer>
       <StyledLink href="https://newsapi.org/account">
         <button>click here for key...</button>
       </StyledLink>
-      <StyledForm
-        onSubmit={event => {
-          event.preventDefault();
-          handleSubmit(event);
-          //set key to global state
-          KeySetting({
-            type: "setKey",
-            input: { ...Key, value: event.target.apikey.value }
-          });
-        }}
-      >
+      <StyledForm onSubmit={handleSubmit}>
         <StyledSection>
           after successful registration on the homepage of newsapi.org come back
           and enter your received key in the field below
@@ -81,8 +75,6 @@ export default function LoginPage({ handleSubmit, history }) {
           />
         </label>
         <StyledSubmitButton>submit!</StyledSubmitButton>
-        <StyledSection>{state.value}</StyledSection>
-        <h1>{isAuth.value}</h1>
       </StyledForm>
     </StyledContainer>
   );

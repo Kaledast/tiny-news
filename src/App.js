@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { setToLocal, getFromLocal, getArticles } from "./services.js";
 import Header from "./Header.js";
-import Context from "./store/Context";
 import Footer from "./Footer.js";
 import NewsPage from "./news/NewsPage.js";
 import HomePage from "./home/HomePage.js";
@@ -26,23 +25,29 @@ const Appdiv = styled.div`
 function App() {
   // STATE
   const [isLoading, setIsLoading] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    getFromLocal("isAuthenticated" || false)
-  );
+  // const [isAuthenticated, setIsAuthenticated] = useState(
+  //   getFromLocal("isAuthenticated") || false
+  // );
   const [topic, setTopic] = useState("general");
   const [apiKey, setApiKey] = useState(getFromLocal("apiKey"));
   const [search, setSearch] = useState("");
   const [country, setCountry] = useState(getFromLocal("country") || "all");
   const [news, setNews] = useState([]);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
-  const { state, stateSetting, auths, isAuth } = useContext(Context);
+  // const { state, stateSetting, authSetting, isAuth } = useContext(Context);
 
   function loadApiNews(key) {
     setIsLoading(true);
 
     getArticles(topic, search, country, key)
       .then(data => {
-        keyValidation(data, key);
+        const success = keyValidation(data, key);
+
+        if (!success) {
+          setIsLoading(false);
+          return;
+        }
+
         const parsedData = data.articles.map(item => {
           return {
             id: item.url + item.publishedAt,
@@ -62,45 +67,48 @@ function App() {
     setToLocal("news", news);
   }, [news]);
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    handleApiKey(event.target.apikey.value);
-    event.target.apikey.value = "";
-    event.target.apikey.focus();
-  }
+  useEffect(() => {
+    setToLocal("apiKey", apiKey);
 
-  function handleApiKey(key) {
-    loadApiNews(key);
+    if (apiKey) {
+      loadApiNews(apiKey);
+    }
+  }, [apiKey]);
+
+  function handleSubmit(apiKey, history) {
+    setApiKey(apiKey);
+    history.replace("/");
   }
 
   function keyValidation(data, key) {
-    setToLocal("isAuthenticated", data.code !== "apiKeyInvalid");
-    setIsAuthenticated(data.code !== "apiKeyInvalid");
-    console.log("validation:", isAuth.value, isAuthenticated);
+    // setToLocal("isAuthenticated", data.code !== "apiKeyInvalid");
+    // setIsAuthenticated(data.code !== "apiKeyInvalid");
 
     if (data.code === "apiKeyInvalid") {
-      setToLocal("apiKey", "");
-      stateSetting({
-        type: "setState",
-        input: {
-          ...state,
-          value: "your key is is not valid, please try again"
-        }
-      });
+      setToLocal("apiKey", undefined);
+      return false;
+      // stateSetting({
+      //   type: "setState",
+      //   input: {
+      //     ...state,
+      //     value: "your key is is not valid, please try again"
+      //   }
+      // });
     } else if (data.status === "ok") {
-      setIsAuthenticated(true);
-      setToLocal("isAuthenticated", true);
-      setToLocal("apiKey", key);
+      // setIsAuthenticated(true);
+      // setToLocal("isAuthenticated", true);
+      setApiKey(key);
+      return true;
 
-      auths({
-        type: "setIsAuth",
-        input: {
-          ...isAuth,
-          value: true
-        }
-      });
+      // authSetting({
+      //   type: "setIsAuth",
+      //   input: {
+      //     ...isAuth,
+      //     value: true
+      //   }
+      // });
     } else {
-      return;
+      return false;
     }
   }
 
@@ -126,7 +134,6 @@ function App() {
   }
 
   function handleCountrySelect(inputval) {
-    console.log("handle country", inputval);
     setCountry(inputval);
     setToLocal("country", inputval);
   }
@@ -138,7 +145,7 @@ function App() {
     <Route
       {...rest}
       render={props =>
-        isAuthenticated ? (
+        apiKey ? (
           <Component {...props} />
         ) : (
           <Redirect
@@ -154,13 +161,15 @@ function App() {
   return (
     <Appdiv className="App">
       <BrowserRouter>
-        <Header onSearchSelect={handleSearchSelect} search={search} />
+        <Header
+          onSearchSelect={handleSearchSelect}
+          search={search}
+          isAuthenticated={Boolean(apiKey)}
+        />
         <Switch>
           <Route
             path="/login"
-            render={props => (
-              <LoginPage handleSubmit={handleSubmit} {...props} />
-            )}
+            render={props => <LoginPage onSubmit={handleSubmit} {...props} />}
           />
           <Route
             path="/news/:topic?"
@@ -204,7 +213,7 @@ function App() {
             component={HomePage}
           />
         </Switch>
-        <Footer />
+        <Footer isAuthenticated={Boolean(apiKey)} />
       </BrowserRouter>
     </Appdiv>
   );

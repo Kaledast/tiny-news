@@ -55,9 +55,7 @@ const StyledForm = styled.form`
   margin-left: 10px;
 `;
 
-function Header({ onSearchSelect, history }) {
-  const { isAuth } = useContext(Context);
-
+function Header({ isAuthenticated, onSearchSelect, history }) {
   const handleSubmit = event => {
     event.preventDefault();
     const [input] = event.target.children;
@@ -67,7 +65,7 @@ function Header({ onSearchSelect, history }) {
   };
 
   function LoginHeader() {
-    const returnHeader = isAuth.value ? (
+    const returnHeader = isAuthenticated ? (
       <StyledHeader>
         <Div>
           <Logo />

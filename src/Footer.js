@@ -44,7 +44,7 @@ const StyledNav = styled.nav`
   }
 `;
 
-export default function Footer() {
+export default function Footer({ isAuthenticated }) {
   return (
     <StyledFooter>
       <StyledNav>

@@ -19,7 +19,7 @@ export default function NewsPage({
   onLoadNews
 }) {
   const { topic } = match.params;
-  console.log(getFromLocal("apiKey"));
+
   useEffect(() => {
     onLoadNews && onLoadNews(getFromLocal("apiKey"));
   }, [topic]);
