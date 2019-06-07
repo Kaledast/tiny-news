@@ -46,9 +46,11 @@ const StyledSubmitButton = styled.button`
 `;
 
 export default function LoginPage({ handleSubmit, history }) {
-  const { state, KeySetting, Key } = useContext(Context);
-  //console.log("login authorization:", isAuth.value);
-
+  const { state, isAuth, KeySetting, Key } = useContext(Context);
+  console.log("login authorization:", isAuth.value);
+  if (isAuth) {
+    history.push("/home");
+  }
   return (
     <StyledContainer>
       <StyledLink href="https://newsapi.org/account">
@@ -57,7 +59,7 @@ export default function LoginPage({ handleSubmit, history }) {
       <StyledForm
         onSubmit={event => {
           event.preventDefault();
-          handleSubmit(event, history);
+          handleSubmit(event);
           //set key to global state
           KeySetting({
             type: "setKey",
@@ -80,7 +82,7 @@ export default function LoginPage({ handleSubmit, history }) {
         </label>
         <StyledSubmitButton>submit!</StyledSubmitButton>
         <StyledSection>{state.value}</StyledSection>
-        <h1>{Key.value}</h1>
+        <h1>{isAuth.value}</h1>
       </StyledForm>
     </StyledContainer>
   );

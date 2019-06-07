@@ -3,7 +3,7 @@ import { useState } from "react";
 const useGlobalState = () => {
   const [state, setState] = useState({ value: "" });
   const [isAuth, setIsAuth] = useState({ value: false });
-  const [Key, setKey] = useState({ value: "hello!" });
+  const [Key, setKey] = useState({ value: "" });
 
   const stateSetting = setting => {
     const { type, input } = setting;
@@ -16,10 +16,10 @@ const useGlobalState = () => {
   };
 
   const auths = auth => {
-    const { type, payload } = auth;
+    const { type, input } = auth;
     switch (type) {
       case "setIsAuth":
-        return setIsAuth(payload);
+        return setIsAuth(input);
       default:
         return isAuth;
     }

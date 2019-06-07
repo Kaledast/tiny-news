@@ -35,14 +35,10 @@ function App() {
   const [country, setCountry] = useState(getFromLocal("country") || "all");
   const [news, setNews] = useState([]);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
-  const { state, stateSetting, isAuth, Key } = useContext(Context);
+  const { state, stateSetting, auths, isAuth } = useContext(Context);
 
   function loadApiNews(key) {
     setIsLoading(true);
-    console.log("country", country);
-    console.log("search", search);
-    console.log("topic", topic);
-    console.log("key in load api", key);
 
     getArticles(topic, search, country, key)
       .then(data => {
@@ -66,10 +62,6 @@ function App() {
     setToLocal("news", news);
   }, [news]);
 
-  /*
-   key = "ac3a791efaef4b87b7ab8ed0d4b6efed";
-*/
-  // 1) wird in login aufgerufen und setzt den key zur überprüfung
   function handleSubmit(event) {
     event.preventDefault();
     handleApiKey(event.target.apikey.value);
@@ -78,15 +70,13 @@ function App() {
   }
 
   function handleApiKey(key) {
-    setApiKey(key);
     loadApiNews(key);
   }
 
-  // 2) wird in loadApiNews aufgerufen und setzt State für Authenticated
   function keyValidation(data, key) {
     setToLocal("isAuthenticated", data.code !== "apiKeyInvalid");
     setIsAuthenticated(data.code !== "apiKeyInvalid");
-    //from Context
+
     if (data.code === "apiKeyInvalid") {
       setToLocal("apiKey", "");
       stateSetting({
@@ -100,11 +90,18 @@ function App() {
       setIsAuthenticated(true);
       setToLocal("isAuthenticated", true);
       setToLocal("apiKey", key);
+
+      auths({
+        type: "setIsAuth",
+        input: {
+          ...isAuth,
+          value: true
+        }
+      });
     } else {
       return;
     }
   }
-  console.log("auth in app of localstorage", isAuthenticated);
 
   useEffect(() => {
     setToLocal("savedNews", savedNews);

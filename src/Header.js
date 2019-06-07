@@ -70,7 +70,7 @@ function Header({ onSearchSelect, history }) {
     <StyledHeader>
       <Div>
         <Logo />
-        <HeaderTitle>Horse News</HeaderTitle>
+        <HeaderTitle>Tiny News</HeaderTitle>
       </Div>
 
       <StyledForm onSubmit={handleSubmit} searchtext="Search topic">
