@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import DropDownCountry from "./DropDownCountry.js";
+import FavoriteTopic from "./FavoriteTopic.js";
 
 const Container = styled.div`
   display: flex;
@@ -18,17 +19,14 @@ const StyledTitle = styled.h1`
 
 const StyledContent = styled.div``;
 
-export default function OptionsPage({ handleCountry, country, match }) {
-  console.log("option page called", match.params);
-
+export default function OptionsPage({ onCountrySelect, country, topic }) {
+  console.log("country", country);
   return (
     <Container>
       <StyledTitle>Options</StyledTitle>
       <StyledContent>
-        <DropDownCountry
-          country={country}
-          handleChangeDropdown={handleCountry}
-        />
+        <DropDownCountry country={country} onCountrySelect={onCountrySelect} />
+        <FavoriteTopic topic={topic} />
       </StyledContent>
     </Container>
   );

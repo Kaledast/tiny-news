@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import Context from "./store/Context";
+import React from "react";
 import styled from "styled-components";
 import { NavLink, withRouter } from "react-router-dom";
 import headerIcon from "./news/images/IconHorse.svg";

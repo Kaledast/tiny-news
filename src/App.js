@@ -5,7 +5,7 @@ import Footer from "./Footer.js";
 import NewsPage from "./news/NewsPage.js";
 import HomePage from "./home/HomePage.js";
 import LoginPage from "./login/LoginPage.js";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
 import img from "./news/images/img3.jpg";
 import OptionsPage from "./options/OptionsPage.js";
@@ -25,16 +25,16 @@ const Appdiv = styled.div`
 function App() {
   // STATE
   const [isLoading, setIsLoading] = useState(true);
-  // const [isAuthenticated, setIsAuthenticated] = useState(
-  //   getFromLocal("isAuthenticated") || false
-  // );
-  const [topic, setTopic] = useState("general");
+  const [favoriteTopic, setFavoriteTopic] = useState(
+    getFromLocal("favoriteTopic")
+  );
+  const [topic, setTopic] = useState(favoriteTopic || "general");
   const [apiKey, setApiKey] = useState(getFromLocal("apiKey"));
+  const [validAuth, setValidAuth] = useState(false);
   const [search, setSearch] = useState("");
-  const [country, setCountry] = useState(getFromLocal("country") || "all");
+  const [country, setCountry] = useState(getFromLocal("country") || "gb");
   const [news, setNews] = useState([]);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
-  // const { state, stateSetting, authSetting, isAuth } = useContext(Context);
 
   function loadApiNews(key) {
     setIsLoading(true);
@@ -42,6 +42,7 @@ function App() {
     getArticles(topic, search, country, key)
       .then(data => {
         const success = keyValidation(data, key);
+        setValidAuth(success);
 
         if (!success) {
           setIsLoading(false);
@@ -81,32 +82,12 @@ function App() {
   }
 
   function keyValidation(data, key) {
-    // setToLocal("isAuthenticated", data.code !== "apiKeyInvalid");
-    // setIsAuthenticated(data.code !== "apiKeyInvalid");
-
     if (data.code === "apiKeyInvalid") {
       setToLocal("apiKey", undefined);
       return false;
-      // stateSetting({
-      //   type: "setState",
-      //   input: {
-      //     ...state,
-      //     value: "your key is is not valid, please try again"
-      //   }
-      // });
     } else if (data.status === "ok") {
-      // setIsAuthenticated(true);
-      // setToLocal("isAuthenticated", true);
       setApiKey(key);
       return true;
-
-      // authSetting({
-      //   type: "setIsAuth",
-      //   input: {
-      //     ...isAuth,
-      //     value: true
-      //   }
-      // });
     } else {
       return false;
     }
@@ -133,6 +114,12 @@ function App() {
     setTopic("");
   }
 
+  /*
+  function handleDropdownSelect(stateName, inputval) {
+    setToLocal(stateName, inputval);
+  }
+  */
+
   function handleCountrySelect(inputval) {
     setCountry(inputval);
     setToLocal("country", inputval);
@@ -141,98 +128,83 @@ function App() {
   const filteredNews =
     news.length > 0 ? news.filter(item => !savedNews.includes(item.id)) : news;
 
-  const ProtectedRoute = ({ component: Component, ...rest }) => (
-    <Route
-      {...rest}
-      render={props =>
-        apiKey ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login"
-            }}
+  function returnKeyValidComponents() {
+    const returnPage = validAuth ? (
+      <Appdiv className="App">
+        <BrowserRouter>
+          <Header
+            onSearchSelect={handleSearchSelect}
+            search={search}
+            isAuthenticated={Boolean(apiKey)}
           />
-        )
-      }
-    />
-  );
-
-  return (
-    <Appdiv className="App">
-      <BrowserRouter>
-        <Header
-          onSearchSelect={handleSearchSelect}
-          search={search}
-          isAuthenticated={Boolean(apiKey)}
-        />
-        <Switch>
-          <Route
-            path="/login"
-            render={props => <LoginPage onSubmit={handleSubmit} {...props} />}
+          <Switch>
+            <Route
+              path="/news/:topic?"
+              render={props => (
+                <NewsPage
+                  loadingState={isLoading}
+                  onNewsSave={handleNewsBookmark}
+                  savedNews={savedNews}
+                  news={filteredNews}
+                  onLoadNews={loadApiNews}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/saved"
+              render={props => (
+                <NewsPage
+                  filterNews={filteredNews}
+                  onNewsSave={handleNewsBookmark}
+                  savedNews={savedNews}
+                  news={savedNews}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/options"
+              render={props => (
+                <OptionsPage
+                  component={OptionsPage}
+                  country={country}
+                  onCountrySelect={handleCountrySelect}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/"
+              render={props => (
+                <HomePage onTopicSelect={handleTopicSelect} {...props} />
+              )}
+            />
+          </Switch>
+          <Footer isAuthenticated={Boolean(apiKey)} />
+        </BrowserRouter>
+      </Appdiv>
+    ) : (
+      <Appdiv className="App">
+        <BrowserRouter>
+          <Header
+            onSearchSelect={handleSearchSelect}
+            search={search}
+            isAuthenticated={validAuth}
           />
-          <Route
-            path="/news/:topic?"
-            render={props => (
-              <NewsPage
-                loadingState={isLoading}
-                onNewsSave={handleNewsBookmark}
-                savedNews={savedNews}
-                news={filteredNews}
-                onLoadNews={loadApiNews}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/saved"
-            render={props => (
-              <NewsPage
-                filterNews={filteredNews}
-                onNewsSave={handleNewsBookmark}
-                savedNews={savedNews}
-                news={savedNews}
-                {...props}
-              />
-            )}
-          />
-          <Route
-            path="/options"
-            render={props => (
-              <OptionsPage
-                component={OptionsPage}
-                country={country}
-                handleCountry={handleCountrySelect}
-                {...props}
-              />
-            )}
-          />
-          <ProtectedRoute
-            path="/"
-            onTopicSelect={handleTopicSelect}
-            component={HomePage}
-          />
-        </Switch>
-        <Footer isAuthenticated={Boolean(apiKey)} />
-      </BrowserRouter>
-    </Appdiv>
-  );
+          <Switch>
+            <Route
+              path="/"
+              render={props => <LoginPage onSubmit={handleSubmit} {...props} />}
+            />
+          </Switch>
+          <Footer isAuthenticated={validAuth} />
+        </BrowserRouter>
+      </Appdiv>
+    );
+    return returnPage;
+  }
+  return returnKeyValidComponents();
 }
 
 export default App;
-/*          <ProtectedRoute
-            isAuthenticated={isAuthenticated}
-            exact
-            path="/options"
-            component={OptionsPage}
-            country={country}
-            handleCountry={handleCountrySelect}
-          />
-
-            <Route
-            path="/"
-            render={props => (
-              <HomePage onTopicSelect={handleTopicSelect} {...props} />
-            )}
-          />
-          */

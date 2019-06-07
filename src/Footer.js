@@ -45,16 +45,23 @@ const StyledNav = styled.nav`
 `;
 
 export default function Footer({ isAuthenticated }) {
-  return (
-    <StyledFooter>
-      <StyledNav>
-        <Link to="/home">
-          <HomeButton />
-        </Link>
-        <Link to="/options">
-          <OptionsButton />
-        </Link>
-      </StyledNav>
-    </StyledFooter>
-  );
+  function LoginFooter() {
+    const returnFooter = isAuthenticated ? (
+      <StyledFooter>
+        <StyledNav>
+          <Link to="/home">
+            <HomeButton />
+          </Link>
+          <Link to="/options">
+            <OptionsButton />
+          </Link>
+        </StyledNav>
+      </StyledFooter>
+    ) : (
+      <StyledFooter />
+    );
+
+    return returnFooter;
+  }
+  return LoginFooter();
 }
