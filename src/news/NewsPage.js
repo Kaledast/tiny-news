@@ -19,9 +19,9 @@ export default function NewsPage({
   onLoadNews
 }) {
   const { topic } = match.params;
-
+  console.log(getFromLocal("apiKey"));
   useEffect(() => {
-    onLoadNews(getFromLocal("apiKey"));
+    onLoadNews && onLoadNews(getFromLocal("apiKey"));
   }, [topic]);
 
   function loading() {

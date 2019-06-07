@@ -46,7 +46,7 @@ function App() {
 
     getArticles(topic, search, country, key)
       .then(data => {
-        keyValidation(data);
+        keyValidation(data, key);
         const parsedData = data.articles.map(item => {
           return {
             id: item.url + item.publishedAt,
@@ -78,18 +78,17 @@ function App() {
   }
 
   function handleApiKey(key) {
-    setToLocal("apiKey", key);
     setApiKey(key);
     loadApiNews(key);
   }
 
   // 2) wird in loadApiNews aufgerufen und setzt State für Authenticated
-  function keyValidation(data) {
-    //from Local is delayed (fail)
+  function keyValidation(data, key) {
     setToLocal("isAuthenticated", data.code !== "apiKeyInvalid");
     setIsAuthenticated(data.code !== "apiKeyInvalid");
     //from Context
     if (data.code === "apiKeyInvalid") {
+      setToLocal("apiKey", "");
       stateSetting({
         type: "setState",
         input: {
@@ -100,6 +99,7 @@ function App() {
     } else if (data.status === "ok") {
       setIsAuthenticated(true);
       setToLocal("isAuthenticated", true);
+      setToLocal("apiKey", key);
     } else {
       return;
     }
@@ -172,6 +172,7 @@ function App() {
             path="/saved"
             render={props => (
               <NewsPage
+                filterNews={filteredNews}
                 onNewsSave={handleNewsBookmark}
                 savedNews={savedNews}
                 news={savedNews}
