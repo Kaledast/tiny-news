@@ -25,10 +25,7 @@ const Appdiv = styled.div`
 function App() {
   // STATE
   const [isLoading, setIsLoading] = useState(true);
-  const [favoriteTopic, setFavoriteTopic] = useState(
-    getFromLocal("favoriteTopic")
-  );
-  const [topic, setTopic] = useState(favoriteTopic || "general");
+  const [topic, setTopic] = useState(getFromLocal("topic") || "general");
   const [apiKey, setApiKey] = useState(getFromLocal("apiKey"));
   const [validAuth, setValidAuth] = useState(false);
   const [search, setSearch] = useState("");
@@ -113,12 +110,6 @@ function App() {
     setSearch(search);
     setTopic("");
   }
-
-  /*
-  function handleDropdownSelect(stateName, inputval) {
-    setToLocal(stateName, inputval);
-  }
-  */
 
   function handleCountrySelect(inputval) {
     setCountry(inputval);

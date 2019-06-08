@@ -108,7 +108,20 @@ export default function News({ article, onSave, saved }) {
     const { title, content, description, url, urlToImage } = article;
     const cleanTitle = title && title.split("-")[0];
     let cleanContent = (content && content.split("[")[0]) || description;
-    const invalidStrings = [";;", "  ", ".,", ",.", "()", "%%", "//", "--"];
+    const invalidStrings = [
+      ";;",
+      ".:",
+      `"..."`,
+      `""`,
+      "-:",
+      "  ",
+      ".,",
+      ",.",
+      "()",
+      "%%",
+      "//",
+      "--"
+    ];
 
     if (article.content !== null) {
       cleanContent = invalidStrings.some(substring =>

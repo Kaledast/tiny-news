@@ -1,14 +1,17 @@
 import React from "react";
 import styled from "styled-components";
+import { Dropdown } from "semantic-ui-react";
 
-const SelectOption = styled.select`
-  color: white;
-  background: black;
-  width: 50px;
-  border: 1px solid white;
+const StyledLabel = styled.label`
+  margin-right: 5px;
+  font-size: 1.2em;
 `;
 
-export default function DropDownCountry({ country, onCountrySelect }) {
+const StyledContainer = styled.div`
+  margin-bottom: 30px;
+`;
+
+export default function DropDownCountry({ country, onCountrySelect, history }) {
   const countries = [
     "ae",
     "ar",
@@ -64,26 +67,27 @@ export default function DropDownCountry({ country, onCountrySelect }) {
     "za"
   ];
 
+  const stateOptions = countries.map(state => ({
+    key: state,
+    text: state,
+    value: state
+  }));
+
   return (
-    <form>
-      <label>
-        Change Country:
-        <SelectOption
-          value={country}
-          onChange={event => {
-            console.log(event);
-            onCountrySelect(event.target.value);
-          }}
-        >
-          {countries.map(item => {
-            return (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            );
-          })}
-        </SelectOption>
-      </label>
-    </form>
+    <StyledContainer>
+      <StyledLabel htmlFor="country">Change country:</StyledLabel>
+      <Dropdown
+        onChange={event => {
+          const selectedCountry = event.target.querySelector("span").innerHTML;
+          onCountrySelect(selectedCountry);
+          history.replace("/news/:topic?");
+        }}
+        placeholder="country"
+        search
+        selection
+        value={country}
+        options={stateOptions}
+      />
+    </StyledContainer>
   );
 }
