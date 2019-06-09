@@ -1,12 +1,6 @@
 import React from "react";
 import News from "./News";
-import styled from "styled-components";
-
-const StyledSection = styled.section`
-  align-self: center;
-  overflow: scroll;
-  height: 100%;
-`;
+import StyledSectionList from "../components/StyledSectionList.js";
 
 export default function NewsList({ onArticleSave, news, savedNews }) {
   let cleanedNews = news.filter(article => {
@@ -22,7 +16,7 @@ export default function NewsList({ onArticleSave, news, savedNews }) {
   }
 
   return (
-    <StyledSection>
+    <StyledSectionList>
       {cleanedNews.map(article => (
         <News
           key={article.id || "404 not found"}
@@ -31,6 +25,6 @@ export default function NewsList({ onArticleSave, news, savedNews }) {
           saved={Boolean(savedNews.find(item => item.id === article.id))}
         />
       ))}
-    </StyledSection>
+    </StyledSectionList>
   );
 }

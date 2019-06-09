@@ -1,33 +1,14 @@
 import React from "react";
-import styled from "styled-components";
+
 import DropDownCountry from "./DropDownCountry.js";
 import SepiaToggle from "./SepiaToggle.js";
-
-const Container = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: black;
-  color: white;
-  height: 100%;
-  padding: 30px;
-`;
-
-const StyledTitle = styled.h1`
-  color: white;
-`;
-
-const StyledContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 10px;
-`;
+import OptionsContainer from "../components/OptionsContainer.js";
+import StyledContent from "../components/StyledContent.js";
 
 export default function OptionsPage({ onCountrySelect, country, history }) {
   return (
-    <Container>
-      <StyledTitle>Options</StyledTitle>
+    <OptionsContainer>
+      <h1>Options</h1>
       <StyledContent>
         <DropDownCountry
           history={history}
@@ -36,6 +17,6 @@ export default function OptionsPage({ onCountrySelect, country, history }) {
         />
         <SepiaToggle />
       </StyledContent>
-    </Container>
+    </OptionsContainer>
   );
 }

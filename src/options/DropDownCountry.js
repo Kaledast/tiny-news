@@ -1,15 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+import StyledLabel from "../components/StyledLabel.js";
+import StyledDropDownContainer from "../components/StyledDropDownContainer.js";
 import { Dropdown } from "semantic-ui-react";
-
-const StyledLabel = styled.label`
-  margin-right: 5px;
-  font-size: 1.2em;
-`;
-
-const StyledContainer = styled.div`
-  margin-bottom: 30px;
-`;
 
 export default function DropDownCountry({ country, onCountrySelect, history }) {
   const countries = [
@@ -74,7 +66,7 @@ export default function DropDownCountry({ country, onCountrySelect, history }) {
   }));
 
   return (
-    <StyledContainer>
+    <StyledDropDownContainer>
       <StyledLabel htmlFor="country">Change country:</StyledLabel>
       <Dropdown
         onChange={event => {
@@ -88,6 +80,6 @@ export default function DropDownCountry({ country, onCountrySelect, history }) {
         value={country}
         options={stateOptions}
       />
-    </StyledContainer>
+    </StyledDropDownContainer>
   );
 }

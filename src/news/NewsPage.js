@@ -1,16 +1,12 @@
 import React, { useEffect } from "react";
 import NewsList from "./NewsList";
-import styled from "styled-components";
+import NewsPageContent from "../components/NewsPageContent.js";
 import Loading from "./Loading.js";
 import { getFromLocal } from "../services";
+import { ThemeProvider, withTheme } from "styled-components";
+import theme from "../components/themes/theme.js";
 
-const NewsPageContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-family: sans-serif;
-`;
-
-export default function NewsPage({
+function NewsPage({
   loadingState,
   onNewsSave,
   savedNews,
@@ -36,8 +32,9 @@ export default function NewsPage({
         />
       </NewsPageContent>
     );
-    return returnComponent;
+    return <ThemeProvider theme={theme}>{returnComponent}</ThemeProvider>;
   }
 
   return loading();
 }
+export default withTheme(NewsPage);

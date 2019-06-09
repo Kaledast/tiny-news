@@ -1,24 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+import HomeBody from "../components/compHome.js";
+import ButtonContainer from "../components/compButtonContainer.js";
 import Buttons from "./Buttons.js";
-
-const HomeBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: black;
-  height: 100%;
-  padding: 30px;
-`;
-
-const ButtonContainer = styled.nav`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-evenly;
-  width: auto;
-  height: 50%;
-`;
 
 export default function HomePage({ onTopicSelect }) {
   const topics = [

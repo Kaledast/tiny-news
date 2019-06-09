@@ -1,48 +1,10 @@
 import React from "react";
-import styled from "styled-components";
-
-const StyledContainer = styled.div`
-  display: flex;
-  align-self: center;
-  margin-top: 40px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const StyledForm = styled.form`
-  display: flex;
-  font-size: 1.2em;
-  align-self: center;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 350px;
-`;
-
-const StyledLink = styled.a`
-  margin: 10px;
-  font-size: 2em;
-  border: 1px solid black;
-  border-radius: 3px;
-`;
-
-const StyledSection = styled.section`
-  padding: 12px;
-  margin: 10px;
-  text-align: center;
-`;
-
-const StyledInput = styled.input`
-  margin-left: 5px;
-  padding: 3px;
-`;
-
-const StyledSubmitButton = styled.button`
-  margin-top: 17px;
-  border: 1px solid black;
-  border-radius: 3px;
-`;
+import StyledContainer from "../components/StyledContainer.js";
+import StyledForm from "../components/StyledForm.js";
+import StyledLink from "../components/StyledLink.js";
+import StyledSection from "../components/StyledSection.js";
+import StyledInput from "../components/StyledInput.js";
+import StyledSubmitButton from "../components/StyledSubmitButton.js";
 
 export default function LoginPage({ onSubmit, history }) {
   function handleSubmit(event) {

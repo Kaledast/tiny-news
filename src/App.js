@@ -6,21 +6,10 @@ import NewsPage from "./news/NewsPage.js";
 import HomePage from "./home/HomePage.js";
 import LoginPage from "./login/LoginPage.js";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import styled from "styled-components";
-import img from "./news/images/img3.jpg";
+import Appdiv from "./components/Appdiv.js";
 import OptionsPage from "./options/OptionsPage.js";
-
-const Appdiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  background: url(${img});
-  background-size: cover;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-`;
+import { ThemeProvider, withTheme } from "styled-components";
+import theme from "./components/themes/theme.js";
 
 function App() {
   // STATE
@@ -121,60 +110,62 @@ function App() {
 
   function returnKeyValidComponents() {
     const returnPage = validAuth ? (
-      <Appdiv className="App">
-        <BrowserRouter>
-          <Header
-            onSearchSelect={handleSearchSelect}
-            search={search}
-            isAuthenticated={Boolean(apiKey)}
-          />
-          <Switch>
-            <Route
-              path="/news/:topic?"
-              render={props => (
-                <NewsPage
-                  loadingState={isLoading}
-                  onNewsSave={handleNewsBookmark}
-                  savedNews={savedNews}
-                  news={filteredNews}
-                  onLoadNews={loadApiNews}
-                  {...props}
-                />
-              )}
+      <ThemeProvider theme={theme}>
+        <Appdiv className="App">
+          <BrowserRouter>
+            <Header
+              onSearchSelect={handleSearchSelect}
+              search={search}
+              isAuthenticated={Boolean(apiKey)}
             />
-            <Route
-              path="/saved"
-              render={props => (
-                <NewsPage
-                  filterNews={filteredNews}
-                  onNewsSave={handleNewsBookmark}
-                  savedNews={savedNews}
-                  news={savedNews}
-                  {...props}
-                />
-              )}
-            />
-            <Route
-              path="/options"
-              render={props => (
-                <OptionsPage
-                  component={OptionsPage}
-                  country={country}
-                  onCountrySelect={handleCountrySelect}
-                  {...props}
-                />
-              )}
-            />
-            <Route
-              path="/"
-              render={props => (
-                <HomePage onTopicSelect={handleTopicSelect} {...props} />
-              )}
-            />
-          </Switch>
-          <Footer isAuthenticated={Boolean(apiKey)} />
-        </BrowserRouter>
-      </Appdiv>
+            <Switch>
+              <Route
+                path="/news/:topic?"
+                render={props => (
+                  <NewsPage
+                    loadingState={isLoading}
+                    onNewsSave={handleNewsBookmark}
+                    savedNews={savedNews}
+                    news={filteredNews}
+                    onLoadNews={loadApiNews}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                path="/saved"
+                render={props => (
+                  <NewsPage
+                    filterNews={filteredNews}
+                    onNewsSave={handleNewsBookmark}
+                    savedNews={savedNews}
+                    news={savedNews}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                path="/options"
+                render={props => (
+                  <OptionsPage
+                    component={OptionsPage}
+                    country={country}
+                    onCountrySelect={handleCountrySelect}
+                    {...props}
+                  />
+                )}
+              />
+              <Route
+                path="/"
+                render={props => (
+                  <HomePage onTopicSelect={handleTopicSelect} {...props} />
+                )}
+              />
+            </Switch>
+            <Footer isAuthenticated={Boolean(apiKey)} />
+          </BrowserRouter>
+        </Appdiv>
+      </ThemeProvider>
     ) : (
       <Appdiv className="App">
         <BrowserRouter>
@@ -198,4 +189,4 @@ function App() {
   return returnKeyValidComponents();
 }
 
-export default App;
+export default withTheme(App);
