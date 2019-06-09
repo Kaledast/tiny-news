@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Switch from "react-switch";
 import StyledSwitch from "../components/StyledSwitch.js";
 import StyledLabel from "../components/StyledLabel.js";
+import { withTheme } from "styled-components";
 
-export default function SepiaToggle({}) {
+function SepiaToggle({ onToggleTheme }) {
   const [checked, setChecked] = useState(false);
 
   return (
@@ -11,9 +12,10 @@ export default function SepiaToggle({}) {
       <StyledLabel htmlFor="sepia-switch">Change color theme: </StyledLabel>
       <Switch
         checked={checked}
-        onChange={event => {
-          console.log(event);
+        onChange={() => {
           setChecked(!checked);
+          console.log(checked);
+          onToggleTheme();
         }}
         handleDiameter={28}
         offColor="#2f1953"
@@ -58,3 +60,5 @@ export default function SepiaToggle({}) {
     </StyledSwitch>
   );
 }
+
+export default withTheme(SepiaToggle);

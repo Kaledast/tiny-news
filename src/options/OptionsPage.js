@@ -5,7 +5,12 @@ import SepiaToggle from "./SepiaToggle.js";
 import OptionsContainer from "../components/OptionsContainer.js";
 import StyledContent from "../components/StyledContent.js";
 
-export default function OptionsPage({ onCountrySelect, country, history }) {
+export default function OptionsPage({
+  onToggleTheme,
+  onCountrySelect,
+  country,
+  history
+}) {
   return (
     <OptionsContainer>
       <h1>Options</h1>
@@ -15,7 +20,7 @@ export default function OptionsPage({ onCountrySelect, country, history }) {
           country={country}
           onCountrySelect={onCountrySelect}
         />
-        <SepiaToggle />
+        <SepiaToggle onToggleTheme={onToggleTheme} />
       </StyledContent>
     </OptionsContainer>
   );

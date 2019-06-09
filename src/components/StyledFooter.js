@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { backgroundColor } from "../components/themes/theme.js";
 
 const StyledFooter = styled.footer`
   display: flex;
@@ -9,7 +10,7 @@ const StyledFooter = styled.footer`
   left: 0;
   right: 0;
   height: 60px;
-  background: ${props => props.theme.backgroundColor};
+  background: ${backgroundColor};
   height: 65px;
   padding: 5px;
   z-index: 10;

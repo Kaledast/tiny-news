@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { backgroundColor } from "../components/themes/theme.js";
 
 const Appdiv = styled.div`
   display: flex;
   flex-direction: column;
-  background: ${props => props.theme.background};
+  background: ${backgroundColor};
 
   background-size: cover;
   position: absolute;

@@ -8,8 +8,7 @@ import LoginPage from "./login/LoginPage.js";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Appdiv from "./components/Appdiv.js";
 import OptionsPage from "./options/OptionsPage.js";
-import { ThemeProvider, withTheme } from "styled-components";
-import theme from "./components/themes/theme.js";
+import { ThemeProvider } from "styled-components";
 
 function App() {
   // STATE
@@ -21,6 +20,11 @@ function App() {
   const [country, setCountry] = useState(getFromLocal("country") || "gb");
   const [news, setNews] = useState([]);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
+  const [themeState, setThemeState] = useState({
+    mode: "normal"
+  });
+
+  console.log(themeState);
 
   function loadApiNews(key) {
     setIsLoading(true);
@@ -105,12 +109,21 @@ function App() {
     setToLocal("country", inputval);
   }
 
+  function handleThemeSetting() {
+    const mode = themeState.mode === "normal" ? `sepia` : `normal`;
+    setThemeState({ mode: mode });
+  }
+
   const filteredNews =
     news.length > 0 ? news.filter(item => !savedNews.includes(item.id)) : news;
 
   function returnKeyValidComponents() {
     const returnPage = validAuth ? (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider
+        theme={{
+          mode: themeState.mode
+        }}
+      >
         <Appdiv className="App">
           <BrowserRouter>
             <Header
@@ -151,6 +164,7 @@ function App() {
                     component={OptionsPage}
                     country={country}
                     onCountrySelect={handleCountrySelect}
+                    onToggleTheme={handleThemeSetting}
                     {...props}
                   />
                 )}
@@ -189,4 +203,4 @@ function App() {
   return returnKeyValidComponents();
 }
 
-export default withTheme(App);
+export default App;

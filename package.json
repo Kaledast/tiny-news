@@ -36,7 +36,8 @@
     "react-toggle": "^4.0.2",
     "react-uid": "^2.2.0",
     "semantic-ui-react": "^0.87.1",
-    "styled-components": "^4.2.0"
+    "styled-components": "^4.2.0",
+    "styled-theming": "^2.2.0"
   },
   "scripts": {
     "start": "run-p react server",
