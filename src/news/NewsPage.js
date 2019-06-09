@@ -2,9 +2,8 @@ import React, { useEffect } from "react";
 import NewsList from "./NewsList";
 import NewsPageContent from "../components/NewsPageContent.js";
 import Loading from "./Loading.js";
+
 import { getFromLocal } from "../services";
-import { ThemeProvider, withTheme } from "styled-components";
-import theme from "../components/themes/theme.js";
 
 function NewsPage({
   loadingState,
@@ -32,9 +31,9 @@ function NewsPage({
         />
       </NewsPageContent>
     );
-    return <ThemeProvider theme={theme}>{returnComponent}</ThemeProvider>;
+    return returnComponent;
   }
 
   return loading();
 }
-export default withTheme(NewsPage);
+export default NewsPage;

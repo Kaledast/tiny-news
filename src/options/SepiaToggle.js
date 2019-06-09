@@ -3,27 +3,30 @@ import Switch from "react-switch";
 import StyledSwitch from "../components/StyledSwitch.js";
 import StyledLabel from "../components/StyledLabel.js";
 import { withTheme } from "styled-components";
+import { getFromLocal, setToLocal } from "../services.js";
+
+//const StyledOffIcon = styled.div``;
 
 function SepiaToggle({ onToggleTheme }) {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(getFromLocal("checked") || false);
 
   return (
     <StyledSwitch>
-      <StyledLabel htmlFor="sepia-switch">Change color theme: </StyledLabel>
+      <StyledLabel htmlFor="sepia-switch">Sepia skin: </StyledLabel>
       <Switch
         checked={checked}
         onChange={() => {
           setChecked(!checked);
-          console.log(checked);
+          setToLocal("checked", !checked);
           onToggleTheme();
         }}
-        handleDiameter={28}
-        offColor="#2f1953"
+        handleDiameter={25}
+        offColor="#486C5F"
         onColor="#FFF29A"
-        offHandleColor="#FFF29A"
+        offHandleColor="#bff2c3"
         onHandleColor="#2f1953"
-        height={32}
-        width={70}
+        height={30}
+        width={73}
         uncheckedIcon={
           <div
             style={{
@@ -32,7 +35,7 @@ function SepiaToggle({ onToggleTheme }) {
               alignItems: "center",
               height: "100%",
               fontSize: 15,
-              color: "#FFF29A",
+              color: "#bff2c3",
               paddingRight: 2
             }}
           >

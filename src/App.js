@@ -20,11 +20,11 @@ function App() {
   const [country, setCountry] = useState(getFromLocal("country") || "gb");
   const [news, setNews] = useState([]);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
-  const [themeState, setThemeState] = useState({
-    mode: "normal"
-  });
-
-  console.log(themeState);
+  const [themeState, setThemeState] = useState(
+    getFromLocal("themeState") || {
+      mode: "normal"
+    }
+  );
 
   function loadApiNews(key) {
     setIsLoading(true);
@@ -112,6 +112,7 @@ function App() {
   function handleThemeSetting() {
     const mode = themeState.mode === "normal" ? `sepia` : `normal`;
     setThemeState({ mode: mode });
+    setToLocal("themeState", { mode: mode });
   }
 
   const filteredNews =

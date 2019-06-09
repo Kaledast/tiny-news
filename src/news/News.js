@@ -10,8 +10,10 @@ import CheckBoxWrapper from "../components/CheckBoxWrapper.js";
 import CheckBoxLabel from "../components/CheckBoxLabel.js";
 import SavedCheckBox from "../components/SavedCheckBox.js";
 import StyledImage from "../components/StyledImage.js";
+import { ThemeProvider, withTheme } from "styled-components";
+import theme from "../components/themes/theme.js";
 
-export default function News({ article, onSave, saved }) {
+function News({ article, onSave, saved }) {
   if (article !== "404") {
     const { title, content, description, url, urlToImage } = article;
     const cleanTitle = title && title.split("-")[0];
@@ -42,28 +44,30 @@ export default function News({ article, onSave, saved }) {
     }
 
     return (
-      <DivWrapperOuter>
-        <DivWrapperInner>
-          <CheckBoxWrapper>
-            <SavedCheckBox
-              onChange={() => onSave(article)}
-              checked={Boolean(saved)}
-              id="input"
-              type="checkbox"
-            />
-            <CheckBoxLabel htmlfor="input" />
-          </CheckBoxWrapper>
+      <ThemeProvider theme={theme}>
+        <DivWrapperOuter>
+          <DivWrapperInner>
+            <CheckBoxWrapper>
+              <SavedCheckBox
+                onChange={() => onSave(article)}
+                checked={Boolean(saved)}
+                id="input"
+                type="checkbox"
+              />
+              <CheckBoxLabel htmlfor="input" />
+            </CheckBoxWrapper>
 
-          <ArticleTopic>{cleanTitle}</ArticleTopic>
+            <ArticleTopic>{cleanTitle}</ArticleTopic>
 
-          {urlToImage ? <StyledImage src={urlToImage} alt="" /> : ""}
+            {urlToImage ? <StyledImage src={urlToImage} alt="" /> : ""}
 
-          <ContentSection>{cleanContent}</ContentSection>
-          <AuthorField href={url}>
-            <LinkButton />
-          </AuthorField>
-        </DivWrapperInner>
-      </DivWrapperOuter>
+            <ContentSection>{cleanContent}</ContentSection>
+            <AuthorField href={url}>
+              <LinkButton />
+            </AuthorField>
+          </DivWrapperInner>
+        </DivWrapperOuter>
+      </ThemeProvider>
     );
   } else {
     return (
@@ -80,6 +84,8 @@ export default function News({ article, onSave, saved }) {
     );
   }
 }
+
+export default withTheme(News);
 
 News.propTypes = {
   title: PropTypes.string, //isRequired erfüllt irgendwie nicht seinen Zweck

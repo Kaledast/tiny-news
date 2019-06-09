@@ -1,4 +1,5 @@
 import styled from "styled-components";
+//import { backgroundImage } from "../components/themes/theme.js";
 
 const NewsPageContent = styled.div`
   display: flex;
