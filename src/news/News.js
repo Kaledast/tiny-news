@@ -28,6 +28,7 @@ function News({ article, onSave, saved }) {
       "-:",
       "  ",
       ".,",
+      ",,",
       ",.",
       "()",
       "%%",

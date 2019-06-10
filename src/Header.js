@@ -36,12 +36,14 @@ function Header({ isAuthenticated, onSearchSelect, history }) {
         </StyledHeader>
       </ThemeProvider>
     ) : (
-      <StyledHeader>
-        <Div>
-          <Logo />
-          <HeaderTitle>Tiny News</HeaderTitle>
-        </Div>
-      </StyledHeader>
+      <ThemeProvider theme={theme}>
+        <StyledHeader>
+          <Div>
+            <Logo />
+            <HeaderTitle>Tiny News</HeaderTitle>
+          </Div>
+        </StyledHeader>
+      </ThemeProvider>
     );
 
     return returnHeader;

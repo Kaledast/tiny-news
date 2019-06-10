@@ -8,7 +8,7 @@ import LoginPage from "./login/LoginPage.js";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Appdiv from "./components/Appdiv.js";
 import OptionsPage from "./options/OptionsPage.js";
-import { ThemeProvider } from "styled-components";
+import { ThemeProvider, withTheme } from "styled-components";
 
 function App() {
   // STATE
@@ -18,6 +18,7 @@ function App() {
   const [validAuth, setValidAuth] = useState(false);
   const [search, setSearch] = useState("");
   const [country, setCountry] = useState(getFromLocal("country") || "gb");
+  const [source, setSource] = useState(getFromLocal("source") || "");
   const [news, setNews] = useState([]);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
   const [themeState, setThemeState] = useState(
@@ -29,7 +30,7 @@ function App() {
   function loadApiNews(key) {
     setIsLoading(true);
 
-    getArticles(topic, search, country, key)
+    getArticles(topic, search, country, source, key)
       .then(data => {
         const success = keyValidation(data, key);
         setValidAuth(success);
@@ -47,7 +48,10 @@ function App() {
           };
         });
         setNews(parsedData);
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1300);
+        // setIsLoading(false);
       })
       .catch(error => {
         console.log(error);
@@ -97,16 +101,29 @@ function App() {
   function handleTopicSelect(topic) {
     setTopic(topic);
     setSearch("");
+    setSource("");
+    setToLocal("source", "");
+  }
+
+  function handleSourcesSelect(inputval) {
+    setSource(inputval);
+    setToLocal("source", inputval);
   }
 
   function handleSearchSelect(search) {
     setSearch(search);
     setTopic("");
+    setSource("");
+    setToLocal("source", "");
   }
 
   function handleCountrySelect(inputval) {
     setCountry(inputval);
     setToLocal("country", inputval);
+    setSource("");
+    setToLocal("source", "");
+    setSearch("");
+    setTopic("");
   }
 
   function handleThemeSetting() {
@@ -120,67 +137,63 @@ function App() {
 
   function returnKeyValidComponents() {
     const returnPage = validAuth ? (
-      <ThemeProvider
-        theme={{
-          mode: themeState.mode
-        }}
-      >
-        <Appdiv className="App">
-          <BrowserRouter>
-            <Header
-              onSearchSelect={handleSearchSelect}
-              search={search}
-              isAuthenticated={Boolean(apiKey)}
+      <Appdiv className="App">
+        <BrowserRouter>
+          <Header
+            onSearchSelect={handleSearchSelect}
+            search={search}
+            isAuthenticated={Boolean(apiKey)}
+          />
+          <Switch>
+            <Route
+              path="/news/:topic?"
+              render={props => (
+                <NewsPage
+                  loadingState={isLoading}
+                  onNewsSave={handleNewsBookmark}
+                  savedNews={savedNews}
+                  news={filteredNews}
+                  onLoadNews={loadApiNews}
+                  {...props}
+                />
+              )}
             />
-            <Switch>
-              <Route
-                path="/news/:topic?"
-                render={props => (
-                  <NewsPage
-                    loadingState={isLoading}
-                    onNewsSave={handleNewsBookmark}
-                    savedNews={savedNews}
-                    news={filteredNews}
-                    onLoadNews={loadApiNews}
-                    {...props}
-                  />
-                )}
-              />
-              <Route
-                path="/saved"
-                render={props => (
-                  <NewsPage
-                    filterNews={filteredNews}
-                    onNewsSave={handleNewsBookmark}
-                    savedNews={savedNews}
-                    news={savedNews}
-                    {...props}
-                  />
-                )}
-              />
-              <Route
-                path="/options"
-                render={props => (
-                  <OptionsPage
-                    component={OptionsPage}
-                    country={country}
-                    onCountrySelect={handleCountrySelect}
-                    onToggleTheme={handleThemeSetting}
-                    {...props}
-                  />
-                )}
-              />
-              <Route
-                path="/"
-                render={props => (
-                  <HomePage onTopicSelect={handleTopicSelect} {...props} />
-                )}
-              />
-            </Switch>
-            <Footer isAuthenticated={Boolean(apiKey)} />
-          </BrowserRouter>
-        </Appdiv>
-      </ThemeProvider>
+            <Route
+              path="/saved"
+              render={props => (
+                <NewsPage
+                  filterNews={filteredNews}
+                  onNewsSave={handleNewsBookmark}
+                  savedNews={savedNews}
+                  news={savedNews}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/options"
+              render={props => (
+                <OptionsPage
+                  component={OptionsPage}
+                  country={country}
+                  source={source}
+                  onCountrySelect={handleCountrySelect}
+                  onSourcesSelect={handleSourcesSelect}
+                  onToggleTheme={handleThemeSetting}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/"
+              render={props => (
+                <HomePage onTopicSelect={handleTopicSelect} {...props} />
+              )}
+            />
+          </Switch>
+          <Footer isAuthenticated={Boolean(apiKey)} />
+        </BrowserRouter>
+      </Appdiv>
     ) : (
       <Appdiv className="App">
         <BrowserRouter>
@@ -192,16 +205,31 @@ function App() {
           <Switch>
             <Route
               path="/"
-              render={props => <LoginPage onSubmit={handleSubmit} {...props} />}
+              render={props => (
+                <LoginPage
+                  isAuthenticated={validAuth}
+                  onSubmit={handleSubmit}
+                  {...props}
+                />
+              )}
             />
           </Switch>
           <Footer isAuthenticated={validAuth} />
         </BrowserRouter>
       </Appdiv>
     );
-    return returnPage;
+
+    return (
+      <ThemeProvider
+        theme={{
+          mode: themeState.mode
+        }}
+      >
+        {returnPage}
+      </ThemeProvider>
+    );
   }
   return returnKeyValidComponents();
 }
 
-export default App;
+export default withTheme(App);

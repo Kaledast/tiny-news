@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import StyledContainer from "../components/StyledContainer.js";
 import StyledForm from "../components/StyledForm.js";
 import StyledLink from "../components/StyledLink.js";
 import StyledSection from "../components/StyledSection.js";
 import StyledInput from "../components/StyledInput.js";
 import StyledSubmitButton from "../components/StyledSubmitButton.js";
+import StyledMessage from "../components/StyledMessage.js";
 
-export default function LoginPage({ onSubmit, history }) {
+export default function LoginPage({ isAuthenticated, onSubmit, history }) {
+  const [submit, setSubmit] = useState(false);
+
   function handleSubmit(event) {
-    console.log(event);
-
+    setSubmit(true);
     event.preventDefault();
     const form = event.target;
     onSubmit(form.apikey.value, history);
     form.reset();
+  }
+
+  function messageInvalidKey() {
+    return <StyledMessage>your key is invalid, please try again</StyledMessage>;
   }
 
   return (
@@ -36,6 +42,7 @@ export default function LoginPage({ onSubmit, history }) {
           />
         </label>
         <StyledSubmitButton>submit!</StyledSubmitButton>
+        {submit && !isAuthenticated ? messageInvalidKey() : <></>}
       </StyledForm>
     </StyledContainer>
   );

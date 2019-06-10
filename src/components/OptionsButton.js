@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import optionsButton from "../news/images/OptionsButton.svg";
-
+//import settingsButton from "../news/images/SettingsButton.svg";
 const OptionsButton = styled.div`
   background: url(${optionsButton}) no-repeat center;
   height: 50px;

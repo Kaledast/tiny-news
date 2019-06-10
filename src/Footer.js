@@ -23,7 +23,9 @@ function Footer({ isAuthenticated }) {
         </StyledFooter>
       </ThemeProvider>
     ) : (
-      <StyledFooter />
+      <ThemeProvider theme={theme}>
+        <StyledFooter />
+      </ThemeProvider>
     );
 
     return returnFooter;

@@ -1,8 +1,8 @@
-import loadingHorse from "../news/images/HorseLoading.svg";
 import styled from "styled-components";
+import { loadingIcon } from "../components/themes/theme.js";
 
 const Icon = styled.div`
-  background: url(${loadingHorse}) no-repeat center;
+  background: ${loadingIcon} no-repeat center;
   width: 180px;
   height: 160px;
   border-radius: 10%;
