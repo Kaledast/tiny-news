@@ -7,6 +7,7 @@ const ButtonContainer = styled.nav`
   justify-content: space-evenly;
   width: auto;
   height: 50%;
+  margin-top: 50px;
 `;
 
 export default ButtonContainer;

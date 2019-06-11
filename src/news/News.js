@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
 import DivWrapperOuter from "../components/DivWrapperOuter.js";
 import DivWrapperInner from "../components/DivWrapperInner.js";
 import ArticleTopic from "../components/ArticleTopic.js";
@@ -15,7 +16,16 @@ import theme from "../components/themes/theme.js";
 
 function News({ article, onSave, saved }) {
   if (article !== "404") {
-    const { title, content, description, url, urlToImage } = article;
+    const {
+      title,
+      content,
+      description,
+      url,
+      urlToImage,
+      publishedAt
+    } = article;
+    console.log(article);
+    const date = moment(publishedAt).format("YYYY-MMM-DD");
     const cleanTitle = title && title.split("-")[0];
     let cleanContent = (content && content.split("[")[0]) || description;
     const invalidStrings = [
@@ -57,7 +67,7 @@ function News({ article, onSave, saved }) {
               />
               <CheckBoxLabel htmlfor="input" />
             </CheckBoxWrapper>
-
+            <div id="date">{date}</div>
             <ArticleTopic>{cleanTitle}</ArticleTopic>
 
             {urlToImage ? <StyledImage src={urlToImage} alt="" /> : ""}
