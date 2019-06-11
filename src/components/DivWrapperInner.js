@@ -6,7 +6,7 @@ const DivWrapperInner = styled.div`
   flex-direction: column;
   background: ${paperGradient};
   box-shadow: 0px 0px 4px 1px ${backgroundColor};
-  padding: 10px;
+  padding: 15px;
 `;
 
 export default DivWrapperInner;

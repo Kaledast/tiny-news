@@ -15,7 +15,6 @@ export default function OptionsPage({
 }) {
   return (
     <OptionsContainer>
-      <h1>Options</h1>
       <StyledContent>
         <DropDownCountry
           history={history}

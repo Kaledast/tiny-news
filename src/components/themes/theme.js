@@ -1,9 +1,8 @@
 import theme from "styled-theming";
-import img_normal from "../../news/images/img3.jpg";
-import img_sepia from "../../news/images/img5.jpg";
-import loadingHorse from "../../news/images/HorseLoading.svg";
-//import loadingHorseSepia from "../../news/images/LoadingHorseSepia.svg";
-import loadingHorseSepia from "../../news/images/LoadingIconSepiaGreen.svg";
+import img_normal from "../../news/images/img5.jpg";
+import img_sepia from "../../news/images/img8.jpg";
+import loadingHorse from "../../news/images/LoadingHorseNormal.svg";
+import loadingHorseSepia from "../../news/images/SepiaHorseGreen.svg";
 
 export default {
   backgroundColor: "#2f1953",

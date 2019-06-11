@@ -145,7 +145,6 @@ export default function DropDownSources({ source, onSourcesSelect, history }) {
       <StyledLabel htmlFor="source">Choose sources:</StyledLabel>
       <Dropdown
         onChange={(event, data) => {
-          console.log(data.value);
           onSourcesSelect(data.value);
           history.replace("/news/:topic?");
         }}

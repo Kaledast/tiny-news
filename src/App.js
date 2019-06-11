@@ -51,7 +51,6 @@ function App() {
         setTimeout(() => {
           setIsLoading(false);
         }, 1300);
-        // setIsLoading(false);
       })
       .catch(error => {
         console.log(error);
@@ -108,6 +107,10 @@ function App() {
   function handleSourcesSelect(inputval) {
     setSource(inputval);
     setToLocal("source", inputval);
+    setCountry("");
+    setToLocal("country", "");
+    setSearch("");
+    setToLocal("search", "");
   }
 
   function handleSearchSelect(search) {

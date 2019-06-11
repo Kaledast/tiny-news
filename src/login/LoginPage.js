@@ -19,7 +19,7 @@ export default function LoginPage({ isAuthenticated, onSubmit, history }) {
   }
 
   function messageInvalidKey() {
-    return <StyledMessage>your key is invalid, please try again</StyledMessage>;
+    return <StyledMessage>validating... </StyledMessage>;
   }
 
   return (
