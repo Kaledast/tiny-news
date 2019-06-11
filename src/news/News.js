@@ -89,7 +89,7 @@ function News({ article, onSave, saved }) {
 export default withTheme(News);
 
 News.propTypes = {
-  title: PropTypes.string, //isRequired erfüllt irgendwie nicht seinen Zweck
+  title: PropTypes.string,
   content: PropTypes.string,
   handleSave: PropTypes.func,
   saved: PropTypes.bool
