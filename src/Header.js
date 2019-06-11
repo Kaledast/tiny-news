@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import StyledHeader from "./components/StyledHeader.js";
 import Div from "./components/Div.js";
 import HeaderTitle from "./components/HeaderTitle.js";
-import StyledNavLink from "./components/StyledNavLink.js";
 import Logo from "./components/Logo.js";
 import HeaderForm from "./components/HeaderForm.js";
 import { ThemeProvider, withTheme } from "styled-components";
@@ -30,9 +29,6 @@ function Header({ isAuthenticated, onSearchSelect, history }) {
             <input type="text" placeholder="Search..." />
             <button type="submit">go!</button>
           </HeaderForm>
-          <nav>
-            <StyledNavLink to="/saved">SAVED</StyledNavLink>
-          </nav>
         </StyledHeader>
       </ThemeProvider>
     ) : (

@@ -2,8 +2,9 @@ import styled from "styled-components";
 
 const Button = styled.div`
   background: url(${props => props.buttonIcon}) no-repeat center;
-  width: 80px;
-  height: 60px;
-  border-radius: 10%;
+  background-size: cover;
+  width: 95px;
+  height: 65px;
+  margin: 20px;
 `;
 export default Button;
