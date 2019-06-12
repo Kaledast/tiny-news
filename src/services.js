@@ -3,7 +3,6 @@ dotenv.config();
 
 export function getArticles(topic, search, country, source, apiKey) {
   const url_apiKey = process.env.REACT_APP_API_KEY || apiKey;
-  console.log(source);
   const apiURL = source
     ? `https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=${url_apiKey}`
     : `https://newsapi.org/v2/top-headlines?${
