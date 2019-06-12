@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import moment from "moment";
 import DivWrapperOuter from "../components/DivWrapperOuter.js";
 import DivWrapperInner from "../components/DivWrapperInner.js";
@@ -11,6 +10,7 @@ import CheckBoxWrapper from "../components/CheckBoxWrapper.js";
 import CheckBoxLabel from "../components/CheckBoxLabel.js";
 import SavedCheckBox from "../components/SavedCheckBox.js";
 import StyledImage from "../components/StyledImage.js";
+import PropTypes from "prop-types";
 import { ThemeProvider, withTheme } from "styled-components";
 import theme from "../components/themes/theme.js";
 
@@ -24,7 +24,7 @@ function News({ article, onSave, saved }) {
       urlToImage,
       publishedAt
     } = article;
-    console.log(article);
+
     const date = moment(publishedAt).format("YYYY-MMM-DD");
     const cleanTitle = title && title.split("-")[0];
     let cleanContent = (content && content.split("[")[0]) || description;
@@ -98,6 +98,7 @@ function News({ article, onSave, saved }) {
 
 export default withTheme(News);
 
+// ------- proptypes --------
 News.propTypes = {
   title: PropTypes.string,
   content: PropTypes.string,

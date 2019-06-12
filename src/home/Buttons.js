@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../components/compButtons.js";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 export default function Buttons({ topic, onSelect }) {
   return (
@@ -9,3 +10,11 @@ export default function Buttons({ topic, onSelect }) {
     </Link>
   );
 }
+
+// ------- proptypes --------
+Buttons.propTypes = {
+  topic: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.string])
+  ),
+  onSelect: PropTypes.func
+};

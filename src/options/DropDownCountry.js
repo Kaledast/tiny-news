@@ -69,7 +69,7 @@ export default function DropDownCountry({ country, onCountrySelect, history }) {
     <StyledDropDownContainer>
       <StyledLabel htmlFor="country">Change country:</StyledLabel>
       <Dropdown
-        onChange={(event, data) => {
+        onChange={data => {
           onCountrySelect(data.value);
           history.replace("/news/:topic?");
         }}
