@@ -3,15 +3,18 @@ dotenv.config();
 
 export function getArticles(topic, search, country, source, apiKey) {
   const url_apiKey = process.env.REACT_APP_API_KEY || apiKey;
-  console.log(source);
+  console.log(source, topic);
   const apiURL = source
     ? `https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=${url_apiKey}`
     : `https://newsapi.org/v2/top-headlines?${
         search ? "q=" + search + "&" : ""
-      }pageSize=100${
-        country ? "&country=" + country + "&" : ""
-      }category=${topic}&apiKey=${url_apiKey}`;
+      }pageSize=100${country ? "&country=" + country : ""}${
+        topic ? "&category=" + topic : ""
+      }&apiKey=${url_apiKey}`;
 
+  //
+  console.log(apiURL);
+  //const apiURL2=
   const req = new Request(apiURL);
 
   return fetch(req)

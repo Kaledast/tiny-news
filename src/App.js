@@ -45,7 +45,7 @@ function App() {
 
         const parsedData = data.articles.map(item => {
           return {
-            id: item.url + item.publishedAt,
+            id: item.url + item.publishedAt + item.title,
             saved: false,
             ...item
           };
@@ -102,7 +102,9 @@ function App() {
   }
 
   function handleTopicSelect(topic) {
+    console.log(topic);
     setTopic(topic);
+    setToLocal("topic", topic);
     setSearch("");
     setSource("");
     setToLocal("source", "");
@@ -115,6 +117,8 @@ function App() {
     setToLocal("country", "");
     setSearch("");
     setToLocal("search", "");
+    setTopic("");
+    setToLocal("topic", "");
   }
 
   function handleSearchSelect(search) {
