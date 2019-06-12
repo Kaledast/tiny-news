@@ -1,15 +1,16 @@
 import React from "react";
 import Button from "../components/compButtons.js";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 
-export default function Buttons({ topic, onSelect }) {
+function Buttons({ topic, onSelect }) {
   return (
     <Link to={`/news/${topic.id}`} onClick={() => onSelect(topic.id)}>
       <Button buttonIcon={topic.img} />
     </Link>
   );
 }
+export default withRouter(Buttons);
 
 // ------- proptypes --------
 Buttons.propTypes = {

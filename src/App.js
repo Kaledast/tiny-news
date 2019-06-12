@@ -8,7 +8,7 @@ import LoginPage from "./login/LoginPage.js";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Appdiv from "./components/Appdiv.js";
 import OptionsPage from "./options/OptionsPage.js";
-import { ThemeProvider, withTheme } from "styled-components";
+import { ThemeProvider } from "styled-components";
 //import PendingPage from "./home/PendingPage.js";
 
 function App() {
@@ -239,4 +239,4 @@ function App() {
   return returnKeyValidComponents();
 }
 
-export default withTheme(App);
+export default App;

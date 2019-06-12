@@ -10,7 +10,7 @@ import StyledMessage from "../components/StyledMessage.js";
 export default function LoginPage({ isAuthenticated, onSubmit, history }) {
   const [submit, setSubmit] = useState(false);
 
-  function handleSubmit(event) {
+  function handleClickSubmit(event) {
     setSubmit(true);
     event.preventDefault();
     const form = event.target;
@@ -27,7 +27,7 @@ export default function LoginPage({ isAuthenticated, onSubmit, history }) {
       <StyledLink href="https://newsapi.org/account">
         <button>click here for key...</button>
       </StyledLink>
-      <StyledForm onSubmit={handleSubmit}>
+      <StyledForm onSubmit={handleClickSubmit}>
         <StyledSection>
           after successful registration on the homepage of newsapi.org come back
           and enter your received key in the field below
