@@ -7,6 +7,7 @@ const StyledSwitch = styled.div`
   align-items: center;
   margin-left: 43px;
   margin-top: 20px;
+  margin-bottom: 120px;
 `;
 
 export default StyledSwitch;

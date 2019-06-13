@@ -17,6 +17,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [country, setCountry] = useState(getFromLocal("country") || "gb");
   const [source, setSource] = useState(getFromLocal("source") || "");
+  const [amount, setAmount] = useState(getFromLocal("anount") || "50");
   const [news, setNews] = useState([]);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
   const [validAuth, setValidAuth] = useState(
@@ -31,7 +32,7 @@ function App() {
   function loadApiNews(key) {
     setIsLoading(true);
 
-    getArticles(topic, search, country, source, key)
+    getArticles(topic, search, country, source, amount, key)
       .then(data => {
         const success = keyValidation(data, key);
         setValidAuth(success);
@@ -97,6 +98,11 @@ function App() {
     setSavedNews(
       found ? savedNews.filter(item => found !== item) : [article, ...savedNews]
     );
+  }
+
+  function handleNewsPerPage(input) {
+    setToLocal("amount", input);
+    setAmount(input);
   }
 
   function handleTopicSelect(topic) {
@@ -192,6 +198,7 @@ function App() {
                   onCountrySelect={handleCountrySelect}
                   onSourcesSelect={handleSourcesSelect}
                   onToggleTheme={handleThemeSetting}
+                  onAmountChange={handleNewsPerPage}
                   {...props}
                 />
               )}

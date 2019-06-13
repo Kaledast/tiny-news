@@ -1,6 +1,7 @@
 import React from "react";
 import DropDownSources from "./DropDownSources.js";
 import DropDownCountry from "./DropDownCountry.js";
+import AmountNews from "./Amount.js";
 import SepiaToggle from "./SepiaToggle.js";
 import OptionsContainer from "../components/OptionsContainer.js";
 import StyledContent from "../components/StyledContent.js";
@@ -10,6 +11,7 @@ export default function OptionsPage({
   onToggleTheme,
   onCountrySelect,
   onSourcesSelect,
+  onAmountChange,
   country,
   source,
   history
@@ -29,6 +31,7 @@ export default function OptionsPage({
         />
         <SepiaToggle onToggleTheme={onToggleTheme} />
       </StyledContent>
+      <AmountNews onAmountChange={onAmountChange} />
     </OptionsContainer>
   );
 }

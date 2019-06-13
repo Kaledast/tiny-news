@@ -1,13 +1,13 @@
 import dotenv from "dotenv";
 dotenv.config();
 
-export function getArticles(topic, search, country, source, apiKey) {
+export function getArticles(topic, search, country, source, amount, apiKey) {
   const url_apiKey = process.env.REACT_APP_API_KEY || apiKey;
   const apiURL = source
     ? `https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=${url_apiKey}`
     : `https://newsapi.org/v2/top-headlines?${
         search ? "q=" + search + "&" : ""
-      }pageSize=100${country ? "&country=" + country : ""}${
+      }pageSize=${amount}${country ? "&country=" + country : ""}${
         topic ? "&category=" + topic : ""
       }&apiKey=${url_apiKey}`;
 
