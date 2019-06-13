@@ -24,6 +24,7 @@
     "react-dom": "^16.8.6",
     "react-favicon": "0.0.16",
     "react-fontawesome": "^1.6.1",
+    "react-radio-button": "^1.5.4",
     "react-radio-group": "^3.0.3",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",

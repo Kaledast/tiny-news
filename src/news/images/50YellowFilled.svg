@@ -8,7 +8,7 @@
         <g id="iPhone-8" transform="translate(-117.000000, -525.000000)">
             <g id="Group-23-Copy-3" transform="translate(117.000000, 525.000000)">
                 <path d="M0.5,0.5 L0.5,25.5 L113.5,25.5 L113.5,0.5 C79.6105748,0.5 79.5009896,0.5 57,0.5 C34.4990104,0.5 34.3894252,0.5 0.500005821,0.5 Z" id="Rectangle-7-Copy-6" stroke="#FFF29A" fill-opacity="0.6465976" fill="#FFF29A"></path>
-                <text id="50" font-family="AndaleMono, Andale Mono" font-size="13" font-weight="normal" letter-spacing="1.95000005" fill="#000000">
+                <text id="50" font-family="AndaleMono, Andale Mono" font-size="13" font-weight="normal" letter-spacing="1.95000005" fill="#331D55">
                     <tspan x="47" y="18">50</tspan>
                 </text>
             </g>

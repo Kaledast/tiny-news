@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { RadioGroup, Radio } from "react-radio-group";
 import StyledLabel from "../components/StyledLabel.js";
 import { withTheme } from "styled-components";
-import { getFromLocal, setToLocal } from "../services.js";
+import RadioButton from "./RadioButton.js";
 import styled from "styled-components";
-import { minYellowUnfilled } from "../news/images/20YellowUnfilled.svg";
 
 const StyledRadio = styled.div`
   display: flex;
@@ -12,44 +10,76 @@ const StyledRadio = styled.div`
   justify-content: center;
   align-items: center;
 
-  & > div > input:nth-child(1) {
-    margin: 30px;
-    width: 30px;
-    height: 10px;
-  }
-
-  & > div > input:nth-child(2) {
-    margin: 30px;
-    width: 30px;
-    height: 10px;
-  }
-
-  & > div > input:nth-child(3) {
-    margin: 30px;
-    width: 30px;
-    height: 10px;
+  & > div {
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+    align-items: space-around;
   }
 `;
 
 function AmountNews({ onAmountChange }) {
-  function handleChangeRadio(input) {
-    onAmountChange(input);
-  }
+  const radioButtonsYellow = [
+    {
+      id: "20",
+      val: 20,
+      img: require("../news/images/20YellowUnfilled.svg"),
+      imgfilled: require("../news/images/20YellowFilled.svg")
+    },
+    {
+      id: "50",
+      val: 50,
+      img: require("../news/images/50YellowUnfilled.svg"),
+      imgfilled: require("../news/images/50YellowFilled.svg")
+    },
+    {
+      id: "100",
+      val: 100,
+      img: require("../news/images/100YellowUnfilled.svg"),
+      imgfilled: require("../news/images/100YellowFilled.svg")
+    }
+  ];
+  const radioButtonsGreen = [
+    {
+      id: "20",
+      val: 20,
+      img: require("../news/images/20unfilled.svg"),
+      imgfilled: require("../news/images/20filled.svg")
+    },
+    {
+      id: "50",
+      val: 50,
+      img: require("../news/images/50unfilled.svg"),
+      imgfilled: require("../news/images/50filled.svg")
+    },
+    {
+      id: "100",
+      val: 100,
+      img: require("../news/images/100unfilled.svg"),
+      imgfilled: require("../news/images/100filled.svg")
+    }
+  ];
+
   return (
     <StyledRadio>
-      <StyledLabel>Choose amount of news shown per page</StyledLabel>
-      <RadioGroup
-        name="amount"
-        onChange={event => {
-          handleChangeRadio(event);
-        }}
-      >
-        <Radio value="20" />
-        <Radio value="50" />
-        <Radio value="100" />
-      </RadioGroup>
+      <StyledLabel>Select amount of news shown per page:</StyledLabel>
+      {radioButtonsYellow.map(radio => (
+        <RadioButton
+          key={radio.id}
+          onClickRadio={onAmountChange}
+          radio={radio}
+        />
+      ))}
     </StyledRadio>
   );
 }
 
 export default withTheme(AmountNews);
+
+/*         {radioButtonsYellow.map(radio => (
+          <RadioButton
+            key={radio.id}
+            onClickRadio={handleChangeRadio}
+            radio={radio}
+          />
+        ))}*/

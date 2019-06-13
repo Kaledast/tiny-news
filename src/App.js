@@ -101,6 +101,7 @@ function App() {
   }
 
   function handleNewsPerPage(input) {
+    console.log(input);
     setToLocal("amount", input);
     setAmount(input);
   }
