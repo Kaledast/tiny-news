@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import StyledLabel from "../components/StyledLabel.js";
 import { withTheme } from "styled-components";
 import RadioButton from "./RadioButton.js";
@@ -9,12 +9,8 @@ const StyledRadio = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   & > div {
     display: flex;
-    justify-content: center;
-    align-content: space-around;
-    align-items: space-around;
   }
 `;
 
@@ -63,23 +59,17 @@ function AmountNews({ onAmountChange }) {
   return (
     <StyledRadio>
       <StyledLabel>Select amount of news shown per page:</StyledLabel>
-      {radioButtonsYellow.map(radio => (
-        <RadioButton
-          key={radio.id}
-          onClickRadio={onAmountChange}
-          radio={radio}
-        />
-      ))}
+      <div>
+        {radioButtonsYellow.map(radio => (
+          <RadioButton
+            key={radio.id}
+            onClickRadio={onAmountChange}
+            radio={radio}
+          />
+        ))}
+      </div>
     </StyledRadio>
   );
 }
 
 export default withTheme(AmountNews);
-
-/*         {radioButtonsYellow.map(radio => (
-          <RadioButton
-            key={radio.id}
-            onClickRadio={handleChangeRadio}
-            radio={radio}
-          />
-        ))}*/
