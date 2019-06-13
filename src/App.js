@@ -95,7 +95,7 @@ function App() {
   function handleNewsBookmark(article) {
     const found = savedNews.find(item => item.id === article.id);
     setSavedNews(
-      found ? savedNews.filter(item => found !== item) : [...savedNews, article]
+      found ? savedNews.filter(item => found !== item) : [article, ...savedNews]
     );
   }
 
