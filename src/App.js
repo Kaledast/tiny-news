@@ -8,11 +8,9 @@ import LoginPage from "./login/LoginPage.js";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Appdiv from "./components/Appdiv.js";
 import OptionsPage from "./options/OptionsPage.js";
-import { ThemeProvider, withTheme } from "styled-components";
-//import PendingPage from "./home/PendingPage.js";
+import { ThemeProvider } from "styled-components";
 
 function App() {
-  // STATE
   const [isLoading, setIsLoading] = useState(true);
   const [topic, setTopic] = useState(getFromLocal("topic") || "general");
   const [apiKey, setApiKey] = useState(getFromLocal("apiKey"));
@@ -21,8 +19,9 @@ function App() {
   const [source, setSource] = useState(getFromLocal("source") || "");
   const [news, setNews] = useState([]);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
-  //const [validAuth, setValidAuth] = useState(getFromLocal("Auth") || "pending");
-  const [validAuth, setValidAuth] = useState(false);
+  const [validAuth, setValidAuth] = useState(
+    getFromLocal("validAuth") || false
+  );
   const [themeState, setThemeState] = useState(
     getFromLocal("themeState") || {
       mode: "normal"
@@ -36,7 +35,7 @@ function App() {
       .then(data => {
         const success = keyValidation(data, key);
         setValidAuth(success);
-        //setToLocal("Auth", success);
+        setToLocal("validAuth", success);
 
         if (!success) {
           setIsLoading(false);
@@ -45,7 +44,7 @@ function App() {
 
         const parsedData = data.articles.map(item => {
           return {
-            id: item.url + item.publishedAt,
+            id: item.url + item.publishedAt + item.title,
             saved: false,
             ...item
           };
@@ -67,7 +66,6 @@ function App() {
 
   useEffect(() => {
     setToLocal("apiKey", apiKey);
-
     if (apiKey) {
       loadApiNews(apiKey);
     }
@@ -97,27 +95,33 @@ function App() {
   function handleNewsBookmark(article) {
     const found = savedNews.find(item => item.id === article.id);
     setSavedNews(
-      found ? savedNews.filter(item => found !== item) : [...savedNews, article]
+      found ? savedNews.filter(item => found !== item) : [article, ...savedNews]
     );
   }
 
   function handleTopicSelect(topic) {
+    //noch aussortieren
     setTopic(topic);
+    setToLocal("topic", topic);
     setSearch("");
     setSource("");
     setToLocal("source", "");
   }
 
   function handleSourcesSelect(inputval) {
+    //noch aussortieren
     setSource(inputval);
     setToLocal("source", inputval);
     setCountry("");
     setToLocal("country", "");
     setSearch("");
     setToLocal("search", "");
+    setTopic("");
+    setToLocal("topic", "");
   }
 
   function handleSearchSelect(search) {
+    //noch aussortieren
     setSearch(search);
     setTopic("");
     setSource("");
@@ -125,6 +129,7 @@ function App() {
   }
 
   function handleCountrySelect(inputval) {
+    //noch aussortieren
     setCountry(inputval);
     setToLocal("country", inputval);
     setSource("");
@@ -149,7 +154,7 @@ function App() {
           <Header
             onSearchSelect={handleSearchSelect}
             search={search}
-            isAuthenticated={Boolean(apiKey)}
+            isAuthenticated={validAuth}
           />
           <Switch>
             <Route
@@ -198,7 +203,7 @@ function App() {
               )}
             />
           </Switch>
-          <Footer isAuthenticated={Boolean(apiKey)} />
+          <Footer isAuthenticated={validAuth} />
         </BrowserRouter>
       </Appdiv>
     ) : (
@@ -239,4 +244,4 @@ function App() {
   return returnKeyValidComponents();
 }
 
-export default withTheme(App);
+export default App;

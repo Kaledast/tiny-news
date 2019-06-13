@@ -1,0 +1,3 @@
+cy.get(':checkbox').should('be.disabled')
+cy.get('input').should('not.have.value', 'Jane')
+cy.get('#input-receives-focus').should('have.focus') //

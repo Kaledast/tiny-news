@@ -70,7 +70,6 @@ export default function DropDownCountry({ country, onCountrySelect, history }) {
       <StyledLabel htmlFor="country">Change country:</StyledLabel>
       <Dropdown
         onChange={(event, data) => {
-          console.log(data.value);
           onCountrySelect(data.value);
           history.replace("/news/:topic?");
         }}

@@ -7,9 +7,9 @@ export function getArticles(topic, search, country, source, apiKey) {
     ? `https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=${url_apiKey}`
     : `https://newsapi.org/v2/top-headlines?${
         search ? "q=" + search + "&" : ""
-      }pageSize=100${
-        country ? "&country=" + country + "&" : ""
-      }category=${topic}&apiKey=${url_apiKey}`;
+      }pageSize=100${country ? "&country=" + country : ""}${
+        topic ? "&category=" + topic : ""
+      }&apiKey=${url_apiKey}`;
 
   const req = new Request(apiURL);
 
