@@ -1,5 +1,6 @@
-describe("Login formular for the user to get api-key", () => {
-  it("shows how to get the api-key", () => {
+describe("Login formular for the user to get api-key", function() {
+  it("has a link for getting the key", () => {
+    cy.clearLocalStorage();
     cy.visit("/");
     cy.get("a")
       .should("have.attr", "href")

@@ -21,7 +21,7 @@ function Header({ isAuthenticated, onSearchSelect, history }) {
     const returnHeader = isAuthenticated ? (
       <ThemeProvider theme={theme}>
         <StyledHeader>
-          <Div data-cy="header-icon-${icon.id}">
+          <Div data-cy={`headerIcon`}>
             <Logo />
             <HeaderTitle>Tiny News</HeaderTitle>
           </Div>

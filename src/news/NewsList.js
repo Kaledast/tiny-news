@@ -23,7 +23,9 @@ export default function NewsList({ onArticleSave, news, savedNews }) {
           key={article.id || "404 not found"}
           onSave={onArticleSave}
           article={article}
-          saved={Boolean(savedNews.find(item => item.id === article.id))}
+          saved={Boolean(
+            savedNews.reverse().find(item => item.id === article.id)
+          )}
         />
       ))}
     </StyledSectionList>

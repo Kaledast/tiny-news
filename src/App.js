@@ -9,10 +9,8 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Appdiv from "./components/Appdiv.js";
 import OptionsPage from "./options/OptionsPage.js";
 import { ThemeProvider } from "styled-components";
-//import PendingPage from "./home/PendingPage.js";
 
 function App() {
-  // STATE
   const [isLoading, setIsLoading] = useState(true);
   const [topic, setTopic] = useState(getFromLocal("topic") || "general");
   const [apiKey, setApiKey] = useState(getFromLocal("apiKey"));
@@ -21,8 +19,9 @@ function App() {
   const [source, setSource] = useState(getFromLocal("source") || "");
   const [news, setNews] = useState([]);
   const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
-  //const [validAuth, setValidAuth] = useState(getFromLocal("Auth") || "pending");
-  const [validAuth, setValidAuth] = useState(false);
+  const [validAuth, setValidAuth] = useState(
+    getFromLocal("validAuth") || false
+  );
   const [themeState, setThemeState] = useState(
     getFromLocal("themeState") || {
       mode: "normal"
@@ -36,7 +35,7 @@ function App() {
       .then(data => {
         const success = keyValidation(data, key);
         setValidAuth(success);
-        //setToLocal("Auth", success);
+        setToLocal("validAuth", success);
 
         if (!success) {
           setIsLoading(false);
@@ -67,7 +66,6 @@ function App() {
 
   useEffect(() => {
     setToLocal("apiKey", apiKey);
-
     if (apiKey) {
       loadApiNews(apiKey);
     }
@@ -102,7 +100,7 @@ function App() {
   }
 
   function handleTopicSelect(topic) {
-    console.log(topic);
+    //noch aussortieren
     setTopic(topic);
     setToLocal("topic", topic);
     setSearch("");
@@ -111,6 +109,7 @@ function App() {
   }
 
   function handleSourcesSelect(inputval) {
+    //noch aussortieren
     setSource(inputval);
     setToLocal("source", inputval);
     setCountry("");
@@ -122,6 +121,7 @@ function App() {
   }
 
   function handleSearchSelect(search) {
+    //noch aussortieren
     setSearch(search);
     setTopic("");
     setSource("");
@@ -129,6 +129,7 @@ function App() {
   }
 
   function handleCountrySelect(inputval) {
+    //noch aussortieren
     setCountry(inputval);
     setToLocal("country", inputval);
     setSource("");
@@ -153,7 +154,7 @@ function App() {
           <Header
             onSearchSelect={handleSearchSelect}
             search={search}
-            isAuthenticated={Boolean(apiKey)}
+            isAuthenticated={validAuth}
           />
           <Switch>
             <Route
@@ -202,7 +203,7 @@ function App() {
               )}
             />
           </Switch>
-          <Footer isAuthenticated={Boolean(apiKey)} />
+          <Footer isAuthenticated={validAuth} />
         </BrowserRouter>
       </Appdiv>
     ) : (

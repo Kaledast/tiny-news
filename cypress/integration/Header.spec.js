@@ -1,18 +1,21 @@
-describe("Header formular with searchbar", () => {
-  it("shows icon and searchbar", () => {
-    cy.wait(2000);
-    cy.visit("/home");
+import { Input } from "semantic-ui-react";
 
-    cy.get("input")
-      .type("trump")
-      .click();
-  });
+beforeEach(function() {
+  cy.window().then(window =>
+    window.localStorage.setItem("apiKey", "ac3a791efaef4b87b7ab8ed0d4b6efed")
+  );
+  cy.window().then(window => window.localStorage.setItem("validAuth", true));
 });
 
-/*
-should("have.attr", "href");
-      cy.get("input").type("ac3a791efaef4b87b7ab8ed0d4b6efed");
-      cy.get("form")
-        .submit()
-        .click();
-*/
+describe("Header formular with searchbar", () => {
+  it("shows icon and searchbar", () => {
+    cy.window().then(window =>
+      window.localStorage.setItem("isAuthenticated", true)
+    );
+    cy.visit("/");
+
+    cy.get("[data-cy=headerIcon]").should("have.text", "Tiny News");
+    cy.get("input").type("trump");
+    cy.get("button").click();
+  });
+});
