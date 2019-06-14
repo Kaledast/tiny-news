@@ -33,6 +33,13 @@ export default function OptionsPage({
         <ThemeToggle onToggleTheme={onToggleTheme} />
       </OptionsWrapper>
       <AmountNews themeState={themeState} onAmountChange={onAmountChange} />
+      <p>
+        Ps: you cannot mix choices of country or search with sources, for
+        further information visit
+        <a href={'https://newsapi.org/docs/endpoints/top-headlines'}>
+          <span>newsapi.org request parameters</span>
+        </a>
+      </p>
     </OptionsContainer>
   );
 }

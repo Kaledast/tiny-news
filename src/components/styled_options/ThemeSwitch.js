@@ -7,7 +7,7 @@ const ThemeSwitch = styled.div`
   align-items: center;
   margin-left: 43px;
   margin-top: 20px;
-  margin-bottom: 120px;
+  margin-bottom: 90px;
 `;
 
 export default ThemeSwitch;
