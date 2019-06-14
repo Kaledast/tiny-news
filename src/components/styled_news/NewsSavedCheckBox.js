@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import heart from '../../news/images/heart.svg';
+import heart from '../../images/heart.svg';
 import NewsCheckBoxLabel from './NewsCheckBoxLabel.js';
 
 const NewsSavedCheckBox = styled.input`

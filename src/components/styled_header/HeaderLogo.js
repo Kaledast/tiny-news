@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import headerIcon from '../../news/images/IconHorse.svg';
+import headerIcon from '../../images/IconHorse.svg';
 
 const HeaderLogo = styled.img`
   background: url(${headerIcon}) no-repeat center;

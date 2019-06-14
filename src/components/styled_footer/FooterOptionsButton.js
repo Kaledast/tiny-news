@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import optionsButton from '../../news/images/OptionsButton.svg';
+import optionsButton from '../../images/OptionsButton.svg';
 
 const FooterOptionsButton = styled.div`
   background: url(${optionsButton}) no-repeat center;

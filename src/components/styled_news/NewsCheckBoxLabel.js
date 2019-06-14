@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import unheart from '../../news/images/unheart.svg';
+import unheart from '../../images/unheart.svg';
 
 const NewsCheckBoxLabel = styled.label`
   background: url(${unheart}) no-repeat center;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import homeButton from '../../news/images/HomeButton.svg';
+import homeButton from '../../images/HomeButton.svg';
 
 const FooterHomeButton = styled.div`
   background: url(${homeButton}) no-repeat center;

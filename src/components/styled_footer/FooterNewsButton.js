@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import NewsButtonFooter from '../../news/images/NewsButton.svg';
+import NewsButtonFooter from '../../images/NewsButton.svg';
 
 const FooterNewsButton = styled.div`
   background: url(${NewsButtonFooter}) no-repeat center;

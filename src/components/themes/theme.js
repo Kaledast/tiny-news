@@ -1,8 +1,8 @@
 import theme from 'styled-theming';
-import img_normal from '../../news/images/img5.jpg';
-import img_sepia from '../../news/images/img8.jpg';
-import loadingHorse from '../../news/images/LoadingHorseNormal.svg';
-import loadingHorseSepia from '../../news/images/SepiaHorseGreen.svg';
+import img_normal from '../../images/img5.jpg';
+import img_sepia from '../../images/img8.jpg';
+import loadingHorse from '../../images/LoadingHorseNormal.svg';
+import loadingHorseSepia from '../../images/SepiaHorseGreen.svg';
 
 export default {
   backgroundColor: '#2f1953',

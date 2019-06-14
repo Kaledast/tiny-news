@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import SavedButtonFooter from '../../news/images/SavedButtonFooter.svg';
+import SavedButtonFooter from '../../images/SavedButtonFooter.svg';
 
 const FooterSavedButton = styled.div`
   background: url(${SavedButtonFooter}) no-repeat center;

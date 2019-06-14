@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { backgroundImage } from "../components/themes/theme.js";
+import styled from 'styled-components';
+import { backgroundImage } from '../components/themes/theme.js';
 
 const Appdiv = styled.div`
   display: flex;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import linkToOriginal from '../../news/images/linkOrig.svg';
+import linkToOriginal from '../../images/linkOrig.svg';
 
 const NewsLink = styled.div`
   background-color: white;

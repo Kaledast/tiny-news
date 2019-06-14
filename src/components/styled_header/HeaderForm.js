@@ -1,13 +1,12 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const HeaderForm = styled.form`
   display: flex;
-  justify-self: center;
+  align-self: flex-end;
+  margin-bottom: 9px;
   background: white;
-  margin-left: 10px;
-  flex-shrink: 2;
-  &.input {
-    width: 100px;
+  & input {
+    max-width: 130px;
   }
 `;
 
