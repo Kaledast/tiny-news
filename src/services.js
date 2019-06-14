@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 dotenv.config();
 
 export function getArticles(topic, search, country, source, amount, apiKey) {
@@ -6,9 +6,9 @@ export function getArticles(topic, search, country, source, amount, apiKey) {
   const apiURL = source
     ? `https://newsapi.org/v2/top-headlines?sources=${source}&apiKey=${url_apiKey}`
     : `https://newsapi.org/v2/top-headlines?${
-        search ? "q=" + search + "&" : ""
-      }pageSize=${amount}${country ? "&country=" + country : ""}${
-        topic ? "&category=" + topic : ""
+        search ? 'q=' + search + '&' : ''
+      }pageSize=${amount}${country ? '&country=' + country : ''}${
+        topic ? '&category=' + topic : ''
       }&apiKey=${url_apiKey}`;
 
   const req = new Request(apiURL);

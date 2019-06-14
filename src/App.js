@@ -17,7 +17,8 @@ function App() {
   const [search, setSearch] = useState('');
   const [country, setCountry] = useState(getFromLocal('country') || 'gb');
   const [source, setSource] = useState(getFromLocal('source') || '');
-  const [amount, setAmount] = useState(getFromLocal('anount') || '50');
+  const [amount, setAmount] = useState(getFromLocal('amount') || 50);
+  const [checkedId, setCheckedId] = useState(getFromLocal('checkedId') || '50');
   const [news, setNews] = useState([]);
   const [savedNews, setSavedNews] = useState(getFromLocal('savedNews') || []);
   const [validAuth, setValidAuth] = useState(
@@ -100,8 +101,10 @@ function App() {
     );
   }
 
-  function handleNewsPerPage(input) {
-    console.log(input);
+  function handleNewsPerPage(event, input) {
+    console.log(event.target.id);
+    setCheckedId(event.target.id);
+    setToLocal('checkedId', event.target.id);
     setToLocal('amount', input);
     setAmount(input);
   }
@@ -199,6 +202,7 @@ function App() {
                   onCountrySelect={handleCountrySelect}
                   onSourcesSelect={handleSourcesSelect}
                   onToggleTheme={handleThemeSetting}
+                  checked={checkedId}
                   onAmountChange={handleNewsPerPage}
                   themeState={themeState}
                   {...props}

@@ -3,7 +3,7 @@ import GeneralLabel from '../components/GeneralLabel.js';
 import RadioButton from './RadioButton.js';
 import RadioMenu from '../components/styled_options/RadioMenu.js';
 
-function AmountNews({ onAmountChange, themeState }) {
+function AmountNews({ checked, onAmountChange, themeState }) {
   const radioButtons =
     themeState.mode === 'normal'
       ? [
@@ -53,6 +53,7 @@ function AmountNews({ onAmountChange, themeState }) {
       <div>
         {radioButtons.map(radio => (
           <RadioButton
+            checked={checked}
             key={radio.id}
             onClickRadio={onAmountChange}
             radio={radio}

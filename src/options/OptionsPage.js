@@ -13,6 +13,7 @@ export default function OptionsPage({
   onSourcesSelect,
   onAmountChange,
   themeState,
+  checked,
   country,
   source,
   history
@@ -32,7 +33,11 @@ export default function OptionsPage({
         />
         <ThemeToggle onToggleTheme={onToggleTheme} />
       </OptionsWrapper>
-      <AmountNews themeState={themeState} onAmountChange={onAmountChange} />
+      <AmountNews
+        checked={checked}
+        themeState={themeState}
+        onAmountChange={onAmountChange}
+      />
       <p>
         Ps: you cannot mix choices of country or search with sources, for
         further information visit
