@@ -3,11 +3,9 @@ import ButtonRadio from "../components/ButtonRadio.js";
 import StyledRadioLabel from "../components/StyledRadioLabel.js";
 import RadioWrapper from "../components/RadioWrapper.js";
 
-export default function RadioButton({ onClickRadio, radio }) {
+function RadioButton({ onClickRadio, radio }) {
   return (
     <RadioWrapper>
-      <StyledRadioLabel image={radio.img} htmlFor={radio.id} />
-
       <ButtonRadio
         id={radio.id}
         type="radio"
@@ -15,6 +13,9 @@ export default function RadioButton({ onClickRadio, radio }) {
         checkedImg={radio.imgfilled}
         onChange={() => onClickRadio(radio.val)}
       />
+      <StyledRadioLabel image={radio.img} htmlFor={radio.id} />
     </RadioWrapper>
   );
 }
+
+export default RadioButton;

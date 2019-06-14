@@ -12,6 +12,7 @@ export default function OptionsPage({
   onCountrySelect,
   onSourcesSelect,
   onAmountChange,
+  themeState,
   country,
   source,
   history
@@ -31,7 +32,7 @@ export default function OptionsPage({
         />
         <SepiaToggle onToggleTheme={onToggleTheme} />
       </StyledContent>
-      <AmountNews onAmountChange={onAmountChange} />
+      <AmountNews themeState={themeState} onAmountChange={onAmountChange} />
     </OptionsContainer>
   );
 }

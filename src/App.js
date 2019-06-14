@@ -200,6 +200,7 @@ function App() {
                   onSourcesSelect={handleSourcesSelect}
                   onToggleTheme={handleThemeSetting}
                   onAmountChange={handleNewsPerPage}
+                  themeState={themeState}
                   {...props}
                 />
               )}
