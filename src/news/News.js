@@ -1,21 +1,21 @@
-import React from "react";
-import moment from "moment";
-import DivWrapperOuter from "../components/DivWrapperOuter.js";
-import DivWrapperInner from "../components/DivWrapperInner.js";
-import ArticleTopic from "../components/ArticleTopic.js";
-import ContentSection from "../components/ContentSection.js";
-import LinkButton from "../components/LinkButton.js";
-import AuthorField from "../components/AuthorField.js";
-import CheckBoxWrapper from "../components/CheckBoxWrapper.js";
-import CheckBoxLabel from "../components/CheckBoxLabel.js";
-import SavedCheckBox from "../components/SavedCheckBox.js";
-import StyledImage from "../components/StyledImage.js";
-import PropTypes from "prop-types";
-import { ThemeProvider, withTheme } from "styled-components";
-import theme from "../components/themes/theme.js";
+import React from 'react';
+import moment from 'moment';
+import NewsWrapperOuter from '../components/styled_news/NewsWrapperOuter.js';
+import NewsWrapperInner from '../components/styled_news/NewsWrapperInner.js';
+import NewsTopic from '../components/styled_news/NewsTopic.js';
+import NewsContent from '../components/styled_news/NewsContent.js';
+import NewsLink from '../components/styled_news/NewsLink.js';
+import NewsAuthorField from '../components/styled_news/NewsAuthorField.js';
+import NewsCheckBoxWrapper from '../components/styled_news/NewsCheckBoxWrapper.js';
+import NewsCheckBoxLabel from '../components/styled_news/NewsCheckBoxLabel.js';
+import NewsSavedCheckBox from '../components/styled_news/NewsSavedCheckBox.js';
+import NewsImage from '../components/styled_news/NewsImage.js';
+import PropTypes from 'prop-types';
+import { ThemeProvider, withTheme } from 'styled-components';
+import theme from '../components/themes/theme.js';
 
 function News({ article, onSave, saved }) {
-  if (article !== "404") {
+  if (article !== '404') {
     const {
       title,
       content,
@@ -25,73 +25,73 @@ function News({ article, onSave, saved }) {
       publishedAt
     } = article;
 
-    const date = moment(publishedAt).format("YYYY-MMM-DD");
-    const cleanTitle = title && title.split("-")[0];
-    let cleanContent = (content && content.split("[")[0]) || description;
+    const date = moment(publishedAt).format('YYYY-MMM-DD');
+    const cleanTitle = title && title.split('-')[0];
+    let cleanContent = (content && content.split('[')[0]) || description;
     const invalidStrings = [
-      ";;",
-      ".:",
+      ';;',
+      '.:',
       `"..."`,
-      "(,)",
-      ",.,",
+      '(,)',
+      ',.,',
       `""`,
-      "-:",
-      "  ",
-      ".,",
-      ",,",
-      ",.",
-      "()",
-      "%%",
-      "//",
-      "--"
+      '-:',
+      '  ',
+      '.,',
+      ',,',
+      ',.',
+      '()',
+      '%%',
+      '//',
+      '--'
     ];
 
     if (article.content !== null) {
       cleanContent = invalidStrings.some(substring =>
         cleanContent.includes(substring)
       )
-        ? ""
+        ? ''
         : cleanContent;
     }
 
     return (
       <ThemeProvider theme={theme}>
-        <DivWrapperOuter>
-          <DivWrapperInner>
-            <CheckBoxWrapper>
-              <SavedCheckBox
+        <NewsWrapperOuter>
+          <NewsWrapperInner>
+            <NewsCheckBoxWrapper>
+              <NewsSavedCheckBox
                 onChange={() => onSave(article)}
                 checked={Boolean(saved)}
-                id="input"
-                type="checkbox"
+                id='input'
+                type='checkbox'
               />
-              <CheckBoxLabel htmlfor="input" />
-            </CheckBoxWrapper>
-            <div id="date">{date}</div>
-            <ArticleTopic>{cleanTitle}</ArticleTopic>
+              <NewsCheckBoxLabel htmlfor='input' />
+            </NewsCheckBoxWrapper>
+            <div id='date'>{date}</div>
+            <NewsTopic>{cleanTitle}</NewsTopic>
 
-            {urlToImage ? <StyledImage src={urlToImage} alt="" /> : ""}
+            {urlToImage ? <NewsImage src={urlToImage} alt='' /> : ''}
 
-            <ContentSection>{cleanContent}</ContentSection>
-            <AuthorField href={url}>
-              <LinkButton />
-            </AuthorField>
-          </DivWrapperInner>
-        </DivWrapperOuter>
+            <NewsContent>{cleanContent}</NewsContent>
+            <NewsAuthorField href={url}>
+              <NewsLink />
+            </NewsAuthorField>
+          </NewsWrapperInner>
+        </NewsWrapperOuter>
       </ThemeProvider>
     );
   } else {
     return (
-      <DivWrapperOuter>
-        <DivWrapperInner>
-          <ArticleTopic>{"No news available"}</ArticleTopic>
-          <ContentSection>
+      <NewsWrapperOuter>
+        <NewsWrapperInner>
+          <NewsTopic>{'No news available'}</NewsTopic>
+          <NewsContent>
             {
-              "Nothing new to report for your request, please choose something else"
+              'Nothing new to report for your request, please choose something else'
             }
-          </ContentSection>
-        </DivWrapperInner>
-      </DivWrapperOuter>
+          </NewsContent>
+        </NewsWrapperInner>
+      </NewsWrapperOuter>
     );
   }
 }

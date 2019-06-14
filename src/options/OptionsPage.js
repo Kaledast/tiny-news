@@ -1,11 +1,11 @@
-import React from "react";
-import DropDownSources from "./DropDownSources.js";
-import DropDownCountry from "./DropDownCountry.js";
-import AmountNews from "./Amount.js";
-import SepiaToggle from "./SepiaToggle.js";
-import OptionsContainer from "../components/OptionsContainer.js";
-import StyledContent from "../components/StyledContent.js";
-import PropTypes from "prop-types";
+import React from 'react';
+import DropDownSources from './DropDownSources.js';
+import DropDownCountry from './DropDownCountry.js';
+import AmountNews from './Amount.js';
+import ThemeToggle from './ThemeToggle.js';
+import OptionsContainer from '../components/styled_options/OptionsContainer.js';
+import OptionsWrapper from '../components/styled_options/OptionsWrapper.js';
+import PropTypes from 'prop-types';
 
 export default function OptionsPage({
   onToggleTheme,
@@ -19,7 +19,7 @@ export default function OptionsPage({
 }) {
   return (
     <OptionsContainer>
-      <StyledContent>
+      <OptionsWrapper>
         <DropDownCountry
           history={history}
           country={country}
@@ -30,8 +30,8 @@ export default function OptionsPage({
           history={history}
           onSourcesSelect={onSourcesSelect}
         />
-        <SepiaToggle onToggleTheme={onToggleTheme} />
-      </StyledContent>
+        <ThemeToggle onToggleTheme={onToggleTheme} />
+      </OptionsWrapper>
       <AmountNews themeState={themeState} onAmountChange={onAmountChange} />
     </OptionsContainer>
   );

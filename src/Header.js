@@ -1,12 +1,12 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
-import StyledHeader from "./components/StyledHeader.js";
-import Div from "./components/Div.js";
-import HeaderTitle from "./components/HeaderTitle.js";
-import Logo from "./components/Logo.js";
-import HeaderForm from "./components/HeaderForm.js";
-import { ThemeProvider, withTheme } from "styled-components";
-import theme from "./components/themes/theme.js";
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import StyledHeader from './components/styled_header/StyledHeader.js';
+import HeaderLogoContainer from './components/styled_header/HeaderLogoContainer.js';
+import HeaderTitle from './components/styled_header/HeaderTitle.js';
+import HeaderLogo from './components/styled_header/HeaderLogo.js';
+import HeaderForm from './components/styled_header/HeaderForm.js';
+import { ThemeProvider, withTheme } from 'styled-components';
+import theme from './components/themes/theme.js';
 
 function Header({ isAuthenticated, onSearchSelect, history }) {
   const handleSubmit = event => {
@@ -14,30 +14,30 @@ function Header({ isAuthenticated, onSearchSelect, history }) {
     const [input] = event.target.children;
     onSearchSelect(input.value);
     history.push(`/news/${input.value}`);
-    input.value = "";
+    input.value = '';
   };
 
   function LoginHeader() {
     const returnHeader = isAuthenticated ? (
       <ThemeProvider theme={theme}>
         <StyledHeader>
-          <Div data-cy={`headerIcon`}>
-            <Logo />
+          <HeaderLogoContainer data-cy={`headerIcon`}>
+            <HeaderLogo />
             <HeaderTitle>Tiny News</HeaderTitle>
-          </Div>
-          <HeaderForm onSubmit={handleSubmit} searchtext="Search topic">
-            <input type="text" placeholder="Search..." />
-            <button type="submit">go!</button>
+          </HeaderLogoContainer>
+          <HeaderForm onSubmit={handleSubmit} searchtext='Search topic'>
+            <input type='text' placeholder='Search...' />
+            <button type='submit'>go!</button>
           </HeaderForm>
         </StyledHeader>
       </ThemeProvider>
     ) : (
       <ThemeProvider theme={theme}>
         <StyledHeader>
-          <Div>
-            <Logo />
+          <HeaderLogoContainer>
+            <HeaderLogo />
             <HeaderTitle>Tiny News</HeaderTitle>
-          </Div>
+          </HeaderLogoContainer>
         </StyledHeader>
       </ThemeProvider>
     );

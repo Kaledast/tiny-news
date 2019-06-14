@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import NewsList from "./NewsList";
-import NewsPageContent from "../components/NewsPageContent.js";
-import Loading from "./Loading.js";
+import React, { useEffect } from 'react';
+import NewsList from './NewsList';
+import NewsPageContent from '../components/styled_news/NewsPageContent.js';
+import Loading from './Loading.js';
 
-import { getFromLocal } from "../services";
+import { getFromLocal } from '../services';
 
 function NewsPage({
   loadingState,
@@ -16,7 +16,7 @@ function NewsPage({
   const { topic } = match.params;
 
   useEffect(() => {
-    onLoadNews && onLoadNews(getFromLocal("apiKey"));
+    onLoadNews && onLoadNews(getFromLocal('apiKey'));
   }, [topic]);
 
   function loading() {

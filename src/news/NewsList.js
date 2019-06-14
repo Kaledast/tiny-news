@@ -1,32 +1,32 @@
-import React from "react";
-import News from "./News";
-import StyledSectionList from "../components/StyledSectionList.js";
-import PropTypes from "prop-types";
+import React from 'react';
+import News from './News';
+import NewsSectionList from '../components/styled_news/NewsSectionList.js';
+import PropTypes from 'prop-types';
 
 export default function NewsList({ onArticleSave, news, savedNews }) {
   let cleanedNews = news.filter(article => {
     return (
       article.content !== null &&
       article.urlToImage !== null &&
-      article.content.split("%").length < 3
+      article.content.split('%').length < 3
     );
   });
 
   if (cleanedNews.length < 1) {
-    cleanedNews = ["404"];
+    cleanedNews = ['404'];
   }
 
   return (
-    <StyledSectionList>
+    <NewsSectionList>
       {cleanedNews.map(article => (
         <News
-          key={article.id || "404 not found"}
+          key={article.id || '404 not found'}
           onSave={onArticleSave}
           article={article}
           saved={Boolean(savedNews.find(item => item.id === article.id))}
         />
       ))}
-    </StyledSectionList>
+    </NewsSectionList>
   );
 }
 

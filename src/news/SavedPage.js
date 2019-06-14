@@ -1,6 +1,6 @@
-import React from "react";
-import NewsList from "./NewsList";
-import NewsPageContent from "../components/NewsPageContent.js";
+import React from 'react';
+import NewsList from './NewsList';
+import NewsPageContent from '../components/styled_news/NewsPageContent.js';
 
 export default function SavedPage({
   filter,

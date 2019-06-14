@@ -1,19 +1,19 @@
-import React from "react";
-import Icon from "../components/LoadingIcon.js";
-import Container from "../components/IconContainer.js";
-import { ThemeProvider, withTheme } from "styled-components";
-import theme from "../components/themes/theme.js";
-import StyledLoadingTitle from "../components/LoadingTitle.js";
+import React from 'react';
+import LoadingIcon from '../components/styled_loading/LoadingIcon.js';
+import LoadingContainer from '../components/styled_loading/LoadingContainer.js';
+import { ThemeProvider, withTheme } from 'styled-components';
+import theme from '../components/themes/theme.js';
+import LoadingTitle from '../components/styled_loading/LoadingTitle.js';
 
-function LoadingIcon() {
+function LoaderIcon() {
   return (
     <ThemeProvider theme={theme}>
-      <Container>
-        <StyledLoadingTitle>loading...</StyledLoadingTitle>
-        <Icon />
-      </Container>
+      <LoadingContainer>
+        <LoadingTitle>loading...</LoadingTitle>
+        <LoadingIcon />
+      </LoadingContainer>
     </ThemeProvider>
   );
 }
 
-export default withTheme(LoadingIcon);
+export default withTheme(LoaderIcon);

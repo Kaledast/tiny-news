@@ -1,31 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { setToLocal, getFromLocal, getArticles } from "./services.js";
-import Header from "./Header.js";
-import Footer from "./Footer.js";
-import NewsPage from "./news/NewsPage.js";
-import HomePage from "./home/HomePage.js";
-import LoginPage from "./login/LoginPage.js";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Appdiv from "./components/Appdiv.js";
-import OptionsPage from "./options/OptionsPage.js";
-import { ThemeProvider } from "styled-components";
+import React, { useState, useEffect } from 'react';
+import { setToLocal, getFromLocal, getArticles } from './services.js';
+import Header from './Header.js';
+import Footer from './Footer.js';
+import NewsPage from './news/NewsPage.js';
+import HomePage from './home/HomePage.js';
+import LoginPage from './login/LoginPage.js';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Appdiv from './components/Appdiv.js';
+import OptionsPage from './options/OptionsPage.js';
+import { ThemeProvider } from 'styled-components';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [topic, setTopic] = useState(getFromLocal("topic") || "general");
-  const [apiKey, setApiKey] = useState(getFromLocal("apiKey"));
-  const [search, setSearch] = useState("");
-  const [country, setCountry] = useState(getFromLocal("country") || "gb");
-  const [source, setSource] = useState(getFromLocal("source") || "");
-  const [amount, setAmount] = useState(getFromLocal("anount") || "50");
+  const [topic, setTopic] = useState(getFromLocal('topic') || 'general');
+  const [apiKey, setApiKey] = useState(getFromLocal('apiKey'));
+  const [search, setSearch] = useState('');
+  const [country, setCountry] = useState(getFromLocal('country') || 'gb');
+  const [source, setSource] = useState(getFromLocal('source') || '');
+  const [amount, setAmount] = useState(getFromLocal('anount') || '50');
   const [news, setNews] = useState([]);
-  const [savedNews, setSavedNews] = useState(getFromLocal("savedNews") || []);
+  const [savedNews, setSavedNews] = useState(getFromLocal('savedNews') || []);
   const [validAuth, setValidAuth] = useState(
-    getFromLocal("validAuth") || false
+    getFromLocal('validAuth') || false
   );
   const [themeState, setThemeState] = useState(
-    getFromLocal("themeState") || {
-      mode: "normal"
+    getFromLocal('themeState') || {
+      mode: 'normal'
     }
   );
 
@@ -36,7 +36,7 @@ function App() {
       .then(data => {
         const success = keyValidation(data, key);
         setValidAuth(success);
-        setToLocal("validAuth", success);
+        setToLocal('validAuth', success);
 
         if (!success) {
           setIsLoading(false);
@@ -62,11 +62,11 @@ function App() {
   }
 
   useEffect(() => {
-    setToLocal("news", news);
+    setToLocal('news', news);
   }, [news]);
 
   useEffect(() => {
-    setToLocal("apiKey", apiKey);
+    setToLocal('apiKey', apiKey);
     if (apiKey) {
       loadApiNews(apiKey);
     }
@@ -74,14 +74,14 @@ function App() {
 
   function handleSubmit(apiKey, history) {
     setApiKey(apiKey);
-    history.replace("/");
+    history.replace('/');
   }
 
   function keyValidation(data, key) {
-    if (data.code === "apiKeyInvalid") {
-      setToLocal("apiKey", undefined);
+    if (data.code === 'apiKeyInvalid') {
+      setToLocal('apiKey', undefined);
       return false;
-    } else if (data.status === "ok") {
+    } else if (data.status === 'ok') {
       setApiKey(key);
       return true;
     } else {
@@ -90,7 +90,7 @@ function App() {
   }
 
   useEffect(() => {
-    setToLocal("savedNews", savedNews);
+    setToLocal('savedNews', savedNews);
   }, [savedNews]);
 
   function handleNewsBookmark(article) {
@@ -102,53 +102,53 @@ function App() {
 
   function handleNewsPerPage(input) {
     console.log(input);
-    setToLocal("amount", input);
+    setToLocal('amount', input);
     setAmount(input);
   }
 
   function handleTopicSelect(topic) {
     //noch aussortieren
     setTopic(topic);
-    setToLocal("topic", topic);
-    setSearch("");
-    setSource("");
-    setToLocal("source", "");
+    setToLocal('topic', topic);
+    setSearch('');
+    setSource('');
+    setToLocal('source', '');
   }
 
   function handleSourcesSelect(inputval) {
     //noch aussortieren
     setSource(inputval);
-    setToLocal("source", inputval);
-    setCountry("");
-    setToLocal("country", "");
-    setSearch("");
-    setToLocal("search", "");
-    setTopic("");
-    setToLocal("topic", "");
+    setToLocal('source', inputval);
+    setCountry('');
+    setToLocal('country', '');
+    setSearch('');
+    setToLocal('search', '');
+    setTopic('');
+    setToLocal('topic', '');
   }
 
   function handleSearchSelect(search) {
     //noch aussortieren
     setSearch(search);
-    setTopic("");
-    setSource("");
-    setToLocal("source", "");
+    setTopic('');
+    setSource('');
+    setToLocal('source', '');
   }
 
   function handleCountrySelect(inputval) {
     //noch aussortieren
     setCountry(inputval);
-    setToLocal("country", inputval);
-    setSource("");
-    setToLocal("source", "");
-    setSearch("");
-    setTopic("");
+    setToLocal('country', inputval);
+    setSource('');
+    setToLocal('source', '');
+    setSearch('');
+    setTopic('');
   }
 
   function handleThemeSetting() {
-    const mode = themeState.mode === "normal" ? `sepia` : `normal`;
+    const mode = themeState.mode === 'normal' ? `sepia` : `normal`;
     setThemeState({ mode: mode });
-    setToLocal("themeState", { mode: mode });
+    setToLocal('themeState', { mode: mode });
   }
 
   const filteredNews =
@@ -156,7 +156,7 @@ function App() {
 
   function returnKeyValidComponents() {
     const returnPage = validAuth ? (
-      <Appdiv className="App">
+      <Appdiv className='App'>
         <BrowserRouter>
           <Header
             onSearchSelect={handleSearchSelect}
@@ -165,7 +165,7 @@ function App() {
           />
           <Switch>
             <Route
-              path="/news/:topic?"
+              path='/news/:topic?'
               render={props => (
                 <NewsPage
                   loadingState={isLoading}
@@ -178,7 +178,7 @@ function App() {
               )}
             />
             <Route
-              path="/saved"
+              path='/saved'
               render={props => (
                 <NewsPage
                   filterNews={filteredNews}
@@ -190,7 +190,7 @@ function App() {
               )}
             />
             <Route
-              path="/options"
+              path='/options'
               render={props => (
                 <OptionsPage
                   component={OptionsPage}
@@ -206,7 +206,7 @@ function App() {
               )}
             />
             <Route
-              path="/"
+              path='/'
               render={props => (
                 <HomePage onTopicSelect={handleTopicSelect} {...props} />
               )}
@@ -216,7 +216,7 @@ function App() {
         </BrowserRouter>
       </Appdiv>
     ) : (
-      <Appdiv className="App">
+      <Appdiv className='App'>
         <BrowserRouter>
           <Header
             onSearchSelect={handleSearchSelect}
@@ -225,7 +225,7 @@ function App() {
           />
           <Switch>
             <Route
-              path="/"
+              path='/'
               render={props => (
                 <LoginPage
                   isAuthenticated={validAuth}
