@@ -5,7 +5,12 @@ import PropTypes from 'prop-types';
 
 function Buttons({ topic, onSelect }) {
   return (
-    <Link to={`/news/${topic.id}`} onClick={() => onSelect(topic.id)}>
+    <Link
+      to={`/news/${topic.id}`}
+      onClick={() => {
+        onSelect(topic.id);
+      }}
+    >
       <HomeButton buttonIcon={topic.img} />
     </Link>
   );

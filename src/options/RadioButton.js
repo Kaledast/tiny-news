@@ -4,7 +4,6 @@ import RadioLabel from '../components/styled_options/RadioLabel.js';
 import RadioWrapper from '../components/styled_options/RadioWrapper.js';
 
 function RadioButton({ checked, onClickRadio, radio }) {
-  console.log(checked, radio.val);
   return (
     <RadioWrapper>
       <ButtonRadio

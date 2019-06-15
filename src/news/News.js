@@ -75,6 +75,7 @@ function News({ article, onSave, saved }) {
             <NewsContent>{cleanContent}</NewsContent>
             <NewsAuthorField href={url}>
               <NewsLink />
+              read more...
             </NewsAuthorField>
           </NewsWrapperInner>
         </NewsWrapperOuter>

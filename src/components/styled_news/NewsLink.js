@@ -1,12 +1,13 @@
 import styled from 'styled-components';
-import linkToOriginal from '../../images/linkOrig.svg';
+import linkToOriginal from '../../images/EarthIcon.png';
 
 const NewsLink = styled.div`
-  background-color: white;
   background: url(${linkToOriginal}) no-repeat center;
-  margin-bottom: 2px;
-  height: 32px;
-  width: 62px;
+  background-size: cover;
+  margin: 5px;
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
 `;
 
 export default NewsLink;

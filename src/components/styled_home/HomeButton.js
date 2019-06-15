@@ -6,5 +6,8 @@ const HomeButton = styled.div`
   width: 95px;
   height: 65px;
   margin: 20px;
+  &:hover {
+    box-shadow: 0px 0px 10px white;
+  }
 `;
 export default HomeButton;
