@@ -15,7 +15,7 @@ function App() {
   const [topic, setTopic] = useState(getFromLocal('topic') || 'general');
   const [apiKey, setApiKey] = useState(getFromLocal('apiKey'));
   const [search, setSearch] = useState('');
-  const [country, setCountry] = useState(getFromLocal('country') || 'gb');
+  const [country, setCountry] = useState(getFromLocal('country') || '');
   const [source, setSource] = useState(getFromLocal('source') || '');
   const [amount, setAmount] = useState(getFromLocal('amount') || 50);
   const [checkedId, setCheckedId] = useState(getFromLocal('checkedId') || '50');
@@ -35,6 +35,7 @@ function App() {
 
     getArticles(topic, search, country, source, amount, key)
       .then(data => {
+        console.log(data);
         const success = keyValidation(data, key);
         setValidAuth(success);
         setToLocal('validAuth', success);
@@ -51,7 +52,9 @@ function App() {
             ...item
           };
         });
-        setNews(parsedData);
+        const uniqueNews = distinctNews(parsedData, 'id');
+
+        setNews(uniqueNews);
         setTimeout(() => {
           setIsLoading(false);
         }, 1300);
@@ -72,6 +75,12 @@ function App() {
       loadApiNews(apiKey);
     }
   }, [apiKey]);
+
+  function distinctNews(data, prop) {
+    return data.filter((obj, pos, items) => {
+      return items.map(news => news[prop]).indexOf(obj[prop]) === pos;
+    });
+  }
 
   function handleSubmit(apiKey, history) {
     setApiKey(apiKey);
@@ -94,7 +103,7 @@ function App() {
     setToLocal('savedNews', savedNews);
   }, [savedNews]);
 
-  function handleNewsBookmark(article) {
+  function handleSaveNews(article) {
     const found = savedNews.find(item => item.id === article.id);
     setSavedNews(
       found ? savedNews.filter(item => found !== item) : [article, ...savedNews]
@@ -110,7 +119,6 @@ function App() {
   }
 
   function handleTopicSelect(topic) {
-    //noch aussortieren
     setTopic(topic);
     setToLocal('topic', topic);
     setSearch('');
@@ -119,27 +127,20 @@ function App() {
   }
 
   function handleSourcesSelect(inputval) {
-    //noch aussortieren
     setSource(inputval);
     setToLocal('source', inputval);
     setCountry('');
-    setToLocal('country', '');
     setSearch('');
-    setToLocal('search', '');
     setTopic('');
-    setToLocal('topic', '');
   }
 
   function handleSearchSelect(search) {
-    //noch aussortieren
     setSearch(search);
     setTopic('');
     setSource('');
-    setToLocal('source', '');
   }
 
   function handleCountrySelect(inputval) {
-    //noch aussortieren
     setCountry(inputval);
     setToLocal('country', inputval);
     setSource('');
@@ -172,7 +173,7 @@ function App() {
               render={props => (
                 <NewsPage
                   loadingState={isLoading}
-                  onNewsSave={handleNewsBookmark}
+                  onNewsSave={handleSaveNews}
                   savedNews={savedNews}
                   news={filteredNews}
                   onLoadNews={loadApiNews}
@@ -185,7 +186,7 @@ function App() {
               render={props => (
                 <NewsPage
                   filterNews={filteredNews}
-                  onNewsSave={handleNewsBookmark}
+                  onNewsSave={handleSaveNews}
                   savedNews={savedNews}
                   news={savedNews}
                   {...props}
