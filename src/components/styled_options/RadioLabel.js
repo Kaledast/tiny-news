@@ -7,7 +7,6 @@ const RadioLabel = styled.label`
   display: inline-block;
   padding: 0 0 0 0px;
   position: absolute;
-  top: 2px;
   left: 4px;
   z-index: 1;
 `;

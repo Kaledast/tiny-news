@@ -3,6 +3,7 @@ import styled from 'styled-components';
 const OptionsContainer = styled.form`
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
   background: black;
   color: white;
