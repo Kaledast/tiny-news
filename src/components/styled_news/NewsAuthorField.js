@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import linkToOriginal from '../../images/EarthIcon.png';
 import {
+  paperColor,
   backgroundColor,
   paperGradient
 } from '../../components/themes/theme.js';
@@ -20,9 +21,9 @@ const NewsAuthorField = styled.a`
   box-shadow: 2px 2px 2px ${backgroundColor};
   padding: 4px;
 
-  &:active {
+  &:active :hover :visited {
     color: black;
-    box-shadow: 2px 2px 2px lightgrey;
+    box-shadow: 2px 2px 2px ${paperColor};
   }
 
   & > div {

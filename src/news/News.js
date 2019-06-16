@@ -17,8 +17,8 @@ function News({ article, onSave, saved }) {
       content,
       description,
       url,
-      urlToImage,
-      publishedAt
+      publishedAt,
+      urlToImage
     } = article;
 
     const date = moment(publishedAt).format('YYYY-MMM-DD');
@@ -65,10 +65,16 @@ function News({ article, onSave, saved }) {
             </NewsCheckBoxWrapper>
             <div id='date'>{date}</div>
             <NewsTopic>{cleanTitle}</NewsTopic>
-
-            {urlToImage ? <NewsImage src={urlToImage} alt='' /> : ''}
-
-            <NewsContent>{cleanContent}</NewsContent>
+            <NewsImage
+              src={urlToImage}
+              onError={event => {
+                event.target.onerror = null;
+                event.target.src =
+                  'https://www.clipartsfree.net/svg/56019-broken-icon-vector.svg';
+              }}
+              alt=''
+            />
+            )<NewsContent>{cleanContent}</NewsContent>
             <NewsAuthorField href={url}>
               <div />
               read more...

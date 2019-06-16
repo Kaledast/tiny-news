@@ -14,6 +14,11 @@ export const paperGradient = theme('mode', {
   sepia: 'linear-gradient(0deg, #f9f7f1, #e1dad3, white)'
 });
 
+export const paperColor = theme('mode', {
+  normal: '#d8d8d8',
+  sepia: ' #f9f7f1'
+});
+
 export const loadingTitleColor = theme('mode', {
   normal: 'white',
   sepia: '#bff2c3'
