@@ -61,7 +61,7 @@ function News({ article, onSave, saved }) {
                 id='input'
                 type='checkbox'
               />
-              <label htmlfor='input' />
+              <label htmlFor='input' />
             </NewsCheckBoxWrapper>
             <div id='date'>{date}</div>
             <NewsTopic>{cleanTitle}</NewsTopic>

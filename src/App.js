@@ -9,6 +9,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Appdiv from './components/Appdiv.js';
 import OptionsPage from './options/OptionsPage.js';
 import { ThemeProvider } from 'styled-components';
+import ScrollMemory from 'react-router-scroll-memory';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +36,6 @@ function App() {
 
     getArticles(topic, search, country, source, amount, key)
       .then(data => {
-        console.log(data);
         const success = keyValidation(data, key);
         setValidAuth(success);
         setToLocal('validAuth', success);
@@ -162,6 +162,8 @@ function App() {
     const returnPage = validAuth ? (
       <Appdiv className='App'>
         <BrowserRouter>
+          <ScrollMemory />
+
           <Header
             onSearchSelect={handleSearchSelect}
             search={search}
