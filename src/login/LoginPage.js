@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LoginContainer from '../components/styled_login/LoginContainer.js';
 import LoginForm from '../components/styled_login/LoginForm.js';
 import LoginLink from '../components/styled_login/LoginLink.js';
 import LoginSection from '../components/styled_login/LoginSection.js';
 import LoginInput from '../components/styled_login/LoginInput.js';
 import LoginSubmitButton from '../components/styled_login/LoginSubmitButton.js';
-import LoginMessage from '../components/styled_login/LoginMessage.js';
 
 export default function LoginPage({ isAuthenticated, onSubmit, history }) {
   const [submit, setSubmit] = useState(false);
+  const [message, setMessage] = useState('');
 
   function handleClickSubmit(event) {
     setSubmit(true);
@@ -18,8 +18,12 @@ export default function LoginPage({ isAuthenticated, onSubmit, history }) {
     form.reset();
   }
 
-  function messageInvalidKey() {
-    return <LoginMessage>validating... </LoginMessage>;
+  function onMessage() {
+    setTimeout(() => {
+      setMessage(
+        isAuthenticated ? 'validating...' : 'something went wrong, try again'
+      );
+    }, 2500);
   }
 
   return (
@@ -41,8 +45,15 @@ export default function LoginPage({ isAuthenticated, onSubmit, history }) {
             placeholder='enter your key'
           />
         </label>
-        <LoginSubmitButton>submit!</LoginSubmitButton>
-        {submit && !isAuthenticated ? messageInvalidKey() : <></>}
+        <LoginSubmitButton
+          onClick={() => {
+            setMessage('validating...');
+            onMessage();
+          }}
+        >
+          submit!
+        </LoginSubmitButton>
+        <h2>{message}</h2>
       </LoginForm>
     </LoginContainer>
   );

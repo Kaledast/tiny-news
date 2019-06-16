@@ -74,7 +74,7 @@ function News({ article, onSave, saved }) {
               }}
               alt=''
             />
-            )<NewsContent>{cleanContent}</NewsContent>
+            <NewsContent>{cleanContent}</NewsContent>
             <NewsAuthorField href={url}>
               <div />
               read more...

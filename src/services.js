@@ -13,16 +13,6 @@ export function getArticles(topic, search, country, source, amount, apiKey) {
 
   const req = new Request(apiURL);
 
-  /*  const checkStatus = res => {
-    console.log(res);
-    const hasImageError = res.status === 404;
-    if (hasImageError) {
-      console.log('no Image');
-    }
-    return res;
-  };
-  */
-
   return fetch(req)
     .then(res => res.json())
     .then(data => data);

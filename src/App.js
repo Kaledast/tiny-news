@@ -66,10 +66,6 @@ function App() {
   }
 
   useEffect(() => {
-    setToLocal('news', news);
-  }, [news]);
-
-  useEffect(() => {
     setToLocal('apiKey', apiKey);
     if (apiKey) {
       loadApiNews(apiKey);
@@ -118,7 +114,11 @@ function App() {
     setAmount(input);
   }
 
-  function handleTopicSelect(topic) {
+  function handleTopicSelect(history, event, topic) {
+    event.preventDefault();
+    setTimeout(() => {
+      history.push(`/news/${topic.id}`);
+    }, 200);
     setTopic(topic);
     setToLocal('topic', topic);
     setSearch('');

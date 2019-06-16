@@ -21,7 +21,7 @@ const NewsAuthorField = styled.a`
   box-shadow: 2px 2px 2px ${backgroundColor};
   padding: 4px;
 
-  &:active :hover :visited {
+  &:active {
     color: black;
     box-shadow: 2px 2px 2px ${paperColor};
   }
