@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import linkToOriginal from '../../images/EarthIcon.png';
 import {
   backgroundColor,
   paperGradient
@@ -14,9 +15,24 @@ const NewsAuthorField = styled.a`
   color: ${backgroundColor};
   margin-top: 4px;
   height: 32px;
-  width: 112px;
+  width: 118px;
   border-radius: 4%;
   box-shadow: 2px 2px 2px ${backgroundColor};
+  padding: 4px;
+
+  &:active {
+    color: black;
+    box-shadow: 2px 2px 2px lightgrey;
+  }
+
+  & > div {
+    background: url(${linkToOriginal}) no-repeat center;
+    background-size: cover;
+    margin: 5px;
+    height: 22px;
+    width: 22px;
+    border-radius: 50%;
+  }
 `;
 
 export default NewsAuthorField;
