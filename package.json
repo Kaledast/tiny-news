@@ -5,9 +5,9 @@
     "name": "Katja Stadel",
     "email": "Stadel.katja@web.de"
   },
+  "proxy": "http://localhost:4000",
   "news powered by": "NewsAPI.org",
   "private": true,
-  "proxy": "http://localhost:4000",
   "dependencies": {
     "@craco/craco": "^5.1.0",
     "body-parser": "^1.19.0",
