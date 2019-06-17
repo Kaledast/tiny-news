@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { setToLocal, getFromLocal, getArticles } from './services.js';
+import {
+  setToLocal,
+  getFromLocal,
+  getArticles,
+  getWeather
+} from './services.js';
 import Header from './Header.js';
 import Footer from './Footer.js';
 import NewsPage from './news/NewsPage.js';
@@ -29,6 +34,18 @@ function App() {
       mode: 'normal'
     }
   );
+
+  function loadWeatherData() {
+    getWeather()
+      .then(data => {
+        console.log(data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  loadWeatherData();
 
   function loadApiNews(key) {
     setIsLoading(true);

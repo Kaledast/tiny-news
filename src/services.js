@@ -18,6 +18,16 @@ export function getArticles(topic, search, country, source, amount, apiKey) {
     .then(data => data);
 }
 
+export function getWeather() {
+  const weatherURL = 'https://api.oceandrivers.com/static/resources.json';
+
+  const req = new Request(weatherURL);
+
+  return fetch(req)
+    .then(res => res.body)
+    .then(data => data);
+}
+
 export function getFromLocal(name) {
   try {
     return JSON.parse(localStorage.getItem(name));
