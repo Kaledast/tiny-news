@@ -15,9 +15,9 @@ function App() {
   const [apiKey, setApiKey] = useState(getFromLocal('apiKey'));
   const [search, setSearch] = useState('');
   const [country, setCountry] = useState(getFromLocal('country') || '');
+  const [topic, setTopic] = useState(getFromLocal('topic') || 'general');
   const [source, setSource] = useState(getFromLocal('source') || '');
   const [amount, setAmount] = useState(getFromLocal('amount') || 50);
-  const [checkedId, setCheckedId] = useState(getFromLocal('checkedId') || '50');
   const [news, setNews] = useState([]);
   const [savedNews, setSavedNews] = useState(getFromLocal('savedNews') || []);
   const [validAuth, setValidAuth] = useState(
@@ -30,19 +30,14 @@ function App() {
     }
   );
 
-  useEffect(() => setToLocal('amount'), [amount]);
-  useEffect(() => setToLocal('country'), [country]);
-  useEffect(() => setToLocal('checkedId'), [checkedId]);
-  useEffect(() => setToLocal('source'), [source]);
-  useEffect(() => setToLocal('validAuth'), [validAuth]);
-
-  function loadApiNews(key, topic = 'general') {
+  function loadApiNews(key) {
     setIsLoading(true);
 
     getArticles(topic, search, country, source, amount, key)
       .then(data => {
         const success = keyValidation(data, key);
         setValidAuth(success);
+        console.log(validAuth);
 
         if (!success) {
           setIsLoading(false);
@@ -98,10 +93,12 @@ function App() {
       return false;
     }
   }
-
-  useEffect(() => {
-    setToLocal('savedNews', savedNews);
-  }, [savedNews]);
+  useEffect(() => setToLocal('savedNews', savedNews), [savedNews]);
+  useEffect(() => setToLocal('amount', amount), [amount]);
+  useEffect(() => setToLocal('country', country), [country]);
+  useEffect(() => setToLocal('topic', topic), [topic]);
+  useEffect(() => setToLocal('source', source), [source]);
+  useEffect(() => setToLocal('validAuth', validAuth), [validAuth]);
 
   function handleSaveNews(article) {
     const found = savedNews.find(item => item.id === article.id);
@@ -110,8 +107,7 @@ function App() {
     );
   }
 
-  function handleNewsPerPage(event, input) {
-    setCheckedId(event.target.id);
+  function handleNewsPerPage(input) {
     setAmount(input);
   }
 
@@ -120,6 +116,7 @@ function App() {
     setNews([]);
     setSearch('');
     setSource('');
+    setTopic(topic);
 
     history.push(`/news/${topic}`);
   }
@@ -195,7 +192,7 @@ function App() {
                   onCountrySelect={handleCountrySelect}
                   onSourcesSelect={handleSourcesSelect}
                   onToggleTheme={handleThemeSetting}
-                  checked={checkedId}
+                  checked={amount}
                   onAmountChange={handleNewsPerPage}
                   themeState={themeState}
                   {...props}

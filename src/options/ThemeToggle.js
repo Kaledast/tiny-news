@@ -3,9 +3,7 @@ import Switch from 'react-switch';
 import ThemeSwitch from '../components/styled_options/ThemeSwitch.js';
 import GeneralLabel from '../components/GeneralLabel.js';
 import { withTheme } from 'styled-components';
-import { getFromLocal, setToLocal } from '../services.js';
-
-//const StyledOffIcon = styled.div``;
+import { getFromLocal } from '../services.js';
 
 function SepiaToggle({ onToggleTheme }) {
   const [checked, setChecked] = useState(getFromLocal('checked') || false);
@@ -17,7 +15,6 @@ function SepiaToggle({ onToggleTheme }) {
         checked={checked}
         onChange={() => {
           setChecked(!checked);
-          setToLocal('checked', !checked);
           onToggleTheme();
         }}
         handleDiameter={25}

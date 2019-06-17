@@ -8,40 +8,34 @@ function AmountNews({ checked, onAmountChange, themeState }) {
     themeState.mode === 'normal'
       ? [
           {
-            id: '20',
-            val: 20,
+            id: 20,
             img: require('../images/20YellowUnfilled.svg'),
             imgfilled: require('../images/20YellowFilled.svg')
           },
           {
-            id: '50',
-            val: 50,
+            id: 50,
             img: require('../images/50YellowUnfilled.svg'),
             imgfilled: require('../images/50YellowFilled.svg')
           },
           {
-            id: '100',
-            val: 100,
+            id: 100,
             img: require('../images/100YellowUnfilled.svg'),
             imgfilled: require('../images/100YellowFilled.svg')
           }
         ]
       : [
           {
-            id: '20',
-            val: 20,
+            id: 20,
             img: require('../images/20unfilled.svg'),
             imgfilled: require('../images/20filled.svg')
           },
           {
-            id: '50',
-            val: 50,
+            id: 50,
             img: require('../images/50unfilled.svg'),
             imgfilled: require('../images/50filled.svg')
           },
           {
-            id: '100',
-            val: 100,
+            id: 100,
             img: require('../images/100unfilled.svg'),
             imgfilled: require('../images/100filled.svg')
           }

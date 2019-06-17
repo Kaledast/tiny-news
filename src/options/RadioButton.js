@@ -9,11 +9,11 @@ function RadioButton({ checked, onClickRadio, radio }) {
       <ButtonRadio
         id={radio.id}
         type='radio'
-        checked={checked === String(radio.id)}
+        checked={checked === radio.id}
         name='amount'
         checkedImg={radio.imgfilled}
-        onChange={event => {
-          onClickRadio(event, radio.val);
+        onChange={() => {
+          onClickRadio(radio.id);
         }}
       />
       <RadioLabel image={radio.img} htmlFor={radio.id} />

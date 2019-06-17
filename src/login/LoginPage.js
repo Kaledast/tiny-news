@@ -6,7 +6,7 @@ import LoginSection from '../components/styled_login/LoginSection.js';
 import LoginInput from '../components/styled_login/LoginInput.js';
 import LoginSubmitButton from '../components/styled_login/LoginSubmitButton.js';
 
-export default function LoginPage({ isAuthenticated, onSubmit, history }) {
+export default function LoginPage({ onSubmit, history }) {
   const [message, setMessage] = useState('');
 
   function handleClickSubmit(event) {
