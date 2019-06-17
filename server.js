@@ -1,16 +1,9 @@
-const News = require('./models/News');
-const setupServer = require('./setup-server');
-const app = setupServer();
+const port = process.env.PORT || 4000;
+const express = require('express');
+const app = express();
+const path = require('path');
 
-app.post('/news', (req, res) => {
-  News.create(req.body)
-    .then(news => res.json(news))
-    .catch(err => res.json(err));
-});
+app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'build')));
 
-app.delete('/news/:id', (req, res) => {
-  const { id } = req.params;
-  News.findByIdAndDelete(id)
-    .then(article => res.status(200).json(article))
-    .catch(err => res.status(500).json(err));
-});
+app.listen(port);
