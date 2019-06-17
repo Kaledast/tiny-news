@@ -9,7 +9,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Appdiv from './components/Appdiv.js';
 import OptionsPage from './options/OptionsPage.js';
 import { ThemeProvider } from 'styled-components';
-import ScrollMemory from 'react-router-scroll-memory';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -107,7 +106,6 @@ function App() {
   }
 
   function handleNewsPerPage(event, input) {
-    console.log(event.target.id);
     setCheckedId(event.target.id);
     setToLocal('checkedId', event.target.id);
     setToLocal('amount', input);
@@ -162,8 +160,6 @@ function App() {
     const returnPage = validAuth ? (
       <Appdiv className='App'>
         <BrowserRouter>
-          <ScrollMemory />
-
           <Header
             onSearchSelect={handleSearchSelect}
             search={search}

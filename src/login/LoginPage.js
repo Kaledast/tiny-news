@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import LoginContainer from '../components/styled_login/LoginContainer.js';
 import LoginForm from '../components/styled_login/LoginForm.js';
 import LoginLink from '../components/styled_login/LoginLink.js';
@@ -53,7 +53,7 @@ export default function LoginPage({ isAuthenticated, onSubmit, history }) {
         >
           submit!
         </LoginSubmitButton>
-        <h2>{message}</h2>
+        <h1>{message}</h1>
       </LoginForm>
     </LoginContainer>
   );
