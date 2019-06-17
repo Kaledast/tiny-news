@@ -12,7 +12,6 @@ import { ThemeProvider } from 'styled-components';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [topic, setTopic] = useState(getFromLocal('topic') || 'general');
   const [apiKey, setApiKey] = useState(getFromLocal('apiKey'));
   const [search, setSearch] = useState('');
   const [country, setCountry] = useState(getFromLocal('country') || '');
@@ -24,20 +23,26 @@ function App() {
   const [validAuth, setValidAuth] = useState(
     getFromLocal('validAuth') || false
   );
+
   const [themeState, setThemeState] = useState(
     getFromLocal('themeState') || {
       mode: 'normal'
     }
   );
 
-  function loadApiNews(key) {
+  useEffect(() => setToLocal('amount'), [amount]);
+  useEffect(() => setToLocal('country'), [country]);
+  useEffect(() => setToLocal('checkedId'), [checkedId]);
+  useEffect(() => setToLocal('source'), [source]);
+  useEffect(() => setToLocal('validAuth'), [validAuth]);
+
+  function loadApiNews(key, topic = 'general') {
     setIsLoading(true);
 
     getArticles(topic, search, country, source, amount, key)
       .then(data => {
         const success = keyValidation(data, key);
         setValidAuth(success);
-        setToLocal('validAuth', success);
 
         if (!success) {
           setIsLoading(false);
@@ -107,44 +112,33 @@ function App() {
 
   function handleNewsPerPage(event, input) {
     setCheckedId(event.target.id);
-    setToLocal('checkedId', event.target.id);
-    setToLocal('amount', input);
     setAmount(input);
   }
 
   function handleTopicSelect(history, event, topic) {
     event.preventDefault();
-    setTimeout(() => {
-      history.push(`/news/${topic.id}`);
-    }, 200);
-    setTopic(topic);
-    setToLocal('topic', topic);
+    setNews([]);
     setSearch('');
     setSource('');
-    setToLocal('source', '');
+
+    history.push(`/news/${topic}`);
   }
 
   function handleSourcesSelect(inputval) {
     setSource(inputval);
-    setToLocal('source', inputval);
     setCountry('');
     setSearch('');
-    setTopic('');
   }
 
   function handleSearchSelect(search) {
     setSearch(search);
-    setTopic('');
     setSource('');
   }
 
   function handleCountrySelect(inputval) {
     setCountry(inputval);
-    setToLocal('country', inputval);
     setSource('');
-    setToLocal('source', '');
     setSearch('');
-    setTopic('');
   }
 
   function handleThemeSetting() {

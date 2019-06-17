@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import NewsList from './NewsList';
 import NewsPageContent from '../components/styled_news/NewsPageContent.js';
 import Loading from './Loading.js';
@@ -16,7 +16,8 @@ function NewsPage({
   const { topic } = match.params;
 
   useEffect(() => {
-    onLoadNews && onLoadNews(getFromLocal('apiKey'));
+    onLoadNews(getFromLocal('apiKey'), topic);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topic]);
 
   function loading() {

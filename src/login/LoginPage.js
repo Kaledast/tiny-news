@@ -7,23 +7,15 @@ import LoginInput from '../components/styled_login/LoginInput.js';
 import LoginSubmitButton from '../components/styled_login/LoginSubmitButton.js';
 
 export default function LoginPage({ isAuthenticated, onSubmit, history }) {
-  const [submit, setSubmit] = useState(false);
   const [message, setMessage] = useState('');
 
   function handleClickSubmit(event) {
-    setSubmit(true);
+    setMessage('validating...');
+
     event.preventDefault();
     const form = event.target;
     onSubmit(form.apikey.value, history);
     form.reset();
-  }
-
-  function onMessage() {
-    setTimeout(() => {
-      setMessage(
-        isAuthenticated ? 'validating...' : 'something went wrong, try again'
-      );
-    }, 2500);
   }
 
   return (
@@ -45,14 +37,7 @@ export default function LoginPage({ isAuthenticated, onSubmit, history }) {
             placeholder='enter your key'
           />
         </label>
-        <LoginSubmitButton
-          onClick={() => {
-            setMessage('validating...');
-            onMessage();
-          }}
-        >
-          submit!
-        </LoginSubmitButton>
+        <LoginSubmitButton>submit!</LoginSubmitButton>
         <h1>{message}</h1>
       </LoginForm>
     </LoginContainer>

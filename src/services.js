@@ -21,9 +21,7 @@ export function getArticles(topic, search, country, source, amount, apiKey) {
 export function getFromLocal(name) {
   try {
     return JSON.parse(localStorage.getItem(name));
-  } catch (err) {
-    console.log(err);
-  }
+  } catch (err) {}
 }
 
 export function setToLocal(name, data) {
