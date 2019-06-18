@@ -35,18 +35,6 @@ function App() {
     }
   );
 
-  function loadWeatherData() {
-    getWeather()
-      .then(data => {
-        console.log(data);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
-  loadWeatherData();
-
   function loadApiNews(key) {
     setIsLoading(true);
 
@@ -86,6 +74,7 @@ function App() {
     if (apiKey) {
       loadApiNews(apiKey);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiKey]);
 
   function distinctNews(data, prop) {

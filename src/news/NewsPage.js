@@ -17,7 +17,9 @@ function NewsPage({
 
   useEffect(() => {
     console.log(topic);
-    onLoadNews(getFromLocal('apiKey'), topic);
+
+    //onLoadNews needed in case of empty Array in saved-news
+    onLoadNews && onLoadNews(getFromLocal('apiKey'), topic);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [topic]);
 
