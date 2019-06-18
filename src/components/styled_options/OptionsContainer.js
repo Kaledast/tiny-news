@@ -9,6 +9,7 @@ const OptionsContainer = styled.form`
   color: white;
   height: 100%;
   padding: 30px;
+  overflow: scroll;
 
   & p {
     text-align: justify;
