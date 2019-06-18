@@ -7,6 +7,7 @@ const LoginContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: scroll;
 `;
 
 export default LoginContainer;
