@@ -37,8 +37,9 @@ function App() {
 
   function loadWeatherData() {
     getWeather()
-      .then(data => {
-        console.log(data);
+      .then(values => {
+        console.log(values);
+        this.setState({ weather: values.toString() });
       })
       .catch(error => {
         console.log(error);

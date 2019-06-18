@@ -19,12 +19,16 @@ export function getArticles(topic, search, country, source, amount, apiKey) {
 }
 
 export function getWeather() {
-  const weatherURL = 'https://api.oceandrivers.com/static/resources.json';
+  const weatherURL =
+    'https://www.metaweather.com/api/location/search/?query=san';
 
   const req = new Request(weatherURL);
 
   return fetch(req)
-    .then(res => res.body)
+    .then(response => {
+      console.log(response);
+      return response.json();
+    })
     .then(data => data);
 }
 

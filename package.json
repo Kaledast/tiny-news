@@ -6,10 +6,12 @@
     "email": "Stadel.katja@web.de"
   },
   "news powered by": "NewsAPI.org",
+  "proxy": "https://www.metaweather.com",
   "private": true,
   "dependencies": {
     "@craco/craco": "^5.1.0",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.0",
     "fs": "0.0.1-security",
