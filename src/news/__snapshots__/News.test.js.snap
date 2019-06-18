@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`News Component renders a News-Article with, timestamp, image, title and description 1`] = `
+<div
+  className="sc-bdVaJa gpiNoN"
+>
+  <div>
+    <div
+      className="sc-ifAKCX kUArjq"
+    >
+      <input
+        checked={false}
+        id="input"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <label
+        htmlFor="input"
+      />
+    </div>
+    <div
+      id="date"
+    >
+      2019-Jun-18
+    </div>
+    <div
+      className="sc-bwzfXH LXVVG"
+    >
+      textTitle
+    </div>
+    <img
+      alt=""
+      className="sc-EHOje liVHwF"
+      onError={[Function]}
+      src="https://www.sciencealert.com/images/2019-06/processed/marsimpactcrater_1024.jpg"
+    />
+    <section
+      className="sc-htpNat duRMdf"
+    >
+      testContent
+    </section>
+    <a
+      className="sc-bxivhb cGAVRy"
+      href="https://www.sciencealert.com/gorgeous-new-crater-spotted-on-the-red-planet-is-one-of-the-largest-we-ve-seen"
+    >
+      <div />
+      read more...
+    </a>
+  </div>
+</div>
+`;

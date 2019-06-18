@@ -1,7 +1,9 @@
+/* eslint-disable no-undef */
 beforeEach(function() {
   cy.window().then(window =>
     window.localStorage.setItem('apiKey', 'ac3a791efaef4b87b7ab8ed0d4b6efed')
   );
+
   cy.window().then(window => window.localStorage.setItem('validAuth', true));
 });
 
