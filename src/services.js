@@ -9,7 +9,7 @@ export function getArticles(topic, search, country, source, amount, apiKey) {
         search ? 'q=' + search + '&' : ''
       }pageSize=${amount}${country ? '&country=' + country : ''}${
         topic ? '&category=' + topic : ''
-      }&apiKey=${url_apiKey}`;
+      }&apiKey=${url_apiKey}j`;
 
   const req = new Request(apiURL);
 
