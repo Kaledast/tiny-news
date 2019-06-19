@@ -3,13 +3,15 @@ import {
   setToLocal,
   getFromLocal,
   getArticles,
-  getWeather
+  getWeather,
+  getWeatherLocation
 } from './services.js';
 import Header from './Header.js';
 import Footer from './Footer.js';
 import NewsPage from './news/NewsPage.js';
 import HomePage from './home/HomePage.js';
 import LoginPage from './login/LoginPage.js';
+import WeatherPage from './weather/WeatherPage.js';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Appdiv from './components/Appdiv.js';
 import OptionsPage from './options/OptionsPage.js';
@@ -23,7 +25,11 @@ function App() {
   const [topic, setTopic] = useState(getFromLocal('topic') || 'general');
   const [source, setSource] = useState(getFromLocal('source') || '');
   const [amount, setAmount] = useState(getFromLocal('amount') || 50);
-  const [news, setNews] = useState([]);
+  const [news, setNews] = useState('');
+  const [weather, setWeather] = useState('');
+  const [location, setLocation] = useState(
+    getFromLocal('location') || 'hamburg'
+  );
   const [savedNews, setSavedNews] = useState(getFromLocal('savedNews') || []);
   const [validAuth, setValidAuth] = useState(
     getFromLocal('validAuth') || false
@@ -36,15 +42,42 @@ function App() {
   );
 
   function loadWeatherData() {
-    getWeather()
+    getWeatherLocation(location)
       .then(values => {
-        console.log(values);
-        this.setState({ weather: values.toString() });
+        return values[0].woeid;
+      })
+      .then(location => {
+        getWeather(location)
+          .then(values => {
+            console.log(values);
+            const firstResult = values[0];
+            const {
+              id,
+              humidity,
+              weather_state_name,
+              min_temp,
+              max_temp
+            } = firstResult;
+            setWeather({
+              id,
+              humidity,
+              weather_state_name,
+              min_temp,
+              max_temp
+            });
+          })
+          .catch(error => {
+            console.log(error);
+          });
       })
       .catch(error => {
         console.log(error);
       });
   }
+
+  useEffect(() => {
+    loadWeatherData();
+  }, [location]);
 
   function loadApiNews(key) {
     setIsLoading(true);
@@ -116,12 +149,18 @@ function App() {
   useEffect(() => setToLocal('topic', topic), [topic]);
   useEffect(() => setToLocal('source', source), [source]);
   useEffect(() => setToLocal('validAuth', validAuth), [validAuth]);
+  useEffect(() => setToLocal('location', location), [location]);
 
   function handleSaveNews(article) {
     const found = savedNews.find(item => item.id === article.id);
     setSavedNews(
       found ? savedNews.filter(item => found !== item) : [article, ...savedNews]
     );
+  }
+
+  function handleLocation(input) {
+    console.log(input);
+    setLocation(input);
   }
 
   function handleNewsPerPage(input) {
@@ -212,6 +251,16 @@ function App() {
                   checked={amount}
                   onAmountChange={handleNewsPerPage}
                   themeState={themeState}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path='/weather'
+              render={props => (
+                <WeatherPage
+                  handleLocation={handleLocation}
+                  weather={weather}
                   {...props}
                 />
               )}

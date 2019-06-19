@@ -18,14 +18,26 @@ export function getArticles(topic, search, country, source, amount, apiKey) {
     .then(data => data);
 }
 
-export function getWeather() {
-  const weatherURL = '/api/location/search/?query=san';
+export function getWeatherLocation(location) {
+  console.log('service', location);
+  const locationURL = `/api/location/search/?query=${location}`;
+
+  const req = new Request(locationURL);
+
+  return fetch(req)
+    .then(response => {
+      return response.json();
+    })
+    .then(data => data);
+}
+
+export function getWeather(location) {
+  const weatherURL = `/api/location/${location}/2013/4/27/`;
 
   const req = new Request(weatherURL);
 
   return fetch(req)
     .then(response => {
-      console.log(response);
       return response.json();
     })
     .then(data => data);

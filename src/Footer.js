@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import StyledFooter from './components/styled_footer/StyledFooter.js';
 import FooterHomeButton from './components/styled_footer/FooterHomeButton.js';
 import FooterOptionsButton from './components/styled_footer/FooterOptionsButton.js';
+import FooterWeatherButton from './components/styled_footer/WeatherButtonFooter.js';
 import FooterSavedButton from './components/styled_footer/FooterSavedButton.js';
 import FooterNewsButton from './components/styled_footer/FooterNewsButton.js';
 import FooterNav from './components/styled_footer/FooterNav.js';
@@ -29,6 +30,9 @@ function Footer({ location, isAuthenticated }) {
             </Link>
             <Link to='/options'>
               <FooterOptionsButton />
+            </Link>
+            <Link to='/weather'>
+              <FooterWeatherButton />
             </Link>
           </FooterNav>
         </StyledFooter>

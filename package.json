@@ -5,6 +5,7 @@
     "name": "Katja Stadel",
     "email": "Stadel.katja@web.de"
   },
+  "proxy": "https://www.metaweather.com",
   "news powered by": "NewsAPI.org",
   "private": true,
   "dependencies": {
