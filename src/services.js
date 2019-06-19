@@ -18,6 +18,19 @@ export function getArticles(topic, search, country, source, amount, apiKey) {
     .then(data => data);
 }
 
+export function getWeather() {
+  const weatherURL = '/api/location/search/?query=san';
+
+  const req = new Request(weatherURL);
+
+  return fetch(req)
+    .then(response => {
+      console.log(response);
+      return response.json();
+    })
+    .then(data => data);
+}
+
 export function getFromLocal(name) {
   try {
     return JSON.parse(localStorage.getItem(name));
