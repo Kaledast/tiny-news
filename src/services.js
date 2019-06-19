@@ -19,8 +19,7 @@ export function getArticles(topic, search, country, source, amount, apiKey) {
 }
 
 export function getWeather() {
-  const weatherURL =
-    'https://www.metaweather.com/api/location/search/?query=san';
+  const weatherURL = '/api/location/search/?query=san';
 
   const req = new Request(weatherURL);
 
