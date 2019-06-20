@@ -35,17 +35,6 @@ function App() {
     }
   );
 
-  function loadWeatherData() {
-    getWeather()
-      .then(values => {
-        console.log(values);
-        this.setState({ weather: values.toString() });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
-
   function loadApiNews(key) {
     setIsLoading(true);
 

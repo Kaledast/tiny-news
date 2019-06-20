@@ -81,22 +81,3 @@ describe('News Component', () => {
     expect(callback).toHaveBeenCalled();
   });
 });
-//expect(callback).toHaveBeenCalled();
-//const actualWindowLocation = global.window.location.pathname;
-// expect(actualWindowLocation).not.toBe(global.window.location.pathname);
-/*
-
-    const location = JSON.stringify(window.location);
-    delete window.location;
-
-    Object.defineProperty(window, 'location', {
-      value: JSON.parse(location)
-    });
-
-    Object.defineProperty(global.location, 'href', {
-      value: 'http://localhost.com',
-      configurable: true
-    });
-
-    const link = news.find(el => el.type === 'a');
-    */
