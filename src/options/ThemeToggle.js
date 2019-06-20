@@ -21,28 +21,13 @@ function SepiaToggle({ onToggleTheme }) {
           onToggleTheme();
         }}
         handleDiameter={25}
-        offColor='#FFF29A'
-        onColor='#486C5F'
-        offHandleColor='#2f1953'
-        onHandleColor='#bff2c3'
+        offColor='#486C5F'
+        onColor='#FFF29A'
+        offHandleColor='#bff2c3'
+        onHandleColor='#2f1953'
         height={30}
         width={73}
         uncheckedIcon={
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              height: '100%',
-              fontSize: 15,
-              color: '#2f1953',
-              paddingRight: 2
-            }}
-          >
-            On
-          </div>
-        }
-        checkedIcon={
           <div
             style={{
               display: 'flex',
@@ -55,6 +40,21 @@ function SepiaToggle({ onToggleTheme }) {
             }}
           >
             Off
+          </div>
+        }
+        checkedIcon={
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '100%',
+              fontSize: 15,
+              color: '#2f1953',
+              paddingRight: 2
+            }}
+          >
+            On
           </div>
         }
         className='react-switch'
