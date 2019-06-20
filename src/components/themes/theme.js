@@ -43,3 +43,13 @@ export const imageFilter = theme('mode', {
   normal: `sepia(80%) grayscale(1) contrast(1) opacity(0.8)`,
   sepia: `sepia(80%) contrast(1) opacity(0.8)`
 });
+
+export const ToggleBackground = theme('mode', {
+  normal: `#2f1953`,
+  sepia: `#bff2c3`
+});
+
+export const ToggleColor = theme('mode', {
+  normal: `#FFF29A`,
+  sepia: `#486C5F`
+});
